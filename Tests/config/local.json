@@ -1,0 +1,19 @@
+{
+  "user": "zohrehtavakkoli_Ls3hGu",
+  "key": "MtSTeZtTsMh4wYxqvRdN",
+  "test_type": "local",
+
+  "capabilities": {
+    "build": "local_build",
+    "name": "local_test",
+    "browserstack.debug": false,
+    "browserstack.local" : false
+  },
+    "environments": [
+    {
+    "os": "Windows",
+    "os_version": "10",
+    "browser": "Chrome",
+    "browser_version": "latest"
+  }]
+}
