@@ -3,6 +3,8 @@ from Pages.Arc.event_list_page import EventListPage
 from Pages.Arc.login_page import LoginPage
 from Tests.common import DC_URL, ARC_URL, ENV
 from TestingData.Int.event_review_data_int import EventReviewDataInt as ERD_INT
+from TestingData.Stg.event_review_data_stg import EventReviewDataStg as ERD_STG
+from TestingData.Prod.event_review_data_prod import EventReviewDataProd as ERD_PROD
 
 
 LOGIN_PAGE = 0
@@ -25,9 +27,9 @@ def open_login_page(browser):
     if ENV == 'int':
         ERD = ERD_INT
     elif ENV == 'stg':
-        ERD = ERD_INT
+        ERD = ERD_STG
     else:
-        ERD = ERD_INT
+        ERD = ERD_PROD
 
 @when('the user inputs valid username and password and the user clicks the Sign in button')
 def reviewer_sign_in():
@@ -45,3 +47,24 @@ def reviewer_select_role_and_company():
 @then('the Review page is opened')
 def verify_event_list_page_opened():
     assert EVENT_LIST_PAGE.title().get_text() == 'Lytx ReviewCenter'
+
+# LQ-10592
+@when('the user logins in ARC with Company A')
+def go_to_login_page_and_sign_in(browser):
+    browser.get(ARC_URL)
+
+    LOGIN_PAGE.user_name().type(ERD.reviewer_user_name)
+    LOGIN_PAGE.password().type(ERD.reviewer_password)
+    LOGIN_PAGE.login().click()
+
+    LOGIN_PAGE.search_company().type(ERD.company_name)
+    LOGIN_PAGE.first_company().click()
+    LOGIN_PAGE.select_company().click()
+
+@then('"Reviewing for: Company A" text is displayed behind "Lytx ReviewerCenter" '
+      'and "Switch Companies" button with clickable status is displayed behind "Reviewing for: Company A" '
+      'and there is a Give Feedback link on the top-right corner')
+def verify_selected_company():
+    assert EVENT_LIST_PAGE.title().get_text() == 'Lytx ReviewCenter'
+    assert EVENT_LIST_PAGE.company_name().get_text() == ERD.company_name
+    assert EVENT_LIST_PAGE.switch_company().get_text() == 'Switch Companies'

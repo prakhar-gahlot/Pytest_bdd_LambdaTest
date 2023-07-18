@@ -18,4 +18,10 @@ class EventListPage(BasePage):
     def reviewing_company(self):
         return Label(self.driver, (By.XPATH, ELP.reviewing_company_xpath))
 
+    def company_name(self):
+        return Label(self.driver, (By.XPATH, ELP.company_name_xpath))
+
+    def switch_company(self):
+        return Button(self.driver, (By.XPATH, ELP.switch_company_xpath))
+
     # combine actions
