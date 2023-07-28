@@ -40,7 +40,7 @@ def reviewer_sign_in():
 
 @when('the user select Reviewer role in the Role dropdown list and the user select one company in the company dropdown list and the user clicks the Select button')
 def reviewer_select_role_and_company():
-    LOGIN_PAGE.search_company().type(ERD.company_name)
+    LOGIN_PAGE.search_company().type(ERD.company_name_switch)
     LOGIN_PAGE.first_company().click()
     LOGIN_PAGE.select_company().click()
 
@@ -57,13 +57,28 @@ def go_to_login_page_and_sign_in(browser):
     LOGIN_PAGE.password().type(ERD.reviewer_password)
     LOGIN_PAGE.login().click()
 
-    LOGIN_PAGE.search_company().type(ERD.company_name)
+    LOGIN_PAGE.search_company().type(ERD.company_name_switch)
     LOGIN_PAGE.first_company().click()
     LOGIN_PAGE.select_company().click()
 
 @then('"Reviewing for: Company A" text is displayed behind "Lytx ReviewerCenter" '
       'and "Switch Companies" button with clickable status is displayed behind "Reviewing for: Company A" '
       'and there is a Give Feedback link on the top-right corner')
+def verify_selected_company():
+    assert EVENT_LIST_PAGE.title().get_text() == 'Lytx ReviewCenter'
+    assert EVENT_LIST_PAGE.company_name().get_text() == ERD.company_name_switch
+    assert EVENT_LIST_PAGE.switch_company().get_text() == 'Switch Companies'
+    assert EVENT_LIST_PAGE.give_feedback().get_text() == 'Give Feedback'
+
+# LQ-10693
+@when('the user clicks "Switch Companies" button and the user selects one Company from dropdown list and clicks "Select" button')
+def go_to_login_page_and_sign_in():
+    EVENT_LIST_PAGE.switch_company().click()
+    EVENT_LIST_PAGE.search_company_switch_company().type(ERD.company_name)
+    EVENT_LIST_PAGE.first_company().click()
+    EVENT_LIST_PAGE.select_company().click()
+
+@then('the Company is switched successfully')
 def verify_selected_company():
     assert EVENT_LIST_PAGE.title().get_text() == 'Lytx ReviewCenter'
     assert EVENT_LIST_PAGE.company_name().get_text() == ERD.company_name

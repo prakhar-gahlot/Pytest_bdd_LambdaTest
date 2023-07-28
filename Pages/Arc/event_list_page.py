@@ -24,4 +24,17 @@ class EventListPage(BasePage):
     def switch_company(self):
         return Button(self.driver, (By.XPATH, ELP.switch_company_xpath))
 
+    def give_feedback(self):
+        return Button(self.driver, (By.XPATH, ELP.give_feedback_xpath))
+
+    # switch company dialog
+    def search_company_switch_company(self):
+        return TextBox(self.driver, (By.XPATH, ELP.search_company_switch_company_xpath))
+
+    def first_company(self):
+        return Button(self.driver, (By.XPATH, ELP.first_company_xpath))
+
+    def select_company(self):
+        return Button(self.driver, (By.XPATH, ELP.select_company_xpath))
+
     # combine actions

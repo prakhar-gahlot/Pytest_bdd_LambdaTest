@@ -2,6 +2,7 @@ class EventReviewDataInt:
 
     # general
     # company_id = 1129
+    company_name_switch = '101 Towing'
     company_name = 'DriveCam DC4DC Test Co'
     reviewer_user_name = 'reviewerbychris'
     reviewer_password = 'Login123!'
