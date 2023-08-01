@@ -1,3 +1,4 @@
+from datetime import datetime
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.event_list_page import EventListPage
 from Pages.Arc.login_page import LoginPage
@@ -83,3 +84,59 @@ def verify_selected_company():
     assert EVENT_LIST_PAGE.title().get_text() == 'Lytx ReviewCenter'
     assert EVENT_LIST_PAGE.company_name().get_text() == ERD.company_name
     assert EVENT_LIST_PAGE.switch_company().get_text() == 'Switch Companies'
+
+# LQ-10595
+@when('the user input a valid New event Review ID and the user clicks "Filter" button')
+def filter_in_new_tab():
+    review_id_range = ERD.review_id_range_from + '-' + ERD.review_id_range_to
+
+    EVENT_LIST_PAGE.review_id_filter().type(review_id_range)
+    EVENT_LIST_PAGE.filter_button().click()
+
+@then('the related event is filtered out under the New tab and the event count of New tab is shown')
+def verify_new_events_filtered():
+    EVENT_LIST_PAGE.search_range_and_results().wait_for_expected_text('-')
+    new_tab_text = EVENT_LIST_PAGE.new_tab().get_text()
+    event_count = int(new_tab_text.split('(')[1].split(')')[0])
+
+    creation_date = datetime.strptime(EVENT_LIST_PAGE.creation_date_1st().get_text(), '%Y-%m-%d %I:%M %p')
+
+    assert event_count > 0
+    assert EVENT_LIST_PAGE.review_id_1st().get_text() >= ERD.review_id_range_from
+    assert EVENT_LIST_PAGE.review_id_1st().get_text() <= ERD.review_id_range_to
+    assert len(EVENT_LIST_PAGE.event_id_1st().get_text()) >= 0
+    assert creation_date < datetime.now()
+    assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) >= 0
+    assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) >= 0
+
+@then('the event list shows columns: "REVIEW ID","EVENT ID","CREATION DATE","VEHICLE NAME","ER SERIAL"')
+def verify_event_columns():
+    assert EVENT_LIST_PAGE.review_id_title().get_text() == 'REVIEW ID'
+    assert EVENT_LIST_PAGE.event_id_title().get_text() == 'EVENT ID'
+    assert EVENT_LIST_PAGE.creation_date_title().get_text() == 'CREATION DATE'
+    assert EVENT_LIST_PAGE.vehicle_name_title().get_text() == 'VEHICLE NAME'
+    assert EVENT_LIST_PAGE.serial_num_title().get_text() == 'ER SERIAL #'
+
+@when('the user input returned event review ID in the filter under the Returned tab and the user clicks "Filter" button')
+def filter_in_returned_tab():
+    review_id_range = ERD.review_id_range_from + '-' + ERD.review_id_range_to
+
+    EVENT_LIST_PAGE.return_tab().click()
+    EVENT_LIST_PAGE.review_id_filter().type(review_id_range)
+    EVENT_LIST_PAGE.filter_button().click()
+
+@then('the related event is filtered under the Returned tab and the event count of returned tab is shown')
+def verify_returned_events_filtered():
+    EVENT_LIST_PAGE.search_range_and_results().wait_for_expected_text('-')
+    returned_tab_text = EVENT_LIST_PAGE.return_tab().get_text()
+    event_count = int(returned_tab_text.split('(')[1].split(')')[0])
+
+    creation_date = datetime.strptime(EVENT_LIST_PAGE.creation_date_1st().get_text(), '%Y-%m-%d %I:%M %p')
+
+    assert event_count > 0
+    assert EVENT_LIST_PAGE.review_id_1st().get_text() >= ERD.review_id_range_from
+    assert EVENT_LIST_PAGE.review_id_1st().get_text() <= ERD.review_id_range_to
+    assert len(EVENT_LIST_PAGE.event_id_1st().get_text()) >= 0
+    assert creation_date < datetime.now()
+    assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) >= 0
+    assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) >= 0

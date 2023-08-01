@@ -8,14 +8,14 @@ class TextBox(BaseElement):
         self.driver = driver
         self.locator = locator
 
-    def type(self, input_text):
-        self._find().send_keys(input_text)
+    def type(self, input_text, attempts=5):
+        self.type_ignore_exceptions(input_text, attempts)
 
     def clear(self):
         self._find().clear()
 
-    def get_text(self):
-        return self._find().text
+    def get_text(self, expected_text='', attempts=5):
+        return self.wait_for_expected_text(expected_text, attempts)
 
     def remove_text(self):
         self.clear()

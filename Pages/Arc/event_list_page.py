@@ -37,4 +37,71 @@ class EventListPage(BasePage):
     def select_company(self):
         return Button(self.driver, (By.XPATH, ELP.select_company_xpath))
 
+    # filter and tabs
+    def review_id_filter(self):
+        return TextBox(self.driver, (By.XPATH, ELP.review_id_filter_xpath))
+
+    def filter_button(self):
+        return Button(self.driver, (By.XPATH, ELP.filter_button_xpath))
+
+    def clear_button(self):
+        return Button(self.driver, (By.XPATH, ELP.clear_button_xpath))
+
+    def new_tab(self):
+        return Button(self.driver, (By.XPATH, ELP.new_tab_xpath))
+
+    def return_tab(self):
+        return Button(self.driver, (By.XPATH, ELP.return_tab_xpath))
+
+    def search_range_and_results(self):
+        return TextBox(self.driver, (By.XPATH, ELP.search_range_and_results_xpath))
+
+    # event list titles
+    def review_id_title(self):
+        return TextBox(self.driver, (By.XPATH, ELP.review_id_title_xpath))
+
+    def event_id_title(self):
+        return TextBox(self.driver, (By.XPATH, ELP.event_id_title_xpath))
+
+    def creation_date_title(self):
+        return TextBox(self.driver, (By.XPATH, ELP.creation_date_title_xpath))
+
+    def vehicle_name_title(self):
+        return TextBox(self.driver, (By.XPATH, ELP.vehicle_name_title_xpath))
+
+    def serial_num_title(self):
+        return TextBox(self.driver, (By.XPATH, ELP.serial_num_title_xpath))
+
+    # event list first row if only one event returned
+    def review_id_1st_only(self):
+        return Button(self.driver, (By.XPATH, ELP.review_id_1st_only_xpath))
+
+    def event_id_1st_only(self):
+        return TextBox(self.driver, (By.XPATH, ELP.event_id_1st_only_xpath))
+
+    def creation_date_1st_only(self):
+        return TextBox(self.driver, (By.XPATH, ELP.creation_date_1st_only_xpath))
+
+    def vehicle_name_1st_only(self):
+        return TextBox(self.driver, (By.XPATH, ELP.vehicle_name_1st_only_xpath))
+
+    def serial_num_1st_only(self):
+        return TextBox(self.driver, (By.XPATH, ELP.serial_num_1st_only_xpath))
+
+    # event list rows if multiple events returned
+    def review_id_1st(self):
+        return Button(self.driver, (By.XPATH, ELP.review_id_1st_xpath))
+
+    def event_id_1st(self):
+        return TextBox(self.driver, (By.XPATH, ELP.event_id_1st_xpath))
+
+    def creation_date_1st(self):
+        return TextBox(self.driver, (By.XPATH, ELP.creation_date_1st_xpath))
+
+    def vehicle_name_1st(self):
+        return TextBox(self.driver, (By.XPATH, ELP.vehicle_name_1st_xpath))
+
+    def serial_num_1st(self):
+        return TextBox(self.driver, (By.XPATH, ELP.serial_num_1st_xpath))
+
     # combine actions

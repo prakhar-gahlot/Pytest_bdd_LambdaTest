@@ -7,12 +7,11 @@ class Button(BaseElement):
         self.driver = driver
         self.locator = locator
 
-    def click(self):
-        self._find().click()
+    def click(self, attempts=5):
+        self.click_element_ignore_exceptions(attempts)
 
     def get_state(self):
         return self._find().is_enabled()
 
-    def get_text(self):
-        web_element = self._find()
-        return web_element.text
+    def get_text(self, expected_text='', attempts=5):
+        return self.wait_for_expected_text(expected_text, attempts)

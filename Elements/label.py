@@ -7,6 +7,8 @@ class Label(BaseElement):
         self.driver = driver
         self.locator = locator
 
-    def get_text(self):
-        web_element = self._find()
-        return web_element.text
+    def get_text(self, expected_text='', attempts=5):
+        return self.wait_for_expected_text(expected_text, attempts)
+
+    def get_number(self, expected_number='', attempts=5):
+        return self.wait_for_expected_text(expected_number, attempts)

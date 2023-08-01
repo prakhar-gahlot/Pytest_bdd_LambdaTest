@@ -17,3 +17,14 @@ Feature: Login
 	Scenario: Switch to different companies
 		When the user clicks "Switch Companies" button and the user selects one Company from dropdown list and clicks "Select" button
 		Then the Company is switched successfully
+
+	@LQ-10595
+	Scenario: Search new event by single Review ID
+		When the user input a valid New event Review ID and the user clicks "Filter" button
+		Then the related event is filtered out under the New tab and the event count of New tab is shown
+		And the event list shows columns: "REVIEW ID","EVENT ID","CREATION DATE","VEHICLE NAME","ER SERIAL"
+
+	Scenario: Search returned event by single Review ID
+		When the user input returned event review ID in the filter under the Returned tab and the user clicks "Filter" button
+		Then the related event is filtered under the Returned tab and the event count of returned tab is shown
+		And the event list shows columns: "REVIEW ID","EVENT ID","CREATION DATE","VEHICLE NAME","ER SERIAL"
