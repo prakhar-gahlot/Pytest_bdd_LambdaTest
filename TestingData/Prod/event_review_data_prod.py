@@ -1,10 +1,13 @@
 class EventReviewDataProd:
 
     # general
-    # company_id = 0
+    # company_id = 1129
+    company_name_switch = ''
     company_name = ''
     reviewer_user_name = ''
     reviewer_password = ''
+    review_id_range_from = ''
+    review_id_range_to = ''
 
     # f2f coaching event behaviors
     f2f_trigger = ''
