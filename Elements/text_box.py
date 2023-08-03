@@ -1,3 +1,4 @@
+from time import sleep
 from selenium.webdriver.common.keys import Keys
 from Elements.base_element import BaseElement
 
@@ -10,6 +11,11 @@ class TextBox(BaseElement):
 
     def type(self, input_text, attempts=5):
         self.type_ignore_exceptions(input_text, attempts)
+
+    def type_and_auto_search(self, input_text):
+        for i in input_text:
+            self._type(i)
+            sleep(0.01)
 
     def clear(self):
         self._find().clear()

@@ -1,7 +1,7 @@
 class EventReviewDataProd:
 
     # general
-    # company_id = 1129
+    # company_id = 0
     company_name_switch = ''
     company_name = ''
     reviewer_user_name = ''
