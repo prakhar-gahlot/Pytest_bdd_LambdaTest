@@ -42,8 +42,23 @@ class BaseElement:
             n += 1
             try:
                 if expected_text == '':
-                    return self._get_text()
+                    break
                 if expected_text in self._get_text():
+                    break
+                sleep(5)
+            except StaleElementReferenceException:
+                sleep(5)
+            except TimeoutException:
+                sleep(1)
+
+        return self._get_text()
+
+    def wait_for_expected_text_change(self, expected_text, attempts=5):
+        n = 0
+        while n < attempts:
+            n += 1
+            try:
+                if expected_text != self._get_text():
                     break
                 sleep(5)
             except StaleElementReferenceException:

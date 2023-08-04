@@ -28,3 +28,8 @@ Feature: Login
 		When the user input returned event review ID in the filter under the Returned tab and the user clicks "Filter" button
 		Then the related event is filtered under the Returned tab and the event count of returned tab is shown
 		And the event list shows columns: "REVIEW ID","EVENT ID","CREATION DATE","VEHICLE NAME","ER SERIAL"
+
+	@LQ-11162
+	Scenario: System loads and automatically plays video clip of event upon the Reviewer landing on page
+		When the user clicks one reviewID
+		Then the event review page is opened and the both front and rear camera views are shown and the video automatically plays

@@ -1,6 +1,7 @@
 from datetime import datetime
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.event_list_page import EventListPage
+from Pages.Arc.event_review_page import  EventReviewPage
 from Pages.Arc.login_page import LoginPage
 from Tests.common import DC_URL, ARC_URL, ENV
 from TestingData.Int.event_review_data_int import EventReviewDataInt as ERD_INT
@@ -10,7 +11,9 @@ from TestingData.Prod.event_review_data_prod import EventReviewDataProd as ERD_P
 
 LOGIN_PAGE = 0
 EVENT_LIST_PAGE = 0
+EVENT_REVIEW_PAGE = 0
 ERD = ''
+EVENT_REVIEW_ID = 0
 
 scenarios('../../Features/Smoke/arc_smoke.feature')
 
@@ -18,10 +21,11 @@ scenarios('../../Features/Smoke/arc_smoke.feature')
 # LQ-9709
 @given('the user is in the Login page of New ARC and a user has Reviewer role in some companies')
 def open_login_page(browser):
-    global LOGIN_PAGE, EVENT_LIST_PAGE, ERD
+    global LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, ERD
 
     LOGIN_PAGE = LoginPage(browser)
     EVENT_LIST_PAGE = EventListPage(browser)
+    EVENT_REVIEW_PAGE = EventReviewPage(browser)
 
     browser.get(ARC_URL)
 
@@ -147,3 +151,35 @@ def verify_returned_events_filtered():
     assert creation_date < datetime.now()
     assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) >= 0
     assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) >= 0
+
+# LQ-11162
+@when('the user clicks one reviewID')
+def click_first_review_id_new_tab():
+    global EVENT_REVIEW_ID
+
+    EVENT_LIST_PAGE.new_tab().click()
+
+    EVENT_REVIEW_ID = EVENT_LIST_PAGE.review_id_1st().get_text()
+    EVENT_LIST_PAGE.review_id_1st().click()
+
+@then('the event review page is opened and the both front and rear camera views are shown and the video automatically plays')
+def verify_event_played_on_review_page():
+    EVENT_REVIEW_PAGE.review_id().wait_for_expected_number()
+
+    assert EVENT_REVIEW_PAGE.back_to_home().get_text() == 'Back to Home'
+    assert EVENT_REVIEW_PAGE.review_id_title().get_text() == 'Review ID:'
+    assert EVENT_REVIEW_PAGE.review_id().get_text() == EVENT_REVIEW_ID
+    assert EVENT_REVIEW_PAGE.trigger_title().get_text() == 'Trigger:'
+    assert EVENT_REVIEW_PAGE.record_date_title().get_text() == 'Record Date:'
+    assert EVENT_REVIEW_PAGE.vehicle_id_title().get_text() == 'Vehicle ID:'
+    assert EVENT_REVIEW_PAGE.vehicle_type_title().get_text() == 'Vehicle Type:'
+    assert EVENT_REVIEW_PAGE.seatbelt_title().get_text() == 'Seatbelt:'
+    assert EVENT_REVIEW_PAGE.audio_title().get_text() == 'Audio:'
+    assert EVENT_REVIEW_PAGE.FPS_title().get_text() == 'FPS:'
+    assert EVENT_REVIEW_PAGE.event_details_text().get_text() == 'Event Details'
+    assert EVENT_REVIEW_PAGE.rear_view_text().get_text() == 'REAR VIEW'
+    assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
+
+    event_play_time = EVENT_REVIEW_PAGE.event_play_time().get_text()
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time)
+    assert EVENT_REVIEW_PAGE.event_play_time().get_text() != event_play_time

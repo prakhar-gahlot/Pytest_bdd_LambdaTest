@@ -1,4 +1,4 @@
-class EventListPage:
+class EventListPageLocator:
 
     # top bar
     title_xpath = '/html/body/app-root/top-bar/div/p'

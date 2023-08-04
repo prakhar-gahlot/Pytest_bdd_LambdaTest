@@ -2,7 +2,7 @@ from Pages.base_page import BasePage
 from Elements.button import Button
 from Elements.text_box import TextBox
 from Elements.label import Label
-from Pages.Arc.event_list_page_locator import EventListPage as ELP
+from Pages.Arc.event_list_page_locator import EventListPageLocator as ELP
 from selenium.webdriver.common.by import By
 
 
