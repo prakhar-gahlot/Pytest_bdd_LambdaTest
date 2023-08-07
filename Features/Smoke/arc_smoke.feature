@@ -33,3 +33,9 @@ Feature: Login
 	Scenario: System loads and automatically plays video clip of event upon the Reviewer landing on page
 		When the user clicks one reviewID
 		Then the event review page is opened and the both front and rear camera views are shown and the video automatically plays
+
+	Scenario: Select behaviors in opened event review page
+		Given the event’s outcome and event trigger are already selected and the user is under "Behaviors" tab
+		When the user selects one or more behaviors under "Behaviors" tab
+		Then the behaviors are selected with blue check icon
+		

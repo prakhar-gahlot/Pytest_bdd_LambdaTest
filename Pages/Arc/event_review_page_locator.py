@@ -46,3 +46,11 @@ class EventReviewPageLocator:
     front_view_text_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[1]/div/label[2]'
 
     event_play_time_id = 'time-value'
+
+    # event review tabs
+    outcome_trigger_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \
+                                '/mat-tab-group/mat-tab-header/div/div/div/div[1]/div/div/div'
+    behavior_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \
+                         '/mat-tab-group/mat-tab-header/div/div/div/div[2]/div/div/div'
+    comments_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \
+                         '/mat-tab-group/mat-tab-header/div/div/div/div[3]/div'

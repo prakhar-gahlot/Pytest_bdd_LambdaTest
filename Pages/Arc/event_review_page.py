@@ -63,9 +63,6 @@ class EventReviewPage(BasePage):
     def FPS(self):
         return Label(self.driver, (By.XPATH, ERP.FPS_xpath))
 
-    def review_id(self):
-        return Label(self.driver, (By.XPATH, ERP.review_id_xpath))
-
     def event_details_icon(self):
         return Button(self.driver, (By.XPATH, ERP.event_details_icon_xpath))
 
@@ -81,3 +78,24 @@ class EventReviewPage(BasePage):
 
     def event_play_time(self):
         return Label(self.driver, (By.ID, ERP.event_play_time_id))
+
+    # event review tabs
+    def outcome_trigger_tab(self):
+        return Button(self.driver, (By.XPATH, ERP.outcome_trigger_tab_xpath))
+
+    def behavior_tab(self):
+        return Button(self.driver, (By.XPATH, ERP.behavior_tab_xpath))
+
+    def comments_tab(self):
+        return Button(self.driver, (By.XPATH, ERP.comments_tab_xpath))
+
+    # non-element methods
+    def is_tab_active(self, tab):
+        if 'mat-tab-label-active' in tab.get_attribute('class'):
+            return True
+        return False
+
+    def is_checkbox_checked(self, tab):
+        if 'mat-checkbox-checked' in tab.get_attribute('class'):
+            return True
+        return False

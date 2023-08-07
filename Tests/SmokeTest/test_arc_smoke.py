@@ -1,9 +1,11 @@
 from datetime import datetime
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.event_list_page import EventListPage
-from Pages.Arc.event_review_page import  EventReviewPage
+from Pages.Arc.event_review_page import EventReviewPage
+from Pages.Arc.outcome_trigger_tab import OutcomeTriggerTab
+from Pages.Arc.behaviors_tab import BehaviorsTab
 from Pages.Arc.login_page import LoginPage
-from Tests.common import DC_URL, ARC_URL, ENV
+from Tests.common import ARC_URL, ENV
 from TestingData.Int.event_review_data_int import EventReviewDataInt as ERD_INT
 from TestingData.Stg.event_review_data_stg import EventReviewDataStg as ERD_STG
 from TestingData.Prod.event_review_data_prod import EventReviewDataProd as ERD_PROD
@@ -12,6 +14,8 @@ from TestingData.Prod.event_review_data_prod import EventReviewDataProd as ERD_P
 LOGIN_PAGE = 0
 EVENT_LIST_PAGE = 0
 EVENT_REVIEW_PAGE = 0
+OUTCOME_TRIGGER_TAB = 0
+BEHAVIORS_TAB = 0
 ERD = ''
 EVENT_REVIEW_ID = 0
 
@@ -21,11 +25,13 @@ scenarios('../../Features/Smoke/arc_smoke.feature')
 # LQ-9709
 @given('the user is in the Login page of New ARC and a user has Reviewer role in some companies')
 def open_login_page(browser):
-    global LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, ERD
+    global LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, ERD
 
     LOGIN_PAGE = LoginPage(browser)
     EVENT_LIST_PAGE = EventListPage(browser)
     EVENT_REVIEW_PAGE = EventReviewPage(browser)
+    OUTCOME_TRIGGER_TAB = OutcomeTriggerTab(browser)
+    BEHAVIORS_TAB = BehaviorsTab(browser)
 
     browser.get(ARC_URL)
 
@@ -183,3 +189,18 @@ def verify_event_played_on_review_page():
     event_play_time = EVENT_REVIEW_PAGE.event_play_time().get_text()
     EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time)
     assert EVENT_REVIEW_PAGE.event_play_time().get_text() != event_play_time
+
+@given('the event’s outcome and event trigger are already selected and the user is under "Behaviors" tab')
+def select_outcome_trigger():
+    if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab()):
+        OUTCOME_TRIGGER_TAB.other_radio_btn().click()
+
+@when('the user selects one or more behaviors under "Behaviors" tab')
+def select_behaviors():
+    BEHAVIORS_TAB.blank_stare_checkbox().click()
+    BEHAVIORS_TAB.red_light_checkbox().click()
+
+@then('the behaviors are selected with blue check icon')
+def verify_behaviors_selected():
+    assert BEHAVIORS_TAB.is_checkbox_checked(BEHAVIORS_TAB.blank_stare_checkbox()) is True
+    assert BEHAVIORS_TAB.is_checkbox_checked(BEHAVIORS_TAB.red_light_checkbox()) is True
