@@ -38,4 +38,7 @@ Feature: Login
 		Given the event’s outcome and event trigger are already selected and the user is under "Behaviors" tab
 		When the user selects one or more behaviors under "Behaviors" tab
 		Then the behaviors are selected with blue check icon
-		
+
+	Scenario: Navigate to "Comments" tab after clicking "Comments" button
+		When the user clicks "Comments" button at bottom right
+		Then the user is navigated to event's 'Comments' tab

@@ -53,4 +53,4 @@ class EventReviewPageLocator:
     behavior_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \
                          '/mat-tab-group/mat-tab-header/div/div/div/div[2]/div/div/div'
     comments_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \
-                         '/mat-tab-group/mat-tab-header/div/div/div/div[3]/div'
+                         '/mat-tab-group/mat-tab-header/div/div/div/div[3]'
