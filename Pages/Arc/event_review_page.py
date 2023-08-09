@@ -93,7 +93,7 @@ class EventReviewPage(BasePage):
     # non-element methods
     def is_tab_active(self, tab, expected_value, attempts=10):
         n = 0
-        while n <= attempts:
+        while n < attempts:
             n += 1
             if ('mat-tab-label-active' in tab.get_attribute('class')) == expected_value:
                 return expected_value
