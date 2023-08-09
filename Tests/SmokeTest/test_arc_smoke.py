@@ -192,7 +192,7 @@ def verify_event_played_on_review_page():
 
 @given('the event’s outcome and event trigger are already selected and the user is under "Behaviors" tab')
 def select_outcome_trigger():
-    if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab()):
+    if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True, 1):
         OUTCOME_TRIGGER_TAB.other_radio_btn().click()
 
 @when('the user selects one or more behaviors under "Behaviors" tab')
@@ -204,3 +204,11 @@ def select_behaviors():
 def verify_behaviors_selected():
     assert BEHAVIORS_TAB.is_checkbox_checked(BEHAVIORS_TAB.blank_stare_checkbox()) is True
     assert BEHAVIORS_TAB.is_checkbox_checked(BEHAVIORS_TAB.red_light_checkbox()) is True
+
+@when('the user clicks "Comments" button at bottom right')
+def go_to_comments_tab():
+    BEHAVIORS_TAB.comments().click()
+
+@then("the user is navigated to event's 'Comments' tab")
+def verify_go_to_comments_tab():
+    assert EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.comments_tab(), True) is True

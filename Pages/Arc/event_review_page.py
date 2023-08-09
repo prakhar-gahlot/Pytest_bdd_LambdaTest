@@ -1,3 +1,4 @@
+from time import sleep
 from Pages.base_page import BasePage
 from Elements.button import Button
 from Elements.text_box import TextBox
@@ -90,10 +91,15 @@ class EventReviewPage(BasePage):
         return Button(self.driver, (By.XPATH, ERP.comments_tab_xpath))
 
     # non-element methods
-    def is_tab_active(self, tab):
-        if 'mat-tab-label-active' in tab.get_attribute('class'):
-            return True
-        return False
+    def is_tab_active(self, tab, expected_value, attempts=10):
+        n = 0
+        while n < attempts:
+            n += 1
+            if ('mat-tab-label-active' in tab.get_attribute('class')) == expected_value:
+                return expected_value
+            sleep(3)
+
+        return ('mat-tab-label-active' in tab.get_attribute('class'))
 
     def is_checkbox_checked(self, tab):
         if 'mat-checkbox-checked' in tab.get_attribute('class'):
