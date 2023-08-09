@@ -1,5 +1,4 @@
 from time import sleep
-
 from Pages.base_page import BasePage
 from Elements.button import Button
 from Elements.text_box import TextBox
