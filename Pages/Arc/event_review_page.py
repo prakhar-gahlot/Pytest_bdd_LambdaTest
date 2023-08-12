@@ -14,7 +14,7 @@ class EventReviewPage(BasePage):
 
     # top info
     def back_to_home(self):
-        return Label(self.driver, (By.XPATH, ERP.back_to_home_xpath))
+        return Button(self.driver, (By.XPATH, ERP.back_to_home_xpath))
 
     def review_id_title(self):
         return Label(self.driver, (By.XPATH, ERP.review_id_title_xpath))

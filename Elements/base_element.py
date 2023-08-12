@@ -34,7 +34,10 @@ class BaseElement:
         return True
 
     def wait_for_element_is_clickable(self, wait_time=30):
-        return WebDriverWait(self.driver, wait_time).until(ec.element_to_be_clickable(self.locator))
+        try:
+            return WebDriverWait(self.driver, wait_time).until(ec.element_to_be_clickable(self.locator))
+        except BaseException:
+            return False
 
     def wait_for_expected_text(self, expected_text='', attempts=5):
         n = 0
