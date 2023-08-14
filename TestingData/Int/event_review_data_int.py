@@ -6,7 +6,7 @@ class EventReviewDataInt:
     company_name = 'DriveCam DC4DC Test Co'
     reviewer_user_name = 'reviewerbychris'
     reviewer_password = 'Login123!'
-    review_id_range_from = '4025986922'
+    review_id_range_from = '4025987370'
     review_id_range_to = '5025980126'
 
     # driver
