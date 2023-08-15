@@ -80,6 +80,9 @@ class EventReviewPage(BasePage):
     def event_play_time(self):
         return Label(self.driver, (By.ID, ERP.event_play_time_id))
 
+    def play_and_pause(self):
+        return Button(self.driver, (By.XPATH, ERP.play_and_pause_xpath))
+
     # event review tabs
     def outcome_trigger_tab(self):
         return Button(self.driver, (By.XPATH, ERP.outcome_trigger_tab_xpath))

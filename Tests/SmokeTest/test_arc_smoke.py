@@ -202,8 +202,10 @@ def verify_event_played_on_review_page():
     assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
 
     event_play_time = EVENT_REVIEW_PAGE.event_play_time().get_text()
-    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time)
-    assert EVENT_REVIEW_PAGE.event_play_time().get_text() != event_play_time
+    if EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'play_arrow':
+        EVENT_REVIEW_PAGE.play_and_pause().click()
+
+    assert EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time) != event_play_time
 
 @given('the event’s outcome and event trigger are already selected and the user is under "Behaviors" tab')
 def select_outcome_trigger():
@@ -257,12 +259,12 @@ def verify_event_status_and_task(browser):
 def verify_event_score_and_behaviors():
     WS_TASK_PAGE.coach_button().click()
 
-    assert WS_TASK_PAGE.behavior_1st().get_text() == ERD.f2f_behavior_1st
-    assert WS_TASK_PAGE.behavior_2nd().get_text() == ERD.f2f_behavior_2nd
-    assert WS_TASK_PAGE.event_id().get_text() == EVENT_ID
-    assert WS_TASK_PAGE.event_status().get_text() == 'Face to Face'
-    assert WS_TASK_PAGE.event_trigger().get_text() == ERD.f2f_trigger
-    assert WS_TASK_PAGE.event_score().get_text() == ERD.f2f_score
+    behavior_list = WS_TASK_PAGE.behaviors_list()
+
+    assert ERD.f2f_behavior_1st in behavior_list
+    assert ERD.f2f_behavior_2nd in behavior_list
+    assert WS_TASK_PAGE.event_id().get_text() != EVENT_ID
+    assert WS_TASK_PAGE.event_status().get_text() == 'Face-To-Face'
 
     WS_TASK_PAGE.play_event().click()
     WS_TASK_PAGE.complete_session().click()

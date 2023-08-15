@@ -1,3 +1,4 @@
+from Elements.base_element import BaseElement
 from Elements.label import Label
 from Pages.base_page import BasePage
 from Elements.button import Button
@@ -28,6 +29,9 @@ class WSTaskPage(BasePage):
     # coaching session page
     def play_event(self):
         return Button(self.driver, (By.XPATH, TP.play_event_xpath))
+
+    def behaviors(self):
+        return BaseElement(self.driver, (By.XPATH, TP.behaviors_xpath))
     
     def behavior_1st(self):
         return Label(self.driver, (By.XPATH, TP.behavior_1st_xpath))
@@ -52,3 +56,12 @@ class WSTaskPage(BasePage):
 
     def confirm_complete(self):
         return Button(self.driver, (By.ID, TP.confirm_complete_id))
+
+    # non-element methods
+    def behaviors_list(self):
+        behaviors = self.behaviors()._find()
+        behavior_list = []
+        for element in behaviors.find_elements(By.XPATH, './*'):
+            behavior_list.append(element.text)
+
+        return behavior_list

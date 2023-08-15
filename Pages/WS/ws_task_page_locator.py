@@ -15,6 +15,7 @@ class WSTaskPageLocator:
                        '/div/div[3]/div/div/event-player/div/video-player/div[2]/div[2]/div[2]/i'
     behavior_1st_xpath = '//*[@id="event-viewer-details__behaviors-content"]/div/lytx-pill[1]'
     behavior_2nd_xpath = '//*[@id="event-viewer-details__behaviors-content"]/div/lytx-pill[2]'
+    behaviors_xpath = '//*[@id="event-viewer-details__behaviors-content"]/div'
 
     event_id_id = 'event-viewer-details__event'
     event_status_id = 'event-viewer-details__aggregated-status'
