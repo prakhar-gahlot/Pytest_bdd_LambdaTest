@@ -18,11 +18,5 @@ class EventReviewDataStg:
     coach_password = 'Login123!'
 
     # f2f coaching event behaviors
-    f2f_trigger = 'Other'
     f2f_behavior_1st = 'Blank Stare'
     f2f_behavior_2nd = 'Red Light'
-    f2f_score = 8
-
-    # possible collision event behaviors
-    f2f_trigger = ''
-    f2f_outcome = ''

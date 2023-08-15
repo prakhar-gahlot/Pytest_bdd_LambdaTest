@@ -18,11 +18,5 @@ class EventReviewDataProd:
     coach_password = ''
 
     # f2f coaching event behaviors
-    f2f_trigger = ''
     f2f_behavior_1st = ''
     f2f_behavior_2nd = ''
-    f2f_score = 0
-
-    # possible collision event behaviors
-    f2f_trigger = ''
-    f2f_outcome = ''
