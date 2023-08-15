@@ -43,6 +43,11 @@ Feature: Login
 		When the user clicks "Comments" button at bottom right
 		Then the user is navigated to event's 'Comments' tab
 
+
+	Scenario: Navigate to "Comments" tab after clicking "Comments" button
+		When the user clicks "Comments" button at bottom right
+		Then the user is navigated to event's 'Comments' tab
+
 	Scenario: The event is reviewed after clicking "Complete & Next" button
 		When the user selects some behaviors and the user clicks "Complete & Next" button in "Comments" tab
 		Then the event is disappeared from events list
