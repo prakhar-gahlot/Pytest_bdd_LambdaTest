@@ -14,7 +14,7 @@ class EventReviewPage(BasePage):
 
     # top info
     def back_to_home(self):
-        return Label(self.driver, (By.XPATH, ERP.back_to_home_xpath))
+        return Button(self.driver, (By.XPATH, ERP.back_to_home_xpath))
 
     def review_id_title(self):
         return Label(self.driver, (By.XPATH, ERP.review_id_title_xpath))
@@ -79,6 +79,9 @@ class EventReviewPage(BasePage):
 
     def event_play_time(self):
         return Label(self.driver, (By.ID, ERP.event_play_time_id))
+
+    def play_and_pause(self):
+        return Button(self.driver, (By.XPATH, ERP.play_and_pause_xpath))
 
     # event review tabs
     def outcome_trigger_tab(self):

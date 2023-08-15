@@ -9,10 +9,14 @@ class EventReviewDataProd:
     review_id_range_from = ''
     review_id_range_to = ''
 
-    # f2f coaching event behaviors
-    f2f_trigger = ''
-    f2f_behavior = ''
+    # driver
+    driver_employee_id = ''
+    driver_name = ''
 
-    # possible collision event behaviors
-    f2f_trigger = ''
-    f2f_outcome = ''
+    # coach
+    coach_user_name = ''
+    coach_password = ''
+
+    # f2f coaching event behaviors
+    f2f_behavior_1st = ''
+    f2f_behavior_2nd = ''

@@ -9,10 +9,14 @@ class EventReviewDataStg:
     review_id_range_from = '4025958000'
     review_id_range_to = '5025980126'
 
-    # f2f coaching event behaviors
-    f2f_trigger = ''
-    f2f_behavior = ''
+    # driver
+    driver_employee_id = 'auto_test_9527'
+    driver_name = 'auto_test donot_edit'
 
-    # possible collision event behaviors
-    f2f_trigger = ''
-    f2f_outcome = ''
+    # coach
+    coach_user_name = 'auto_coach_9876'
+    coach_password = 'Login123!'
+
+    # f2f coaching event behaviors
+    f2f_behavior_1st = 'Blank Stare'
+    f2f_behavior_2nd = 'Red Light'

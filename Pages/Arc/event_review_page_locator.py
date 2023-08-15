@@ -2,7 +2,7 @@ class EventReviewPageLocator:
 
     # top info
     back_to_home_xpath = '/html/body/app-root/top-bar/app-review/div/div[1]/video-player-top-bar' \
-                         '/mat-toolbar/mat-toolbar-row/div[1]/span'
+                         '/mat-toolbar/mat-toolbar-row/div[1]'
     review_id_title_xpath = '/html/body/app-root/top-bar/app-review/div/div[1]/video-player-top-bar' \
                             '/mat-toolbar/mat-toolbar-row/div[2]/div[1]/span'
     review_id_xpath = '/html/body/app-root/top-bar/app-review/div/div[1]/video-player-top-bar' \
@@ -47,10 +47,13 @@ class EventReviewPageLocator:
 
     event_play_time_id = 'time-value'
 
+    play_and_pause_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player' \
+                           '/div[4]/div[2]/button[2]/span[1]/mat-icon'
+
     # event review tabs
     outcome_trigger_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \
-                                '/mat-tab-group/mat-tab-header/div/div/div/div[1]/div/div/div'
+                                '/mat-tab-group/mat-tab-header/div/div/div/div[1]'
     behavior_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \
-                         '/mat-tab-group/mat-tab-header/div/div/div/div[2]/div/div/div'
+                         '/mat-tab-group/mat-tab-header/div/div/div/div[2]'
     comments_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \
                          '/mat-tab-group/mat-tab-header/div/div/div/div[3]'

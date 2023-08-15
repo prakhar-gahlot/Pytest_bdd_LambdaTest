@@ -42,3 +42,9 @@ Feature: Login
 	Scenario: Navigate to "Comments" tab after clicking "Comments" button
 		When the user clicks "Comments" button at bottom right
 		Then the user is navigated to event's 'Comments' tab
+
+	Scenario: The event is reviewed after clicking "Complete & Next" button
+		When the user selects some behaviors and the user clicks "Complete & Next" button in "Comments" tab
+		Then the event is disappeared from events list
+		And the event status is updated accordingly to F2F in WS and the corresponding task is generated correctly to Due for Coaching task in WS
+		And the event score is updated correctly in WS and the behavior/trigger are displayed correctly in WS
