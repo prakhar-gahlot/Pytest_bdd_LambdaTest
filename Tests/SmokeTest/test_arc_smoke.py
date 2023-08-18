@@ -1,4 +1,5 @@
 from datetime import datetime
+from time import sleep
 from hamcrest import assert_that, contains_string
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.event_list_page import EventListPage
@@ -45,14 +46,34 @@ def open_login_page(browser):
     WS_LOGIN_PAGE = WSLoginPage(browser)
     WS_TASK_PAGE = WSTaskPage(browser)
 
-    browser.get(ARC_URL)
-
     if ENV == 'int':
         ERD = ERD_INT
     elif ENV == 'stg':
         ERD = ERD_STG
     else:
         ERD = ERD_PROD
+
+    # clear existing coaching tasks
+    browser.get(DC_URL)
+    WS_LOGIN_PAGE.user_name().type(ERD.coach_user_name)
+    WS_LOGIN_PAGE.password().type(ERD.coach_password)
+    WS_LOGIN_PAGE.login().click()
+    WS_LOGIN_PAGE.retry_if_login_failed(ERD.coach_user_name, ERD.coach_password)
+
+    WS_TASK_PAGE.task_navigator().click()
+    WS_TASK_PAGE.due_for_coaching().click()
+    WS_TASK_PAGE.search_driver().type(ERD.driver_employee_id)
+
+    task_count = WS_TASK_PAGE.task_count().wait_for_expected_text('0', 2)
+
+    if task_count.isdigit() and int(task_count) > 0:
+        WS_TASK_PAGE.coach_button().click()
+        WS_TASK_PAGE.play_event().click()
+        WS_TASK_PAGE.complete_session().click()
+        WS_TASK_PAGE.confirm_complete().click()
+    # end - clear existing coaching tasks
+
+    browser.get(ARC_URL)
 
 @when('the user inputs valid username and password and the user clicks the Sign in button')
 def reviewer_sign_in():
@@ -233,6 +254,7 @@ def verify_go_to_comments_tab():
 @when('the user selects some behaviors and the user clicks "Complete & Next" button in "Comments" tab')
 def complete_review():
     COMMENTS_TAB.complete_next().click()
+    sleep(100) # Wait some time for the task creation(usually it less than 60s).
 
 @then('the event is disappeared from events list')
 def verify_event_is_reviewed():
@@ -250,6 +272,7 @@ def verify_event_status_and_task(browser):
 
     WS_TASK_PAGE.task_navigator().click()
     WS_TASK_PAGE.due_for_coaching().click()
+    WS_TASK_PAGE.search_driver().clear()
     WS_TASK_PAGE.search_driver().type(ERD.driver_employee_id)
 
     WS_TASK_PAGE.coach_button().wait_for_expected_text('Coach Event')

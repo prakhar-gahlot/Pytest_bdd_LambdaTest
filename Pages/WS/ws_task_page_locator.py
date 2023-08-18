@@ -9,6 +9,8 @@ class WSTaskPageLocator:
                           '/div/div[1]/filter-bar/div/div[2]/div[2]/lytx-search/div/form/input'
     coach_button_xpath = '/html/body/app/shell/div/div/div/coaching-task-card-list/task-card-list' \
                          '/div/div[3]/coaching-task-card/div/div[2]/div[2]/button'
+    task_count_xpath = '/html/body/app/shell/div/div/div/coaching-task-card-list/task-card-list' \
+                       '/div/div[1]/filter-bar/div/div[2]/div[1]/div[1]/div/div[1]/div'
 
     # coaching session page
     play_event_xpath = '/html/body/app/shell/div/div/div/coaching-session/lx-page-container' \

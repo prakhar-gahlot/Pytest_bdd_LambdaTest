@@ -45,7 +45,7 @@ class BaseElement:
             n += 1
             try:
                 if expected_text == '':
-                    break
+                    return self._get_text()
                 if expected_text in self._get_text():
                     break
                 sleep(5)

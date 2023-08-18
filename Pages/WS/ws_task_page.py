@@ -26,6 +26,9 @@ class WSTaskPage(BasePage):
     def coach_button(self):
         return Button(self.driver, (By.XPATH, TP.coach_button_xpath))
 
+    def task_count(self):
+        return Label(self.driver, (By.XPATH, TP.task_count_xpath))
+
     # coaching session page
     def play_event(self):
         return Button(self.driver, (By.XPATH, TP.play_event_xpath))
