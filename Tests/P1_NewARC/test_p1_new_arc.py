@@ -1,5 +1,3 @@
-from time import sleep
-
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.event_list_page import EventListPage
 from Pages.Arc.event_review_page import EventReviewPage
@@ -95,7 +93,6 @@ def invalid_username():
     LOGIN_PAGE.user_name().type(LOGIN_PAGE.get_random_str(5))
     LOGIN_PAGE.password().type(ERD.reviewer_password)
     LOGIN_PAGE.login().click()
-    sleep(6)
 
 
 @then('the message "Incorrect username or password. Try again." shows below the Password input box')
@@ -110,7 +107,6 @@ def invalid_password():
     LOGIN_PAGE.user_name().type(ERD.reviewer_user_name)
     LOGIN_PAGE.password().type(LOGIN_PAGE.get_random_str(5))
     LOGIN_PAGE.login().click()
-    sleep(6)
 
 
 @then('the message "Incorrect username or password. Try again." shows below the Password input box')
