@@ -21,8 +21,14 @@ class LoginPage(BasePage):
     def password(self):
         return TextBox(self.driver, (By.XPATH, LP.password_xpath))
 
+    def password_masked(self):
+        return TextBox(self.driver, (By.XPATH, LP.password_masked_xpath))
+
     def login(self):
         return Button(self.driver, (By.XPATH, LP.login_xpath))
+
+    def login_error_text(self):
+        return Label(self.driver, (By.XPATH, LP.login_error_xpath))
 
     # select company page elements
     def select_role(self):
