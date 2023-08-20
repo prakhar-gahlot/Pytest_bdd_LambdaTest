@@ -1,8 +1,4 @@
 from pytest_bdd import scenarios, given, when, then
-from Pages.Arc.event_list_page import EventListPage
-from Pages.Arc.event_review_page import EventReviewPage
-from Pages.Arc.outcome_trigger_tab import OutcomeTriggerTab
-from Pages.Arc.behaviors_tab import BehaviorsTab
 from Pages.Arc.login_page import LoginPage
 from Tests.common import ARC_URL, ENV
 from TestingData.Int.event_review_data_int import EventReviewDataInt as ERD_INT
@@ -17,7 +13,7 @@ BEHAVIORS_TAB = 0
 ERD = ''
 EVENT_REVIEW_ID = 0
 
-scenarios('../../Features/P1_NewARC/p1_new_arc.feature')
+scenarios('../../Features/P1_NewARC/p1_login.feature')
 
 
 # LQ-9701
@@ -26,10 +22,6 @@ def open_login_page(browser):
     global LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, ERD
 
     LOGIN_PAGE = LoginPage(browser)
-    EVENT_LIST_PAGE = EventListPage(browser)
-    EVENT_REVIEW_PAGE = EventReviewPage(browser)
-    OUTCOME_TRIGGER_TAB = OutcomeTriggerTab(browser)
-    BEHAVIORS_TAB = BehaviorsTab(browser)
 
     browser.get(ARC_URL)
 

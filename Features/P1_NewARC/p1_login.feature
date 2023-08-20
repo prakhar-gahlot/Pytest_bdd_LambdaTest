@@ -1,7 +1,7 @@
 Feature: Login
 
   @LQ-9701
-  Scenario: P1_NewARC Tests
+  Scenario: P1_Login Tests
   # Scenario: The Sign in button will be disabled if only the username is filled in
     Given the login page of New ARC is opened
     When the user only inputs some characters in the username input box
