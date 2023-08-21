@@ -32,6 +32,12 @@ class BehaviorsTabLocator:
     # Driver Condition
 
     # Driver Conduct
+    falling_asleep_checkbox_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \
+                                    '/div/mat-tab-body[2]/div/behaviors-review/div[1]/div[1]/div[6]' \
+                                    '/behavior-group/div/div[2]/div[2]/mat-checkbox'
+    falling_asleep_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \
+                           '/div/mat-tab-body[2]/div/behaviors-review/div[1]/div[1]/div[6]' \
+                           '/behavior-group/div/div[2]/div[2]/mat-checkbox/label/span[2]'
 
     # Other Behaviors
 

@@ -12,11 +12,15 @@ class EventReviewDataStg:
     # driver
     driver_employee_id = 'auto_test_9527'
     driver_name = 'auto_test donot_edit'
+    driver_id = ''
 
     # coach
     coach_user_name = 'auto_coach_9876'
     coach_password = 'Login123!'
 
     # f2f coaching event behaviors
-    f2f_behavior_1st = 'Blank Stare'
-    f2f_behavior_2nd = 'Red Light'
+    f2f_behavior_1st = 'Red Light'
+
+    # create new event
+    ER = ''
+    actor_id = ''

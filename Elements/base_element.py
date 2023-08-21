@@ -11,7 +11,7 @@ class BaseElement:
         self.locator = locator
 
     def _find(self):
-        return WebDriverWait(self.driver, 20).until(ec.presence_of_element_located(self.locator))
+        return WebDriverWait(self.driver, 10).until(ec.presence_of_element_located(self.locator))
 
     def _click(self):
         self._find().click()
@@ -39,7 +39,7 @@ class BaseElement:
         except BaseException:
             return False
 
-    def wait_for_expected_text(self, expected_text='', attempts=5):
+    def wait_for_expected_text(self, expected_text='', attempts=3):
         n = 0
         while n < attempts:
             n += 1
@@ -50,28 +50,28 @@ class BaseElement:
                     break
                 sleep(5)
             except StaleElementReferenceException:
-                sleep(5)
+                sleep(10)
             except TimeoutException:
                 sleep(1)
 
         return self._get_text()
 
-    def wait_for_expected_text_change(self, expected_text, attempts=5):
+    def wait_for_expected_text_change(self, expected_text, attempts=3):
         n = 0
         while n < attempts:
             n += 1
             try:
                 if expected_text != self._get_text():
                     break
-                sleep(5)
+                sleep(10)
             except StaleElementReferenceException:
-                sleep(5)
+                sleep(10)
             except TimeoutException:
                 sleep(1)
 
         return self._get_text()
 
-    def wait_for_expected_number(self, expected_number='', attempts=5):
+    def wait_for_expected_number(self, expected_number='', attempts=3):
         n = 0
         while n < attempts:
             n += 1
@@ -82,13 +82,13 @@ class BaseElement:
                     break
                 sleep(5)
             except StaleElementReferenceException:
-                sleep(5)
+                sleep(10)
             except TimeoutException:
                 sleep(1)
 
         return self._get_text()
 
-    def wait_for_element_displayed(self, attempts=5):
+    def wait_for_element_displayed(self, attempts=3):
         n = 0
         while n < attempts:
             n += 1
@@ -96,13 +96,13 @@ class BaseElement:
                 if self.element_is_displayed():
                     break
             except StaleElementReferenceException:
-                sleep(5)
+                sleep(10)
             except TimeoutException:
                 sleep(1)
 
         return self.element_is_displayed()
 
-    def wait_for_element_with_attribute(self, attribute_name, attempts=5):
+    def wait_for_element_with_attribute(self, attribute_name, attempts=3):
         n = 0
         while n < attempts:
             n += 1
@@ -110,13 +110,13 @@ class BaseElement:
                 self.get_attribute(attribute_name)
                 break
             except StaleElementReferenceException:
-                sleep(5)
+                sleep(10)
             except TimeoutException:
                 sleep(1)
 
         return self.get_attribute(attribute_name)
 
-    def click_element_ignore_exceptions(self, attempts=5):
+    def click_element_ignore_exceptions(self, attempts=3):
         self.wait_for_element_is_clickable()
         n = 0
         while n < attempts:
@@ -125,14 +125,14 @@ class BaseElement:
                 self._click()
                 break
             except (StaleElementReferenceException, ElementClickInterceptedException):
-                sleep(5)
+                sleep(10)
             except TimeoutException:
                 sleep(1)
 
         if n == attempts:
             self._click()
 
-    def type_ignore_exceptions(self, input_text, attempts=5):
+    def type_ignore_exceptions(self, input_text, attempts=3):
         self.wait_for_element_displayed(attempts)
         n = 0
         while n < attempts:
@@ -141,7 +141,7 @@ class BaseElement:
                 self._type(input_text)
                 break
             except StaleElementReferenceException:
-                sleep(5)
+                sleep(10)
             except TimeoutException:
                 sleep(1)
 

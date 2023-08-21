@@ -44,6 +44,11 @@ class BehaviorsTab(EventReviewPage):
     # Driver Condition
 
     # Driver Conduct
+    def falling_asleep_checkbox(self):
+        return Button(self.driver, (By.XPATH, BTL.falling_asleep_checkbox_xpath))
+
+    def falling_asleep(self):
+        return Label(self.driver, (By.XPATH, BTL.falling_asleep_xpath))
 
     # Other Behaviors
 

@@ -10,7 +10,7 @@ from Pages.Arc.comments_tab import CommentsTab
 from Pages.Arc.login_page import LoginPage
 from Pages.WS.ws_login_page import WSLoginPage
 from Pages.WS.ws_task_page import WSTaskPage
-from Tests.common import ARC_URL, DC_URL, ENV
+from Tests.common import ARC_URL, DC_URL, ENV, AutomationDataManager
 from TestingData.Int.event_review_data_int import EventReviewDataInt as ERD_INT
 from TestingData.Stg.event_review_data_stg import EventReviewDataStg as ERD_STG
 from TestingData.Prod.event_review_data_prod import EventReviewDataProd as ERD_PROD
@@ -27,6 +27,7 @@ WS_TASK_PAGE = 0
 ERD = ''
 EVENT_REVIEW_ID = 0
 EVENT_ID = 0
+DATA_MGR = ''
 
 scenarios('../../Features/Smoke/arc_smoke.feature')
 
@@ -34,9 +35,10 @@ scenarios('../../Features/Smoke/arc_smoke.feature')
 # LQ-9709
 @given('the user is in the Login page of New ARC and a user has Reviewer role in some companies')
 def open_login_page(browser):
-    global LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, COMMENTS_TAB, \
+    global DATA_MGR, LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, COMMENTS_TAB, \
         WS_LOGIN_PAGE, WS_TASK_PAGE, ERD
 
+    DATA_MGR = AutomationDataManager()
     LOGIN_PAGE = LoginPage(browser)
     EVENT_LIST_PAGE = EventListPage(browser)
     EVENT_REVIEW_PAGE = EventReviewPage(browser)
@@ -196,21 +198,24 @@ def verify_returned_events_filtered():
 # LQ-11162
 @when('the user clicks one reviewID')
 def click_first_review_id_new_tab():
-    global EVENT_REVIEW_ID
+    global EVENT_REVIEW_ID, EVENT_ID
+    EVENT_REVIEW_ID = DATA_MGR.create_new_event()
 
     EVENT_LIST_PAGE.new_tab().click()
-
-    EVENT_REVIEW_ID = EVENT_LIST_PAGE.review_id_1st().get_text()
+    EVENT_LIST_PAGE.review_id_filter().clear()
+    EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID)
+    EVENT_LIST_PAGE.filter_button().click()
+    EVENT_ID = EVENT_LIST_PAGE.event_id_1st_only().get_text()
     EVENT_LIST_PAGE.review_id_1st().click()
 
 @then('the event review page is opened and the both front and rear camera views are shown and the video automatically plays')
 def verify_event_played_on_review_page():
-    EVENT_REVIEW_PAGE.review_id().wait_for_expected_number(EVENT_REVIEW_ID)
+    EVENT_REVIEW_PAGE.review_id().wait_for_expected_text(str(EVENT_REVIEW_ID))
 
     assert_that(EVENT_REVIEW_PAGE.back_to_home().get_text(), contains_string('arrow_back'))
     assert_that(EVENT_REVIEW_PAGE.back_to_home().get_text(), contains_string('Back to Home'))
     assert EVENT_REVIEW_PAGE.review_id_title().get_text() == 'Review ID:'
-    assert EVENT_REVIEW_PAGE.review_id().get_text() == EVENT_REVIEW_ID
+    assert EVENT_REVIEW_PAGE.review_id().get_text() == str(EVENT_REVIEW_ID)
     assert EVENT_REVIEW_PAGE.trigger_title().get_text() == 'Trigger:'
     assert EVENT_REVIEW_PAGE.record_date_title().get_text() == 'Record Date:'
     assert EVENT_REVIEW_PAGE.vehicle_id_title().get_text() == 'Vehicle ID:'
@@ -226,7 +231,7 @@ def verify_event_played_on_review_page():
     if EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'play_arrow':
         EVENT_REVIEW_PAGE.play_and_pause().click()
 
-    assert EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time) != event_play_time
+    assert EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time, 6) != event_play_time
 
 @given('the event’s outcome and event trigger are already selected and the user is under "Behaviors" tab')
 def select_outcome_trigger():
@@ -235,12 +240,10 @@ def select_outcome_trigger():
 
 @when('the user selects one or more behaviors under "Behaviors" tab')
 def select_behaviors():
-    BEHAVIORS_TAB.blank_stare_checkbox().click()
     BEHAVIORS_TAB.red_light_checkbox().click()
 
 @then('the behaviors are selected with blue check icon')
 def verify_behaviors_selected():
-    assert BEHAVIORS_TAB.is_checkbox_checked(BEHAVIORS_TAB.blank_stare_checkbox()) is True
     assert BEHAVIORS_TAB.is_checkbox_checked(BEHAVIORS_TAB.red_light_checkbox()) is True
 
 @when('the user clicks "Comments" button at bottom right')
@@ -258,9 +261,7 @@ def complete_review():
 
 @then('the event is disappeared from events list')
 def verify_event_is_reviewed():
-    COMMENTS_TAB.back_to_home().click()
-
-    assert EVENT_LIST_PAGE.review_id_1st().get_text() != EVENT_REVIEW_ID
+    assert EVENT_LIST_PAGE.search_range_and_results().get_text() == '0 results'
 
 @then('the event status is updated accordingly to F2F in WS and the corresponding task is generated correctly to Due for Coaching task in WS')
 def verify_event_status_and_task(browser):
@@ -285,8 +286,7 @@ def verify_event_score_and_behaviors():
     behavior_list = WS_TASK_PAGE.behaviors_list()
 
     assert ERD.f2f_behavior_1st in behavior_list
-    assert ERD.f2f_behavior_2nd in behavior_list
-    assert WS_TASK_PAGE.event_id().get_text() != EVENT_ID
+    assert WS_TASK_PAGE.event_id().get_text() == str(EVENT_ID)
     assert WS_TASK_PAGE.event_status().get_text() == 'Face-To-Face'
 
     WS_TASK_PAGE.play_event().click()

@@ -12,6 +12,7 @@ class EventReviewDataProd:
     # driver
     driver_employee_id = ''
     driver_name = ''
+    driver_id = ''
 
     # coach
     coach_user_name = ''
@@ -19,4 +20,7 @@ class EventReviewDataProd:
 
     # f2f coaching event behaviors
     f2f_behavior_1st = ''
-    f2f_behavior_2nd = ''
+
+    # create new event
+    ER = ''
+    actor_id = ''
