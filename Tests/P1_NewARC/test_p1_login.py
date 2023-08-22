@@ -65,7 +65,7 @@ def reviewer_sign_in():
 def reviewer_sign_in():
     assert LOGIN_PAGE.login().get_state() is True
     assert LOGIN_PAGE.user_name().get_attribute('value') == ERD.reviewer_user_name
-    assert LOGIN_PAGE.password_masked().wait_for_element_displayed() is True
+    assert LOGIN_PAGE.password().get_attribute('type') == 'password'
 
 
 @when('the user clears the characters in the username and password input box')
