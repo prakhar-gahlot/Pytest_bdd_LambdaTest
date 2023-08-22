@@ -1,3 +1,4 @@
+from Elements.label import Label
 from Pages.base_page import BasePage
 from Elements.button import Button
 from Elements.text_box import TextBox
@@ -11,6 +12,9 @@ class LoginPage(BasePage):
         self.driver = driver
 
     # login page elements
+    def login_page_title(self):
+        return Label(self.driver, (By.XPATH, LP.login_page_title_xpath))
+
     def user_name(self):
         return TextBox(self.driver, (By.XPATH, LP.user_name_xpath))
 
@@ -20,7 +24,13 @@ class LoginPage(BasePage):
     def login(self):
         return Button(self.driver, (By.XPATH, LP.login_xpath))
 
+    def login_error_text(self):
+        return Label(self.driver, (By.XPATH, LP.login_error_xpath))
+
     # select company page elements
+    def select_role(self):
+        return Label(self.driver, (By.ID, LP.select_role_id))
+
     def search_company(self):
         return TextBox(self.driver, (By.ID, LP.search_company_id))
 
