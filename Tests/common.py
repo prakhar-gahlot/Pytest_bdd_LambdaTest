@@ -25,7 +25,10 @@ else:
     DC_URL = os.getenv("DcUrl")
     ARC_URL = os.getenv("ArcURL")
     ENV = os.getenv('environmentName')
-    if ENV == 'stg':
+
+    if ENV == 'int':
+        ERD = ERD_INT
+    elif ENV == 'stg':
         ERD = ERD_STG
     else:
         ERD = ERD_PROD
