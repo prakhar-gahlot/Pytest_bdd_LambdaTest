@@ -137,39 +137,38 @@ def verify_selected_company():
     assert EVENT_LIST_PAGE.company_name().get_text() == ERD.company_name
     assert EVENT_LIST_PAGE.switch_company().get_text() == 'Switch Companies'
 
-# LQ-10595
-@when('the user input a valid New event Review ID and the user clicks "Filter" button')
+# LQ-10596
+@when('the user input a range of Review IDs and Clicks "Filter" button')
 def filter_in_new_tab():
     review_id_range = ERD.review_id_range_from + '-' + ERD.review_id_range_to
 
     EVENT_LIST_PAGE.review_id_filter().type(review_id_range)
     EVENT_LIST_PAGE.filter_button().click()
 
-@then('the related event is filtered out under the New tab and the event count of New tab is shown')
+@then('the filtered Result is displayed under new event list correctly by CreationDate ASC and searched new events are displayed on one page without pagination')
 def verify_new_events_filtered():
     EVENT_LIST_PAGE.search_range_and_results().wait_for_expected_text('-')
     new_tab_text = EVENT_LIST_PAGE.new_tab().get_text()
     event_count = int(new_tab_text.split('(')[1].split(')')[0])
-
     creation_date = datetime.strptime(EVENT_LIST_PAGE.creation_date_1st().get_text(), '%Y-%m-%d %I:%M %p')
 
-    assert event_count > 0
+    assert EVENT_LIST_PAGE.get_row_count() == event_count
     assert EVENT_LIST_PAGE.review_id_1st().get_text() >= ERD.review_id_range_from
     assert EVENT_LIST_PAGE.review_id_1st().get_text() <= ERD.review_id_range_to
-    assert len(EVENT_LIST_PAGE.event_id_1st().get_text()) >= 0
     assert creation_date < datetime.now()
-    assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) >= 0
-    assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) >= 0
 
-@then('the event list shows columns: "REVIEW ID","EVENT ID","CREATION DATE","VEHICLE NAME","ER SERIAL"')
-def verify_event_columns():
+@then('the value in each column for the new events are displayed correctly')
+def verify_new_tab_event_columns():
     assert EVENT_LIST_PAGE.review_id_title().get_text() == 'REVIEW ID'
     assert EVENT_LIST_PAGE.event_id_title().get_text() == 'EVENT ID'
     assert EVENT_LIST_PAGE.creation_date_title().get_text() == 'CREATION DATE'
     assert EVENT_LIST_PAGE.vehicle_name_title().get_text() == 'VEHICLE NAME'
     assert EVENT_LIST_PAGE.serial_num_title().get_text() == 'ER SERIAL #'
+    assert len(EVENT_LIST_PAGE.event_id_1st().get_text()) >= 0
+    assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) >= 0
+    assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) >= 0
 
-@when('the user input returned event review ID in the filter under the Returned tab and the user clicks "Filter" button')
+@when('the user input a range of Review IDs in the filter under the Returned tab and the user Clicks "Filter" button')
 def filter_in_returned_tab():
     review_id_range = ERD.review_id_range_from + '-' + ERD.review_id_range_to
 
@@ -177,21 +176,26 @@ def filter_in_returned_tab():
     EVENT_LIST_PAGE.review_id_filter().type(review_id_range)
     EVENT_LIST_PAGE.filter_button().click()
 
-@then('the related event is filtered under the Returned tab and the event count of returned tab is shown')
+@then('the filtered Result is displayed under returned event list correctly by CreationDate ASC and searched returned events are displayed on one page without pagination')
 def verify_returned_events_filtered():
-    global EVENT_ID
-
     EVENT_LIST_PAGE.search_range_and_results().wait_for_expected_text('-')
     returned_tab_text = EVENT_LIST_PAGE.return_tab().get_text()
     event_count = int(returned_tab_text.split('(')[1].split(')')[0])
-    EVENT_ID = EVENT_LIST_PAGE.event_id_1st().get_text()
     creation_date = datetime.strptime(EVENT_LIST_PAGE.creation_date_1st().get_text(), '%Y-%m-%d %I:%M %p')
 
-    assert event_count > 0
+    assert EVENT_LIST_PAGE.get_row_count() == event_count
     assert EVENT_LIST_PAGE.review_id_1st().get_text() >= ERD.review_id_range_from
     assert EVENT_LIST_PAGE.review_id_1st().get_text() <= ERD.review_id_range_to
-    assert len(EVENT_ID) > 0
     assert creation_date < datetime.now()
+
+@then('the value in each column for the returned events are displayed correctly')
+def verify_returned_tab_event_columns():
+    assert EVENT_LIST_PAGE.review_id_title().get_text() == 'REVIEW ID'
+    assert EVENT_LIST_PAGE.event_id_title().get_text() == 'EVENT ID'
+    assert EVENT_LIST_PAGE.creation_date_title().get_text() == 'CREATION DATE'
+    assert EVENT_LIST_PAGE.vehicle_name_title().get_text() == 'VEHICLE NAME'
+    assert EVENT_LIST_PAGE.serial_num_title().get_text() == 'ER SERIAL #'
+    assert len(EVENT_LIST_PAGE.event_id_1st().get_text()) >= 0
     assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) >= 0
     assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) >= 0
 

@@ -1,6 +1,10 @@
 import string
 import random
+from time import sleep
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class BasePage:
@@ -8,8 +12,19 @@ class BasePage:
         self.driver = driver
 
 
-    def get_row_count(self):
-        rows = self.driver.find_elements(By.TAG_NAME, "cdk-row")
+    def get_row_count(self, attempts=3):
+        i = 0
+        while i < attempts:
+            i += 1
+            try:
+                WebDriverWait(self.driver, 10).until(ec.presence_of_element_located((By.TAG_NAME, "mat-table")))
+                break
+            except (TimeoutException, NoSuchElementException):
+                sleep(1)
+
+        WebDriverWait(self.driver, 10).until(ec.presence_of_element_located((By.TAG_NAME, "mat-table")))
+        sleep(3)
+        rows = self.driver.find_elements(By.TAG_NAME, "mat-row")
         if rows is None:
             return 0
         return len(rows)
@@ -19,6 +34,3 @@ class BasePage:
         result_str = ''.join(random.choice(letters) for i in range(length))
         print("Random string of length", length, "is:", result_str)
         return result_str
-
-    # def get_element_list(self, locator):
-    #     return self.driver.find_elements(locator)

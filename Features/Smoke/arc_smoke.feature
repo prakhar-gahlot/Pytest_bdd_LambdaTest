@@ -18,16 +18,16 @@ Feature: Login
     When the user clicks "Switch Companies" button and the user selects one Company from dropdown list and clicks "Select" button
     Then the Company is switched successfully
 
-  @LQ-10595
-  Scenario: Search new event by single Review ID
-    When the user input a valid New event Review ID and the user clicks "Filter" button
-    Then the related event is filtered out under the New tab and the event count of New tab is shown
-    And the event list shows columns: "REVIEW ID","EVENT ID","CREATION DATE","VEHICLE NAME","ER SERIAL"
+  @LQ-10596
+  Scenario: User Search new event by a range of Review IDs
+    When the user input a range of Review IDs and Clicks "Filter" button
+    Then the filtered Result is displayed under new event list correctly by CreationDate ASC and searched new events are displayed on one page without pagination
+    And the value in each column for the new events are displayed correctly
 
-  Scenario: Search returned event by single Review ID
-    When the user input returned event review ID in the filter under the Returned tab and the user clicks "Filter" button
-    Then the related event is filtered under the Returned tab and the event count of returned tab is shown
-    And the event list shows columns: "REVIEW ID","EVENT ID","CREATION DATE","VEHICLE NAME","ER SERIAL"
+  Scenario: User search returned events by a range of Review IDs
+    When the user input a range of Review IDs in the filter under the Returned tab and the user Clicks "Filter" button
+    Then the filtered Result is displayed under returned event list correctly by CreationDate ASC and searched returned events are displayed on one page without pagination
+    And the value in each column for the returned events are displayed correctly
 
   @LQ-11162
   Scenario: System loads and automatically plays video clip of event upon the Reviewer landing on page

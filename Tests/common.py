@@ -1,6 +1,7 @@
 import json
 import os
 import platform
+from time import sleep
 import requests
 from TestingData.Int.event_review_data_int import EventReviewDataInt as ERD_INT
 from TestingData.Stg.event_review_data_stg import EventReviewDataStg as ERD_STG
@@ -57,6 +58,7 @@ class AutomationDataManager:
             print("Event creation failed: " + new_event_response.text)
 
         # update event driver
+        sleep(2)
         update_event_driver_payload = {"EventDriverId": ERD.driver_id,
                                        "DriverAssignmentTypeId": "1"}
         json_update_event_driver_payload = json.dumps(update_event_driver_payload)
@@ -69,6 +71,7 @@ class AutomationDataManager:
             print("Driver:" + ERD.driver_id + " is not assigned. Message:" + update_event_driver_response.text)
 
         # push to cloud
+        sleep(2)
         arc_create_payload = {"EventCustID": event_cust_id,
                               "actorId": ERD.actor_id}
         json_arc_create_payload = json.dumps(arc_create_payload)
