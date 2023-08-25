@@ -44,7 +44,8 @@ class AutomationDataManager:
 
     def create_new_event(self, trigger='', behaviors=[]):
         # create new event
-        new_event_payload = {"SerialNumber": ERD.ER}
+        new_event_payload = {"SerialNumber": ERD.ER,
+                             "BehaviorName": "cellphone"}
         json_new_event_payload = json.dumps(new_event_payload)
         new_event_response = requests.request("POST", EVENT_END_POINT, headers=self.headers,
                                               data=json_new_event_payload)

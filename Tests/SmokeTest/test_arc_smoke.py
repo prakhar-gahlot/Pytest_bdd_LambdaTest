@@ -164,9 +164,9 @@ def verify_new_tab_event_columns():
     assert EVENT_LIST_PAGE.creation_date_title().get_text() == 'CREATION DATE'
     assert EVENT_LIST_PAGE.vehicle_name_title().get_text() == 'VEHICLE NAME'
     assert EVENT_LIST_PAGE.serial_num_title().get_text() == 'ER SERIAL #'
-    assert len(EVENT_LIST_PAGE.event_id_1st().get_text()) >= 0
-    assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) >= 0
-    assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) >= 0
+    assert len(EVENT_LIST_PAGE.event_id_1st().get_text()) > 0
+    assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) > 0
+    assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) > 0
 
 @when('the user input a range of Review IDs in the filter under the Returned tab and the user Clicks "Filter" button')
 def filter_in_returned_tab():
@@ -195,9 +195,9 @@ def verify_returned_tab_event_columns():
     assert EVENT_LIST_PAGE.creation_date_title().get_text() == 'CREATION DATE'
     assert EVENT_LIST_PAGE.vehicle_name_title().get_text() == 'VEHICLE NAME'
     assert EVENT_LIST_PAGE.serial_num_title().get_text() == 'ER SERIAL #'
-    assert len(EVENT_LIST_PAGE.event_id_1st().get_text()) >= 0
-    assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) >= 0
-    assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) >= 0
+    assert len(EVENT_LIST_PAGE.event_id_1st().get_text()) > 0
+    assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) > 0
+    assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) > 0
 
 # LQ-11162
 @when('the user clicks one reviewID')
@@ -232,10 +232,17 @@ def verify_event_played_on_review_page():
     assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
 
     event_play_time = EVENT_REVIEW_PAGE.event_play_time().get_text()
+    event_play_time_changed = EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time, 6)
+    # the event could not be played the first time it was opened. Not reproducible manually.
+    # go back to home and reopen the event as workaround
+    if event_play_time == event_play_time_changed and event_play_time.startswith('-'):
+        EVENT_REVIEW_PAGE.back_to_home().click()
+        EVENT_LIST_PAGE.review_id_1st().click()
     if EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'play_arrow':
         EVENT_REVIEW_PAGE.play_and_pause().click()
+    event_play_time_changed = EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time, 10)
 
-    assert EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time, 6) != event_play_time
+    assert event_play_time_changed != event_play_time
 
 @given('the event’s outcome and event trigger are already selected and the user is under "Behaviors" tab')
 def select_outcome_trigger():

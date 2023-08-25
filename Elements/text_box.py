@@ -15,7 +15,6 @@ class TextBox(BaseElement):
     def type_and_auto_search(self, input_text):
         for i in input_text:
             self._type(i)
-            sleep(0.01)
 
     def clear(self):
         self._find().clear()

@@ -23,4 +23,5 @@ class EventReviewDataStg:
 
     # create new event
     ER = ''
+    vehicle = ''
     actor_id = ''

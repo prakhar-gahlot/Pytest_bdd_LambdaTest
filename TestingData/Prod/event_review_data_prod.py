@@ -23,4 +23,5 @@ class EventReviewDataProd:
 
     # create new event
     ER = ''
+    vehicle = ''
     actor_id = ''

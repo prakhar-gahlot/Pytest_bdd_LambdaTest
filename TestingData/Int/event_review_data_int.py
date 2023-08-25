@@ -23,4 +23,5 @@ class EventReviewDataInt:
 
     # create new event
     ER = 'QM40011227'
+    vehicle = 'Colin Otto'
     actor_id = '0000FFFF-0000-1B00-6CAA-ED46B0D60000'
