@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from hamcrest import assert_that, contains_string
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.event_list_page import EventListPage
@@ -54,7 +54,7 @@ def login_arc(browser):
 
 
 @when('the user input a valid New event Review ID and the user clicks "Filter" button')
-def filter_in_new_tab():
+def filter_event_in_new_tab():
     global EVENT_REVIEW_ID, EVENT_ID
     EVENT_REVIEW_ID = DATA_MGR.create_new_event()
 
@@ -63,7 +63,7 @@ def filter_in_new_tab():
     EVENT_LIST_PAGE.filter_button().click()
 
 @then('the related event is filtered out under the New tab and the event count of New tab is shown')
-def verify_new_events_filtered():
+def verify_new_event_filtered():
     EVENT_LIST_PAGE.search_range_and_results().wait_for_expected_text('1 result')
     creation_date = datetime.strptime(EVENT_LIST_PAGE.creation_date_1st().get_text(), '%Y-%m-%d %I:%M %p')
 
@@ -82,3 +82,41 @@ def verify_event_columns():
     assert EVENT_LIST_PAGE.creation_date_title().get_text() == 'CREATION DATE'
     assert EVENT_LIST_PAGE.vehicle_name_title().get_text() == 'VEHICLE NAME'
     assert EVENT_LIST_PAGE.serial_num_title().get_text() == 'ER SERIAL #'
+
+@when('the user filtered a range of Review IDs under New tab')
+def filter_events_in_new_tab():
+    EVENT_LIST_PAGE.review_id_filter().clear()
+
+    review_id_range = ERD.review_id_range_from + '-' + ERD.review_id_range_to
+    EVENT_LIST_PAGE.review_id_filter().type(review_id_range)
+    EVENT_LIST_PAGE.filter_button().click()
+
+@then('Review ID is displayed and the events in the range are displayed and Event ID is displayed as CustomerString ID')
+def verify_new_events_filtered():
+    EVENT_LIST_PAGE.search_range_and_results().wait_for_expected_text('-')
+    new_tab_text = EVENT_LIST_PAGE.new_tab().get_text()
+    event_count = int(new_tab_text.split('(')[1].split(')')[0])
+    event_cust_id = EVENT_LIST_PAGE.event_id_1st().get_text()
+    event_cust_id_prefix = event_cust_id[3]
+    event_cust_id_suffix = event_cust_id[-5]
+
+    assert EVENT_LIST_PAGE.get_row_count() == event_count
+    assert event_count > 0
+    assert EVENT_LIST_PAGE.review_id_1st().get_text() >= ERD.review_id_range_from
+    assert EVENT_LIST_PAGE.review_id_1st().get_text() <= ERD.review_id_range_to
+    assert len(event_cust_id) == 9
+    assert event_cust_id_suffix.isdigit() is True
+    for i in event_cust_id_prefix:
+        assert i.isalpha() is True
+
+@then('Creation Date is event creation date based on local time zone and displayed as format YYYY-MM-DD hh:mm AM/PM')
+def verify_new_events_creation_date():
+    creation_date = datetime.strptime(EVENT_LIST_PAGE.creation_date_1st().get_text(), '%Y-%m-%d %I:%M %p')
+
+    assert creation_date < datetime.now()
+    assert creation_date > datetime.strptime('2020-01-01 1:01 AM', '%Y-%m-%d %I:%M %p')
+
+@then('Vehicle Name is displayed correctly and ER Serial is displayed correctly')
+def verify_new_events_vehicle_ER():
+    assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) > 0
+    assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) > 0
