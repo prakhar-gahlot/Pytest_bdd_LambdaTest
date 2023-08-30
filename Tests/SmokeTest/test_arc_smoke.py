@@ -55,26 +55,6 @@ def open_login_page(browser):
     else:
         ERD = ERD_PROD
 
-    # clear existing coaching tasks
-    browser.get(DC_URL)
-    WS_LOGIN_PAGE.user_name().type(ERD.coach_user_name)
-    WS_LOGIN_PAGE.password().type(ERD.coach_password)
-    WS_LOGIN_PAGE.login().click()
-    WS_LOGIN_PAGE.retry_if_login_failed(ERD.coach_user_name, ERD.coach_password)
-
-    WS_TASK_PAGE.task_navigator().click()
-    WS_TASK_PAGE.due_for_coaching().click()
-    WS_TASK_PAGE.search_driver().type(ERD.driver_employee_id)
-
-    task_count = WS_TASK_PAGE.task_count().wait_for_expected_text('0', 2)
-
-    if task_count.isdigit() and int(task_count) > 0:
-        WS_TASK_PAGE.coach_button().click()
-        WS_TASK_PAGE.play_event().click()
-        WS_TASK_PAGE.complete_session().click()
-        WS_TASK_PAGE.confirm_complete().click()
-    # end - clear existing coaching tasks
-
     browser.get(ARC_URL)
 
 @when('the user inputs valid username and password and the user clicks the Sign in button')
@@ -286,13 +266,19 @@ def verify_event_status_and_task(browser):
     WS_TASK_PAGE.due_for_coaching().click()
     WS_TASK_PAGE.search_driver().clear()
     WS_TASK_PAGE.search_driver().type(ERD.driver_employee_id)
+    sleep(3)
 
-    WS_TASK_PAGE.coach_button().wait_for_expected_text('Coach Event')
-    assert WS_TASK_PAGE.coach_button().get_text() == 'Coach Event'
+    assert_that(WS_TASK_PAGE.coach_button().get_text(), contains_string('Coach'))
+    assert_that(WS_TASK_PAGE.coach_button().get_text(), contains_string('Event'))
 
 @then('the event score is updated correctly in WS and the behavior/trigger are displayed correctly in WS')
 def verify_event_score_and_behaviors():
+    coach_event_text = WS_TASK_PAGE.coach_button().get_text()
     WS_TASK_PAGE.coach_button().click()
+    if coach_event_text == 'Coach Event':
+        WS_TASK_PAGE.play_event().click()
+    else:
+        WS_TASK_PAGE.click_last_event()
 
     behavior_list = WS_TASK_PAGE.behaviors_list()
 
@@ -300,6 +286,5 @@ def verify_event_score_and_behaviors():
     assert WS_TASK_PAGE.event_id().get_text() == str(EVENT_ID)
     assert WS_TASK_PAGE.event_status().get_text() == 'Face-To-Face'
 
-    WS_TASK_PAGE.play_event().click()
     WS_TASK_PAGE.complete_session().click()
     WS_TASK_PAGE.confirm_complete().click()

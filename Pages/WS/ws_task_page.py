@@ -5,6 +5,8 @@ from Elements.button import Button
 from Elements.text_box import TextBox
 from Pages.WS.ws_task_page_locator import WSTaskPageLocator as TP
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.wait import WebDriverWait
 
 
 class WSTaskPage(BasePage):
@@ -68,3 +70,9 @@ class WSTaskPage(BasePage):
             behavior_list.append(element.text)
 
         return behavior_list
+
+    def click_last_event(self):
+        WebDriverWait(self.driver, 30).until(ec.presence_of_element_located((By.CLASS_NAME, "event-carousel__carousel__event")))
+        last_event = self.driver.find_elements(By.CLASS_NAME, "event-carousel__carousel__event")[-1]
+
+        last_event.click()
