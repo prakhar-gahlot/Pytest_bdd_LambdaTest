@@ -36,3 +36,16 @@ Feature: Login
   Scenario: User could login if the valid username and password is filled in
     When the user inputs valid username and password and the user clicks the Sign in button
     Then the user login successfully, the role and company selection page is opened
+
+  @LQ-9705
+  Scenario: The role and company selection page of New ARC is displayed correctly
+    When the user inputs valid username and password of a Reviewer and the user clicks the Sign in button
+    Then the role and company selection page is opened and the Role selection box is displayed with "Reviewer" as default and the Company selection box is displayed with watermark "Select Company" and the Select button is disabled as default
+
+  Scenario: The selection in the role dropdown list is displayed correctly
+    When the user opens the role dropdown list
+    Then the role selection field automatically shows Reviewer role as the selected role and the "Reviewer" role is displayed in the dropdown list
+
+  Scenario: The selection in the company dropdown list is displayed correctly
+    When the user opens the company dropdown list
+    Then the Company A, Company B, Company C are displayed in the dropdown list sorted alphabetically

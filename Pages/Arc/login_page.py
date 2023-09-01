@@ -27,15 +27,27 @@ class LoginPage(BasePage):
     def login_error_text(self):
         return Label(self.driver, (By.XPATH, LP.login_error_xpath))
 
+    def role_list_first(self):
+        return Button(self.driver, (By.XPATH, LP.role_list_first_xpath))
+
     # select company page elements
     def select_role(self):
-        return Label(self.driver, (By.ID, LP.select_role_id))
+        return Button(self.driver, (By.ID, LP.select_role_id))
 
     def search_company(self):
         return TextBox(self.driver, (By.ID, LP.search_company_id))
 
     def first_company(self):
         return Button(self.driver, (By.ID, LP.first_company_id))
+
+    def second_company(self):
+        return Button(self.driver, (By.ID, LP.second_company_id))
+
+    def third_company(self):
+        return Button(self.driver, (By.ID, LP.third_company_id))
+
+    def fourth_company(self):
+        return Button(self.driver, (By.ID, LP.fourth_company_id))
 
     def select_company(self):
         return Button(self.driver, (By.XPATH, LP.select_company_xpath))

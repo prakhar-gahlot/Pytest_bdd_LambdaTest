@@ -16,6 +16,9 @@ class TextBox(BaseElement):
         for i in input_text:
             self._type(i)
 
+    def click(self, attempts=3):
+        self.click_element_ignore_exceptions(attempts)
+
     def clear(self):
         self._find().clear()
 

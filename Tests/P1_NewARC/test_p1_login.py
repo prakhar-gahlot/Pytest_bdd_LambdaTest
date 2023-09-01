@@ -1,3 +1,4 @@
+from time import sleep
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.login_page import LoginPage
 from Tests.common import ARC_URL, ENV
@@ -128,5 +129,48 @@ def reviewer_sign_in():
 
 @then('the user login successfully, the role and company selection page is opened')
 def select_role_company_page():
+    assert LOGIN_PAGE.login_page_title().get_text() == 'Lytx ReviewCenter'
+    assert LOGIN_PAGE.search_company().element_is_displayed() is True
+
+
+# LQ-9705
+@when('the user inputs valid username and password of a Reviewer and the user clicks the Sign in button')
+def reviewer_sign_in():
+    # nothing to do there since user already logs in
+    sleep(1)
+
+
+@then('the role and company selection page is opened and the Role selection box is displayed with "Reviewer" as default '
+      'and the Company selection box is displayed with watermark "Select Company" and the Select button is disabled as default')
+def select_role_company_page():
     assert LOGIN_PAGE.select_role().get_text() == 'Reviewer'
     assert LOGIN_PAGE.search_company().get_attribute('placeholder') == 'Select Company'
+    assert LOGIN_PAGE.select_company().get_state() is False
+
+
+@when('the user opens the role dropdown list')
+def open_role_dropdown_list():
+    LOGIN_PAGE.select_role().click()
+
+
+@then('the role selection field automatically shows Reviewer role as the selected role and the "Reviewer" role is displayed in the dropdown list')
+def verify_role_dropdown_list():
+    assert LOGIN_PAGE.role_list_first().get_text() == 'Reviewer'
+
+
+@when('the user opens the company dropdown list')
+def open_company_dropdown_list():
+    LOGIN_PAGE.role_list_first().click()
+    LOGIN_PAGE.search_company().click()
+
+
+@then('the Company A, Company B, Company C are displayed in the dropdown list sorted alphabetically')
+def verify_company_dropdown_list():
+    assert LOGIN_PAGE.first_company().element_is_displayed() is True
+    assert LOGIN_PAGE.second_company().element_is_displayed() is True
+    assert LOGIN_PAGE.third_company().element_is_displayed() is True
+    assert LOGIN_PAGE.fourth_company().element_is_displayed() is True
+    assert len(LOGIN_PAGE.first_company().get_text()) > 0
+    assert len(LOGIN_PAGE.second_company().get_text())  > 0
+    assert len(LOGIN_PAGE.third_company().get_text())  > 0
+    assert len(LOGIN_PAGE.fourth_company().get_text())  > 0
