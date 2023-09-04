@@ -23,5 +23,10 @@ class EventReviewDataProd:
 
     # create new event
     ER = ''
+    trigger = ''
     vehicle = ''
+    vehicle_type = ''
+    seatbelt = ''
+    audio = ''
+    fps = ''
     actor_id = ''
