@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta
+from time import sleep
+
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.event_list_page import EventListPage
 from Pages.Arc.event_review_page import EventReviewPage
@@ -70,6 +72,7 @@ def verify_review_id_and_trigger_and_record_date():
     assert record_date_time < datetime.now()
     assert record_date_time > datetime.now() + timedelta(days=-1)
 
+
 @then('Vehicle ID is displayed as vehicle name and Vehicle type is displayed correctly and Seatbelt is displayed correctly and Audio is displayed correctly and FPS is displayed correctly')
 def verify_sign_in_button():
     assert EVENT_REVIEW_PAGE.vehicle_id().get_text() == ERD.vehicle
@@ -77,3 +80,26 @@ def verify_sign_in_button():
     assert EVENT_REVIEW_PAGE.seatbelt().get_text() == ERD.seatbelt
     assert EVENT_REVIEW_PAGE.audio().get_text() == ERD.audio
     assert EVENT_REVIEW_PAGE.FPS().get_text() == ERD.fps
+
+#LQ-15626
+@when('"Reviewer" opens an event')
+def open_an_event():
+    sleep(1) # nothing to do there since the event is already opened
+
+@then('the video automatically plays with both front and rear camera views and the Rear+Front is selected as default')
+def verify_event_play():
+    assert EVENT_REVIEW_PAGE.rear_view_text().get_text() == 'REAR VIEW'
+    assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
+    assert EVENT_REVIEW_PAGE.is_button_active(EVENT_REVIEW_PAGE.rear_and_front()) is True
+    assert EVENT_REVIEW_PAGE.is_button_active(EVENT_REVIEW_PAGE.rear()) is False
+    assert EVENT_REVIEW_PAGE.is_button_active(EVENT_REVIEW_PAGE.front()) is False
+
+@then('the video controller bar is displayed with backward button, play button, forward button, backward -1 button, forward +1 button, Rear+Front button, Rear button, Front button, Full Screen button, Stopwatch button')
+def verify_video_controls():
+    assert EVENT_REVIEW_PAGE.back().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.play_and_pause().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.froward().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.back_1().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.froward_1().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.full_screen().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.stop_watch().element_is_displayed() is True
