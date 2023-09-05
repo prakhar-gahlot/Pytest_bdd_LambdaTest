@@ -1,4 +1,4 @@
-Feature: Login
+Feature: Video Player
 
   @LQ-11160
   Scenario: P1_Video Player Tests

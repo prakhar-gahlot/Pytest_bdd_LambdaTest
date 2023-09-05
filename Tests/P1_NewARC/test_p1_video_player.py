@@ -1,10 +1,8 @@
 from datetime import datetime, timedelta
 from pytest_bdd import scenarios, given, when, then
-from Pages.Arc.behaviors_tab import BehaviorsTab
 from Pages.Arc.event_list_page import EventListPage
 from Pages.Arc.event_review_page import EventReviewPage
 from Pages.Arc.login_page import LoginPage
-from Pages.Arc.outcome_trigger_tab import OutcomeTriggerTab
 from Tests.common import ARC_URL, ENV, AutomationDataManager
 from TestingData.Int.event_review_data_int import EventReviewDataInt as ERD_INT
 from TestingData.Stg.event_review_data_stg import EventReviewDataStg as ERD_STG
@@ -13,8 +11,6 @@ from TestingData.Prod.event_review_data_prod import EventReviewDataProd as ERD_P
 LOGIN_PAGE = 0
 EVENT_LIST_PAGE = 0
 EVENT_REVIEW_PAGE = 0
-OUTCOME_TRIGGER_TAB = 0
-BEHAVIORS_TAB = 0
 ERD = ''
 EVENT_REVIEW_ID = 0
 DATA_MGR = ''
@@ -25,14 +21,12 @@ scenarios('../../Features/P1_NewARC/p1_video_player.feature')
 # LQ-11160
 @given('"Reviewer" logs in ARC')
 def logs_in_arc(browser):
-    global LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, ERD, DATA_MGR
+    global LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, ERD, DATA_MGR
 
     DATA_MGR = AutomationDataManager()
     LOGIN_PAGE = LoginPage(browser)
     EVENT_LIST_PAGE = EventListPage(browser)
     EVENT_REVIEW_PAGE = EventReviewPage(browser)
-    OUTCOME_TRIGGER_TAB = OutcomeTriggerTab(browser)
-    BEHAVIORS_TAB = BehaviorsTab(browser)
 
     browser.get(ARC_URL)
 
