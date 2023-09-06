@@ -72,9 +72,8 @@ def verify_review_id_and_trigger_and_record_date():
     assert record_date_time < datetime.now()
     assert record_date_time > datetime.now() + timedelta(days=-1)
 
-
 @then('Vehicle ID is displayed as vehicle name and Vehicle type is displayed correctly and Seatbelt is displayed correctly and Audio is displayed correctly and FPS is displayed correctly')
-def verify_sign_in_button():
+def verify_vehicle_info_audio_fps():
     assert EVENT_REVIEW_PAGE.vehicle_id().get_text() == ERD.vehicle
     assert EVENT_REVIEW_PAGE.vehicle_type().get_text() == ERD.vehicle_type
     assert EVENT_REVIEW_PAGE.seatbelt().get_text() == ERD.seatbelt
