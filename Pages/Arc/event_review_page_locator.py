@@ -1,5 +1,10 @@
 class EventReviewPageLocator:
 
+    # top bar
+    top_bar_title_class_name = 'top-bar-title'
+    top_bar_review_text_class_name = 'top-bar-reviewer'
+    top_bar_switch_company_class_name = 'top-bar-switch-companies'
+
     # top info
     back_to_home_xpath = '/html/body/app-root/top-bar/app-review/div/div[1]/video-player-top-bar' \
                          '/mat-toolbar/mat-toolbar-row/div[1]'

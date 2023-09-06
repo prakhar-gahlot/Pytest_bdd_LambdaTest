@@ -12,6 +12,16 @@ class EventReviewPage(BasePage):
         super().__init__(driver)
         self.driver = driver
 
+    # top bar
+    def top_bar_title(self):
+        return Label(self.driver, (By.CLASS_NAME, ERP.top_bar_title_class_name))
+
+    def top_bar_review_text(self):
+        return Label(self.driver, (By.CLASS_NAME, ERP.top_bar_review_text_class_name))
+
+    def top_bar_switch_company(self):
+        return Label(self.driver, (By.CLASS_NAME, ERP.top_bar_switch_company_class_name))
+
     # top info
     def back_to_home(self):
         return Button(self.driver, (By.XPATH, ERP.back_to_home_xpath))

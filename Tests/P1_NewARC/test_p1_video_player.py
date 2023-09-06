@@ -106,4 +106,13 @@ def verify_video_controls():
 
 @then('the review page is start at Outcome & Event Trigger tab')
 def verify_review_page_start_at_new_tab():
-    assert EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab()) is True
+    assert EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True) is True
+
+#LQ-11159
+# When step is the same with previous test case LQ-15626
+
+@then('user still sees these info at top of event video: "Lytx ReviewCenter", "Reviewing for: Company A", "Switch Companies" buttons')
+def verify_titles():
+    assert EVENT_REVIEW_PAGE.top_bar_title().get_text() == 'Lytx ReviewCenter'
+    assert EVENT_REVIEW_PAGE.top_bar_review_text().get_text() == 'Reviewing for: ' + ERD.company_name
+    assert EVENT_REVIEW_PAGE.top_bar_switch_company().get_text() == 'Switch Companies'
