@@ -23,5 +23,10 @@ class EventReviewDataInt:
 
     # create new event
     ER = 'QM40011227'
+    trigger = 'Handheld Device'
     vehicle = 'Colin Otto'
+    vehicle_type = 'Unassigned'
+    seatbelt = 'Shoulder Harness'
+    audio = 'No'
+    fps = '10'
     actor_id = '0000FFFF-0000-1B00-6CAA-ED46B0D60000'
