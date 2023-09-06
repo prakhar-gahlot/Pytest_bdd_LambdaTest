@@ -13,3 +13,7 @@ Feature: Video Player
     When "Reviewer" opens an event
     Then the video automatically plays with both front and rear camera views and the Rear+Front is selected as default
     And the video controller bar is displayed with backward button, play button, forward button, backward -1 button, forward +1 button, Rear+Front button, Rear button, Front button, Full Screen button, Stopwatch button
+
+  Scenario: the event review page is started at right tab
+    When "Reviewer" opens an event
+    Then the review page is start at Outcome & Event Trigger tab
