@@ -106,4 +106,4 @@ def verify_video_controls():
 
 @then('the review page is start at Outcome & Event Trigger tab')
 def verify_review_page_start_at_new_tab():
-    assert EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab()) is True
+    assert EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True) is True
