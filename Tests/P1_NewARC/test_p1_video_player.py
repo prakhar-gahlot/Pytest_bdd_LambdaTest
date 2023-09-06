@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 from time import sleep
-
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.event_list_page import EventListPage
 from Pages.Arc.event_review_page import EventReviewPage
