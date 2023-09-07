@@ -83,6 +83,33 @@ class EventReviewPage(BasePage):
     def play_and_pause(self):
         return Button(self.driver, (By.XPATH, ERP.play_and_pause_xpath))
 
+    def rear_and_front(self):
+        return Button(self.driver, (By.CLASS_NAME, ERP.rear_and_front_class_name))
+
+    def rear(self):
+        return Button(self.driver, (By.CLASS_NAME, ERP.rear_class_name))
+
+    def front(self):
+        return Button(self.driver, (By.CLASS_NAME, ERP.front_class_name))
+
+    def backward(self):
+        return Button(self.driver, (By.XPATH, ERP.backward_xpath))
+
+    def forward(self):
+        return Button(self.driver, (By.XPATH, ERP.forward_xpath))
+
+    def backward_1(self):
+        return Button(self.driver, (By.XPATH, ERP.backward_1_xpath))
+
+    def forward_1(self):
+        return Button(self.driver, (By.XPATH, ERP.forward_1_xpath))
+
+    def full_screen(self):
+        return Button(self.driver, (By.CLASS_NAME, ERP.full_screen_class_name))
+
+    def stop_watch(self):
+        return Button(self.driver, (By.CLASS_NAME, ERP.stop_watch_class_name))
+
     # event review tabs
     def outcome_trigger_tab(self):
         return Button(self.driver, (By.XPATH, ERP.outcome_trigger_tab_xpath))
@@ -106,5 +133,10 @@ class EventReviewPage(BasePage):
 
     def is_checkbox_checked(self, tab):
         if 'mat-checkbox-checked' in tab.get_attribute('class'):
+            return True
+        return False
+
+    def is_button_active(self, btn):
+        if 'active' in btn.get_attribute('class'):
             return True
         return False
