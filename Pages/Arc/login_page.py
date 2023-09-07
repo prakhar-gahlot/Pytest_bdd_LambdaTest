@@ -32,22 +32,22 @@ class LoginPage(BasePage):
 
     # select company page elements
     def select_role(self):
-        return Button(self.driver, (By.ID, LP.select_role_id))
+        return Button(self.driver, (By.XPATH, LP.select_role_xpath))
 
     def search_company(self):
-        return TextBox(self.driver, (By.ID, LP.search_company_id))
+        return TextBox(self.driver, (By.XPATH, LP.search_company_xpath))
 
     def first_company(self):
-        return Button(self.driver, (By.ID, LP.first_company_id))
+        return Button(self.driver, (By.XPATH, LP.first_company_xpath))
 
     def second_company(self):
-        return Button(self.driver, (By.ID, LP.second_company_id))
+        return Button(self.driver, (By.XPATH, LP.second_company_xpath))
 
     def third_company(self):
-        return Button(self.driver, (By.ID, LP.third_company_id))
+        return Button(self.driver, (By.XPATH, LP.third_company_xpath))
 
     def fourth_company(self):
-        return Button(self.driver, (By.ID, LP.fourth_company_id))
+        return Button(self.driver, (By.XPATH, LP.fourth_company_xpath))
 
     def select_company(self):
         return Button(self.driver, (By.XPATH, LP.select_company_xpath))
