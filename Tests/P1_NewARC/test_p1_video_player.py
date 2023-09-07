@@ -94,10 +94,10 @@ def verify_event_play():
 
 @then('the video controller bar is displayed with backward button, play button, forward button, backward -1 button, forward +1 button, Rear+Front button, Rear button, Front button, Full Screen button, Stopwatch button')
 def verify_video_controls():
-    assert EVENT_REVIEW_PAGE.back().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.backward().element_is_displayed() is True
     assert EVENT_REVIEW_PAGE.play_and_pause().element_is_displayed() is True
-    assert EVENT_REVIEW_PAGE.froward().element_is_displayed() is True
-    assert EVENT_REVIEW_PAGE.back_1().element_is_displayed() is True
-    assert EVENT_REVIEW_PAGE.froward_1().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.forward().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.backward_1().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.forward_1().element_is_displayed() is True
     assert EVENT_REVIEW_PAGE.full_screen().element_is_displayed() is True
     assert EVENT_REVIEW_PAGE.stop_watch().element_is_displayed() is True

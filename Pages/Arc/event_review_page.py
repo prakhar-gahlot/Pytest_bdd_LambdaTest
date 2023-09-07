@@ -92,17 +92,17 @@ class EventReviewPage(BasePage):
     def front(self):
         return Button(self.driver, (By.CLASS_NAME, ERP.front_class_name))
 
-    def back(self):
-        return Button(self.driver, (By.XPATH, ERP.back_xpath))
+    def backward(self):
+        return Button(self.driver, (By.XPATH, ERP.backward_xpath))
 
-    def froward(self):
-        return Button(self.driver, (By.XPATH, ERP.froward_xpath))
+    def forward(self):
+        return Button(self.driver, (By.XPATH, ERP.forward_xpath))
 
-    def back_1(self):
-        return Button(self.driver, (By.XPATH, ERP.back_1_xpath))
+    def backward_1(self):
+        return Button(self.driver, (By.XPATH, ERP.backward_1_xpath))
 
-    def froward_1(self):
-        return Button(self.driver, (By.XPATH, ERP.froward_1_xpath))
+    def forward_1(self):
+        return Button(self.driver, (By.XPATH, ERP.forward_1_xpath))
 
     def full_screen(self):
         return Button(self.driver, (By.CLASS_NAME, ERP.full_screen_class_name))
