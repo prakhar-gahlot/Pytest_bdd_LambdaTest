@@ -59,10 +59,10 @@ class EventReviewPageLocator:
     front_class_name = 'front-btn'
     full_screen_class_name = 'expand-btn'
     stop_watch_class_name = 'stopwatch-button'
-    back_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[1]'
-    froward_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[3]'
-    back_1_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[4]'
-    froward_1_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[5]'
+    backward_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[1]'
+    forward_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[3]'
+    backward_1_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[4]'
+    forward_1_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[5]'
 
     # event review tabs
     outcome_trigger_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \
