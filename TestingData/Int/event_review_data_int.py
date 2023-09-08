@@ -30,3 +30,16 @@ class EventReviewDataInt:
     audio = 'No'
     fps = '10'
     actor_id = '0000FFFF-0000-1B00-6CAA-ED46B0D60000'
+
+    # event play data
+    num_of_back_steps_1 = 3
+    fwd_of_back_steps_1 = '-0.03'
+    lat_of_back_steps_1 = '+0.04'
+    time_of_back_steps_1 = '-0.30'
+    speed_of_back_steps_1 = '+ 9.9 MPH'
+
+    num_of_back_steps_2 = 5
+    fwd_of_back_steps_2 = '-0.07'
+    lat_of_back_steps_2 = '+0.04'
+    time_of_back_steps_2 = '-0.80'
+    speed_of_back_steps_2 = '+ 10.4 MPH'

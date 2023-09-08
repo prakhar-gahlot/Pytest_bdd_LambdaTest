@@ -94,11 +94,11 @@ def verify_event_play():
 
 @then('the video controller bar is displayed with backward button, play button, forward button, backward -1 button, forward +1 button, Rear+Front button, Rear button, Front button, Full Screen button, Stopwatch button')
 def verify_video_controls():
-    assert EVENT_REVIEW_PAGE.back().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.backward().element_is_displayed() is True
     assert EVENT_REVIEW_PAGE.play_and_pause().element_is_displayed() is True
-    assert EVENT_REVIEW_PAGE.froward().element_is_displayed() is True
-    assert EVENT_REVIEW_PAGE.back_1().element_is_displayed() is True
-    assert EVENT_REVIEW_PAGE.froward_1().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.forward().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.backward_1().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.forward_1().element_is_displayed() is True
     assert EVENT_REVIEW_PAGE.full_screen().element_is_displayed() is True
     assert EVENT_REVIEW_PAGE.stop_watch().element_is_displayed() is True
 
@@ -116,3 +116,46 @@ def verify_titles():
     assert EVENT_REVIEW_PAGE.top_bar_title().get_text() == 'Lytx ReviewCenter'
     assert EVENT_REVIEW_PAGE.top_bar_review_text().get_text() == 'Reviewing for: ' + ERD.company_name
     assert EVENT_REVIEW_PAGE.top_bar_switch_company().get_text() == 'Switch Companies'
+
+#LQ-11698
+@when('"Reviewer" opens an event by clicking one review ID')
+def open_an_event_by_clicking_review_id():
+    EVENT_REVIEW_PAGE.back_to_home().click()
+    EVENT_LIST_PAGE.review_id_1st().click()
+
+@then('both front and rear camera views are shown and the video automatically plays')
+def verify_video_and_autoplay():
+    assert EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'pause'
+    assert EVENT_REVIEW_PAGE.play_and_pause().get_text('play_arrow', 5) == 'play_arrow'
+    assert EVENT_REVIEW_PAGE.rear_view_text().get_text() == 'REAR VIEW'
+    assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
+
+@then('the video height is set to 352 and the video width is set to 1280')
+def verify_video_size():
+    assert EVENT_REVIEW_PAGE.video().size() == {'height': 352, 'width': 1280}
+
+@then('the following event information is displayed for the corresponding time that is shown on the video: FWD, LAT, TIME, GPS SPEED and the scrubber on the force graph moves along the timeline in sync with the video as it’s playing and the video time is displayed next to the scrubber correctly')
+def verify_fwd_lat_time_speed():
+    assert EVENT_REVIEW_PAGE.scrubber().element_is_displayed() is True
+
+    i = 0
+    while i < ERD.num_of_back_steps_1:
+        i += 1
+        EVENT_REVIEW_PAGE.backward_1().click()
+
+    assert EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.time().get_text() == ERD.time_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_1
+
+    i = 0
+    while i < ERD.num_of_back_steps_2:
+        i += 1
+        EVENT_REVIEW_PAGE.backward_1().click()
+
+    assert EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.time().get_text() == ERD.time_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_2

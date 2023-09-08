@@ -1,7 +1,7 @@
 from time import sleep
 from Pages.base_page import BasePage
 from Elements.button import Button
-from Elements.text_box import TextBox
+from Elements.base_element import BaseElement
 from Elements.label import Label
 from Pages.Arc.event_review_page_locator import EventReviewPageLocator as ERP
 from selenium.webdriver.common.by import By
@@ -21,6 +21,10 @@ class EventReviewPage(BasePage):
 
     def top_bar_switch_company(self):
         return Label(self.driver, (By.CLASS_NAME, ERP.top_bar_switch_company_class_name))
+
+    # video
+    def video(self):
+        return BaseElement(self.driver, (By.TAG_NAME, ERP.video_tag_name))
 
     # top info
     def back_to_home(self):
@@ -119,6 +123,25 @@ class EventReviewPage(BasePage):
 
     def stop_watch(self):
         return Button(self.driver, (By.CLASS_NAME, ERP.stop_watch_class_name))
+
+    # telemetry bar
+    def scrubber(self):
+        return BaseElement(self.driver, (By.ID, ERP.scrubber_id))
+
+    def current_time(self):
+        return Label(self.driver, (By.ID, ERP.current_time_id))
+
+    def fwd(self):
+        return Label(self.driver, (By.ID, ERP.fwd_id))
+
+    def lat(self):
+        return Label(self.driver, (By.ID, ERP.lat_id))
+
+    def time(self):
+        return Label(self.driver, (By.ID, ERP.time_id))
+
+    def gps_speed(self):
+        return Label(self.driver, (By.ID, ERP.gps_speed_id))
 
     # event review tabs
     def outcome_trigger_tab(self):

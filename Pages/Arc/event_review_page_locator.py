@@ -5,6 +5,9 @@ class EventReviewPageLocator:
     top_bar_review_text_class_name = 'top-bar-reviewer'
     top_bar_switch_company_class_name = 'top-bar-switch-companies'
 
+    # video
+    video_tag_name = 'video'
+
     # top info
     back_to_home_xpath = '/html/body/app-root/top-bar/app-review/div/div[1]/video-player-top-bar' \
                          '/mat-toolbar/mat-toolbar-row/div[1]'
@@ -63,6 +66,14 @@ class EventReviewPageLocator:
     forward_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[3]'
     backward_1_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[4]'
     forward_1_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[5]'
+
+    # telemetry bar
+    scrubber_id = 'scrubber'
+    current_time_id = 'currentTime'
+    fwd_id = 'fwd-value'
+    lat_id = 'lat-value'
+    time_id = 'time-value'
+    gps_speed_id = 'gps-speed-value'
 
     # event review tabs
     outcome_trigger_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \

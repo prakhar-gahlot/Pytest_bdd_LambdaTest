@@ -22,3 +22,10 @@ Feature: Video Player
   Scenario: User still see company info after opening one event video
     When "Reviewer" opens an event
     Then user still sees these info at top of event video: "Lytx ReviewCenter", "Reviewing for: Company A", "Switch Companies" buttons
+
+  @LQ-11698
+  Scenario: System loads and automatically plays video clip of event upon the Reviewer landing on page
+    When "Reviewer" opens an event by clicking one review ID
+    Then both front and rear camera views are shown and the video automatically plays
+    And the video height is set to 352 and the video width is set to 1280
+    And the following event information is displayed for the corresponding time that is shown on the video: FWD, LAT, TIME, GPS SPEED and the scrubber on the force graph moves along the timeline in sync with the video as it’s playing and the video time is displayed next to the scrubber correctly
