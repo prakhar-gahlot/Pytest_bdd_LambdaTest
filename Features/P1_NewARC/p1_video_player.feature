@@ -17,3 +17,8 @@ Feature: Video Player
   Scenario: the event review page is started at right tab
     When "Reviewer" opens an event
     Then the review page is start at Outcome & Event Trigger tab
+
+  @LQ-11159
+  Scenario: User still see company info after opening one event video
+    When "Reviewer" opens an event
+    Then user still sees these info at top of event video: "Lytx ReviewCenter", "Reviewing for: Company A", "Switch Companies" buttons
