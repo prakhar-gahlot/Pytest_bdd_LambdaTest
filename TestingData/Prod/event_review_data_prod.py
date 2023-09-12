@@ -30,3 +30,16 @@ class EventReviewDataProd:
     audio = ''
     fps = ''
     actor_id = ''
+
+    # event play data
+    num_of_back_steps_1 = 0
+    fwd_of_back_steps_1 = ''
+    lat_of_back_steps_1 = ''
+    time_of_back_steps_1 = ''
+    speed_of_back_steps_1 = ''
+
+    num_of_back_steps_2 = 0
+    fwd_of_back_steps_2 = ''
+    lat_of_back_steps_2 = ''
+    time_of_back_steps_2 = ''
+    speed_of_back_steps_2 = ''
