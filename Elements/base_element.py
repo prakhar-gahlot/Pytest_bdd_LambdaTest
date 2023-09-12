@@ -13,6 +13,9 @@ class BaseElement:
     def _find(self):
         return WebDriverWait(self.driver, 10).until(ec.presence_of_element_located(self.locator))
 
+    def size(self):
+        return self._find().size
+
     def _click(self):
         self._find().click()
 
