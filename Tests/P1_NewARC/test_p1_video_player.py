@@ -159,3 +159,31 @@ def verify_fwd_lat_time_speed():
     assert EVENT_REVIEW_PAGE.time().get_text() == ERD.time_of_back_steps_2
     assert EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_of_back_steps_2
     assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_2
+
+# LQ-12479
+@when('the user enters the event review page')
+def enter_event_review_page():
+    EVENT_REVIEW_PAGE.forward().click()
+
+@then('the X-axis represents time on the force graph and the Y-axis represents force on the force graph')
+def verify_x_axis_y_axis():
+    assert EVENT_REVIEW_PAGE.telemetry_graph().element_is_displayed() is True
+
+@then('the force graph could display correctly for the event same as FWD/LAT/TIME data')
+def verify_fwd_lat_time_on_force_graph():
+    i = 0
+    while i < ERD.num_of_back_steps_1:
+        i += 1
+        EVENT_REVIEW_PAGE.backward_1().click()
+
+    EVENT_REVIEW_PAGE.backward_1().move_to_element(0, -30)
+
+    assert EVENT_REVIEW_PAGE.fwd_force_graph().get_text() == ERD.fwd_value_by_click
+    assert EVENT_REVIEW_PAGE.lat_force_graph().get_text() == ERD.lat_value_by_click
+    assert EVENT_REVIEW_PAGE.time_force_graph().get_text() == ERD.time_value_by_click
+    assert EVENT_REVIEW_PAGE.gps_speed_force_graph().get_text() == ERD.speed_value_by_click
+
+@then('there is a scrubber shows on the force graph with the video time displayed')
+def verify_scrubber():
+    assert EVENT_REVIEW_PAGE.scrubber().element_is_displayed() is True
+    assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_1

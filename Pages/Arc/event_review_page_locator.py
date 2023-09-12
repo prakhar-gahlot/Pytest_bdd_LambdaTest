@@ -68,12 +68,17 @@ class EventReviewPageLocator:
     forward_1_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[5]'
 
     # telemetry bar
+    telemetry_graph_tab_name = 'canvas'
     scrubber_id = 'scrubber'
     current_time_id = 'currentTime'
     fwd_id = 'fwd-value'
     lat_id = 'lat-value'
     time_id = 'time-value'
     gps_speed_id = 'gps-speed-value'
+    fwd_force_graph_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[3]/div[3]/ul/li[1]'
+    lat_force_graph_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[3]/div[3]/ul/li[2]'
+    gps_speed_force_graph_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[3]/div[3]/ul/li[3]'
+    time_force_graph_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[3]/div[3]/ul/li[4]'
 
     # event review tabs
     outcome_trigger_tab_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar' \

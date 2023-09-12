@@ -3,6 +3,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
     ElementClickInterceptedException
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BaseElement:
@@ -24,6 +25,10 @@ class BaseElement:
 
     def _get_text(self):
         return self._find().text
+
+    def move_to_element(self, x=0, y=0):
+        ActionChains(self.driver).move_to_element_with_offset(self._find(), x, y).perform()
+        sleep(1)
 
     def get_attribute(self, attribute):
         web_element = self._find()
