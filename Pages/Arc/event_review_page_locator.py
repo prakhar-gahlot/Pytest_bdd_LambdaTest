@@ -68,7 +68,7 @@ class EventReviewPageLocator:
     forward_1_xpath = '/html/body/app-root/top-bar/app-review/div/div[2]/video-player/div[4]/div[2]/button[5]'
 
     # telemetry bar
-    telemetry_graph_tab_name = 'canvas'
+    telemetry_graph_tag_name = 'canvas'
     scrubber_id = 'scrubber'
     current_time_id = 'currentTime'
     fwd_id = 'fwd-value'

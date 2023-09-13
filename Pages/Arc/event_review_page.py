@@ -126,13 +126,13 @@ class EventReviewPage(BasePage):
 
     # telemetry bar
     def telemetry_graph(self):
-        return BaseElement(self.driver, (By.TAG_NAME, ERP.telemetry_graph_tab_name))
+        return BaseElement(self.driver, (By.TAG_NAME, ERP.telemetry_graph_tag_name))
 
     def scrubber(self):
         return BaseElement(self.driver, (By.ID, ERP.scrubber_id))
 
     def current_time(self):
-        return Button(self.driver, (By.ID, ERP.current_time_id))
+        return Label(self.driver, (By.ID, ERP.current_time_id))
 
     def fwd(self):
         return Label(self.driver, (By.ID, ERP.fwd_id))
