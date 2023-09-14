@@ -43,3 +43,8 @@ class EventReviewDataInt:
     lat_of_back_steps_2 = '+0.04'
     time_of_back_steps_2 = '-0.80'
     speed_of_back_steps_2 = '+ 10.4 MPH'
+
+    fwd_value_by_click = 'FWD: -0.12'
+    lat_value_by_click = 'LAT: +0.05'
+    time_value_by_click = 'TIME: -4.80'
+    speed_value_by_click = 'GPS SPEED: + 16.4 MPH'

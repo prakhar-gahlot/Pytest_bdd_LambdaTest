@@ -125,6 +125,9 @@ class EventReviewPage(BasePage):
         return Button(self.driver, (By.CLASS_NAME, ERP.stop_watch_class_name))
 
     # telemetry bar
+    def telemetry_graph(self):
+        return BaseElement(self.driver, (By.TAG_NAME, ERP.telemetry_graph_tag_name))
+
     def scrubber(self):
         return BaseElement(self.driver, (By.ID, ERP.scrubber_id))
 
@@ -142,6 +145,19 @@ class EventReviewPage(BasePage):
 
     def gps_speed(self):
         return Label(self.driver, (By.ID, ERP.gps_speed_id))
+
+    def fwd_force_graph(self):
+        return Label(self.driver, (By.XPATH, ERP.fwd_force_graph_xpath))
+
+    def lat_force_graph(self):
+        return Label(self.driver, (By.XPATH, ERP.lat_force_graph_xpath))
+
+    def gps_speed_force_graph(self):
+        return Label(self.driver, (By.XPATH, ERP.gps_speed_force_graph_xpath))
+
+    def time_force_graph(self):
+        return Label(self.driver, (By.XPATH, ERP.time_force_graph_xpath))
+
 
     # event review tabs
     def outcome_trigger_tab(self):

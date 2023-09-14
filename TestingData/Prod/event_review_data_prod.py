@@ -43,3 +43,8 @@ class EventReviewDataProd:
     lat_of_back_steps_2 = ''
     time_of_back_steps_2 = ''
     speed_of_back_steps_2 = ''
+
+    fwd_value_by_click = ''
+    lat_value_by_click = ''
+    time_value_by_click = ''
+    speed_value_by_click = ''

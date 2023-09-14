@@ -29,3 +29,10 @@ Feature: Video Player
     Then both front and rear camera views are shown and the video automatically plays
     And the video height is set to 352 and the video width is set to 1280
     And the following event information is displayed for the corresponding time that is shown on the video: FWD, LAT, TIME, GPS SPEED and the scrubber on the force graph moves along the timeline in sync with the video as it’s playing and the video time is displayed next to the scrubber correctly
+
+  @LQ-12479
+  Scenario: The force graph could be displayed correctly
+    When the user enters the event review page
+    Then the X-axis represents time on the force graph and the Y-axis represents force on the force graph
+    And the force graph could display correctly for the event same as FWD/LAT/TIME data
+    And there is a scrubber shows on the force graph with the video time displayed
