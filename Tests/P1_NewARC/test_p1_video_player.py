@@ -143,22 +143,22 @@ def verify_fwd_lat_time_speed():
         i += 1
         EVENT_REVIEW_PAGE.backward_1().click()
 
-    # assert EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_of_back_steps_1
-    # assert EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_of_back_steps_1
-    # assert EVENT_REVIEW_PAGE.time().get_text() == ERD.time_of_back_steps_1
-    # assert EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_of_back_steps_1
-    # assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.time().get_text() == ERD.time_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_1
 
     i = 0
     while i < ERD.num_of_back_steps_2:
         i += 1
         EVENT_REVIEW_PAGE.backward_1().click()
 
-    # assert EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_of_back_steps_2
-    # assert EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_of_back_steps_2
-    # assert EVENT_REVIEW_PAGE.time().get_text() == ERD.time_of_back_steps_2
-    # assert EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_of_back_steps_2
-    # assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.time().get_text() == ERD.time_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_2
 
 # LQ-12479
 @when('the user enters the event review page')
@@ -178,10 +178,10 @@ def verify_fwd_lat_time_on_force_graph():
 
     EVENT_REVIEW_PAGE.backward_1().move_to_element(0, -30)
 
-    # assert EVENT_REVIEW_PAGE.fwd_force_graph().get_text() == ERD.fwd_value_by_click
-    # assert EVENT_REVIEW_PAGE.lat_force_graph().get_text() == ERD.lat_value_by_click
-    # assert EVENT_REVIEW_PAGE.time_force_graph().get_text() == ERD.time_value_by_click
-    # assert EVENT_REVIEW_PAGE.gps_speed_force_graph().get_text() == ERD.speed_value_by_click
+    assert EVENT_REVIEW_PAGE.fwd_force_graph().get_text() == ERD.fwd_value_by_click
+    assert EVENT_REVIEW_PAGE.lat_force_graph().get_text() == ERD.lat_value_by_click
+    assert EVENT_REVIEW_PAGE.time_force_graph().get_text() == ERD.time_value_by_click
+    assert EVENT_REVIEW_PAGE.gps_speed_force_graph().get_text() == ERD.speed_value_by_click
 
 @then('there is a scrubber shows on the force graph with the video time displayed')
 def verify_scrubber():
