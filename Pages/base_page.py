@@ -34,3 +34,7 @@ class BasePage:
         result_str = ''.join(random.choice(letters) for i in range(length))
         print("Random string of length", length, "is:", result_str)
         return result_str
+
+    def refresh_page(self):
+        self.driver.refresh()
+        sleep(5)

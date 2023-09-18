@@ -36,3 +36,20 @@ Feature: Video Player
     Then the X-axis represents time on the force graph and the Y-axis represents force on the force graph
     And the force graph could display correctly for the event same as FWD/LAT/TIME data
     And there is a scrubber shows on the force graph with the video time displayed
+
+  @LQ-11700
+  Scenario: User can operate to change the view to Rear view in full-screen mode
+    When the user click full-screen button and the user clicks Rear
+    Then the video shows the Rear view only in full-screen mode
+
+  Scenario: User can operate to change the view to Front view in full-screen mode
+    When the user click full-screen button and the user clicks Front
+    Then the video shows the Front view only in full-screen mode
+
+  Scenario: User can exit full-screen mode
+    When the user click full-screen button and the user clicks Front and the user clicks Full Screen
+    Then the video shows the Front view and exits full-screen mode
+
+  Scenario: User can operate to change the view to Rear+Front view in full-screen mode
+    When the user click full-screen button and the user clicks Rear+Front
+    Then the video shows the Rear+Front view and exits full-screen mode
