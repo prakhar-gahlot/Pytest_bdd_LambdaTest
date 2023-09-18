@@ -53,3 +53,19 @@ Feature: Video Player
   Scenario: User can operate to change the view to Rear+Front view in full-screen mode
     When the user click full-screen button and the user clicks Rear+Front
     Then the video shows the Rear+Front view and exits full-screen mode
+
+  Scenario: User can operate to change the view to Rear view in default mode
+    When the user clicks Rear in default mode
+    Then the video enter full screen mode and shows the Rear view
+
+  Scenario: User can operate to change the view to Front view in default mode
+    When the user clicks Front in default mode
+    Then the video enter full screen mode and shows the Front view
+
+  Scenario: User can operate to change the view to Rear+Front view in default mode
+    When the user clicks Rear+Front in default mode
+    Then the video shows the Rear+Front view in default mode
+
+  Scenario: User can operate to change to full-screen mode and change to Front view
+    When the user clicks full-screen button in default mode
+    Then the video shows the Front view in full-screen mode

@@ -217,7 +217,7 @@ def enter_and_exit_full_screen_mode():
     EVENT_REVIEW_PAGE.full_screen().click()
 
 @then('the video shows the Front view and exits full-screen mode')
-def verify_front_view_default_mode():
+def verify_front_view_exit_full_screen_mode():
     assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
     assert EVENT_REVIEW_PAGE.rear_view_text().get_attribute('class') == 'no-rear-label'
     assert EVENT_REVIEW_PAGE.video().get_attribute('class') == 'front'
@@ -228,7 +228,51 @@ def enter_full_screen_mode_rear_front():
     EVENT_REVIEW_PAGE.rear_and_front().click()
 
 @then('the video shows the Rear+Front view and exits full-screen mode')
+def verify_rear_front_view_exist_full_screen_mode():
+    assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
+    assert EVENT_REVIEW_PAGE.rear_view_text().get_text() == 'REAR VIEW'
+    assert EVENT_REVIEW_PAGE.video().get_attribute('class') == 'default'
+
+@when('the user clicks Rear in default mode')
+def enter_default_mode_rear_view():
+    EVENT_REVIEW_PAGE.back_to_home().click()
+    EVENT_LIST_PAGE.review_id_1st().click()
+    EVENT_REVIEW_PAGE.rear().click()
+
+@then('the video enter full screen mode and shows the Rear view')
+def verify_full_screen_mode_with_rear_view():
+    assert EVENT_REVIEW_PAGE.rear_view_text().get_text() == 'REAR VIEW'
+    assert EVENT_REVIEW_PAGE.front_view_text().get_attribute('class') == 'no-front-label'
+    assert EVENT_REVIEW_PAGE.video().get_attribute('class') == 'rear-full-screen'
+
+@when('the user clicks Front in default mode')
+def enter_default_mode_front_view():
+    EVENT_REVIEW_PAGE.full_screen().click() # click full screen to exist full screen mode
+    EVENT_REVIEW_PAGE.front().click()
+
+@then('the video enter full screen mode and shows the Front view')
+def verify_full_screen_mode_with_front_view():
+    assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
+    assert EVENT_REVIEW_PAGE.rear_view_text().get_attribute('class') == 'no-rear-label'
+    assert EVENT_REVIEW_PAGE.video().get_attribute('class') == 'front-full-screen'
+
+@when('the user clicks Rear+Front in default mode')
+def enter_default_mode_rear_front_view():
+    EVENT_REVIEW_PAGE.full_screen().click() # click full screen to exist full screen mode
+    EVENT_REVIEW_PAGE.rear_and_front().click()
+
+@then('the video shows the Rear+Front view in default mode')
 def verify_rear_front_view_default_mode():
     assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
     assert EVENT_REVIEW_PAGE.rear_view_text().get_text() == 'REAR VIEW'
     assert EVENT_REVIEW_PAGE.video().get_attribute('class') == 'default'
+
+@when('the user clicks full-screen button in default mode')
+def enter_full_screen_mode():
+    EVENT_REVIEW_PAGE.full_screen().click()
+
+@then('the video shows the Front view in full-screen mode')
+def verify_enter_full_screen_mode():
+    assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
+    assert EVENT_REVIEW_PAGE.rear_view_text().get_attribute('class') == 'no-rear-label'
+    assert EVENT_REVIEW_PAGE.video().get_attribute('class') == 'front-full-screen'
