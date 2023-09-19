@@ -32,6 +32,9 @@ class EventReviewDataInt:
     actor_id = '0000FFFF-0000-1B00-6CAA-ED46B0D60000'
 
     # event play data
+    start_time = '-10.00'
+    end_time = '+0.00'
+
     num_of_back_steps_1 = 3
     fwd_of_back_steps_1 = '-0.03'
     lat_of_back_steps_1 = '+0.04'

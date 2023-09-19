@@ -32,6 +32,9 @@ class EventReviewDataStg:
     actor_id = ''
 
     # event play data
+    start_time = ''
+    end_time = ''
+
     num_of_back_steps_1 = 0
     fwd_of_back_steps_1 = ''
     lat_of_back_steps_1 = ''
