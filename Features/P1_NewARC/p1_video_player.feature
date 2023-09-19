@@ -70,13 +70,13 @@ Feature: Video Player
     When the user clicks full-screen button in default mode
     Then the video shows the Front view in full-screen mode
 
-  Scenario: User can click play button to play the video
-    When the user clicks play button
-    Then the event video plays with correct timeline
-
   Scenario: User can click pause button to pause the video
     When the user clicks pause button
     Then the event video is paused
+
+  Scenario: User can click play button to play the video
+    When the user clicks play button
+    Then the event video plays with correct timeline
 
   Scenario: User can click backward button to go to the beginning of the video
     When the user clicks backward button

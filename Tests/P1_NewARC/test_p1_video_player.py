@@ -295,10 +295,11 @@ def play_event():
 @then('the event video plays with correct timeline')
 def verify_event_play():
     event_play_time = EVENT_REVIEW_PAGE.event_play_time().get_text()
-    event_play_time_changed = EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time, 6)
 
     assert EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'pause'
-    assert event_play_time_changed != event_play_time
+
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time, 60, 1)
+    assert EVENT_REVIEW_PAGE.event_play_time().get_text() != event_play_time
 
 @when('the user clicks backward button')
 def backward_event():

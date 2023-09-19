@@ -64,16 +64,16 @@ class BaseElement:
 
         return self._get_text()
 
-    def wait_for_expected_text_change(self, expected_text, attempts=3):
+    def wait_for_expected_text_change(self, expected_text, attempts=3, wait_time=10):
         n = 0
         while n < attempts:
             n += 1
             try:
                 if expected_text != self._get_text():
                     break
-                sleep(10)
+                sleep(wait_time)
             except StaleElementReferenceException:
-                sleep(10)
+                sleep(wait_time)
             except TimeoutException:
                 sleep(1)
 
