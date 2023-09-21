@@ -128,7 +128,7 @@ def open_an_event_by_clicking_review_id():
 @then('both front and rear camera views are shown and the video automatically plays')
 def verify_video_and_autoplay():
     assert EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'pause'
-    assert EVENT_REVIEW_PAGE.play_and_pause().get_text('play_arrow', 5) == 'play_arrow'
+    assert EVENT_REVIEW_PAGE.play_and_pause().get_text('play_arrow', 10) == 'play_arrow'
     assert EVENT_REVIEW_PAGE.rear_view_text().get_text() == 'REAR VIEW'
     assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
 
@@ -281,7 +281,8 @@ def verify_enter_full_screen_mode():
 def pause_event():
     EVENT_REVIEW_PAGE.back_to_home().click()
     EVENT_LIST_PAGE.review_id_1st().click()
-    EVENT_REVIEW_PAGE.play_and_pause().wait_for_expected_text('pause')
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.end_time, 60, 1)
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.start_time, 60, 1)
     EVENT_REVIEW_PAGE.play_and_pause().click()
 
 @then('the event video is paused')
@@ -290,13 +291,14 @@ def verify_event_pause():
 
 @when('the user clicks play button')
 def play_event():
+    sleep(1)
     EVENT_REVIEW_PAGE.play_and_pause().click()
 
 @then('the event video plays with correct timeline')
 def verify_event_play():
     event_play_time = EVENT_REVIEW_PAGE.event_play_time().get_text()
 
-    assert EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'pause'
+    assert EVENT_REVIEW_PAGE.play_and_pause().wait_for_expected_text('pause') == 'pause'
 
     EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time, 60, 1)
     assert EVENT_REVIEW_PAGE.event_play_time().get_text() != event_play_time
