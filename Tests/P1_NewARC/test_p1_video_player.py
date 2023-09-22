@@ -122,6 +122,7 @@ def verify_titles():
 def open_an_event_by_clicking_review_id():
     if EVENT_REVIEW_PAGE.back_to_home().wait_for_element_is_clickable() is False:
         EVENT_REVIEW_PAGE.refresh_page()
+        EVENT_REVIEW_PAGE.back_to_home().wait_for_element_is_clickable()
     EVENT_REVIEW_PAGE.back_to_home().click()
     EVENT_LIST_PAGE.review_id_1st().click()
 
