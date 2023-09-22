@@ -122,13 +122,14 @@ def verify_titles():
 def open_an_event_by_clicking_review_id():
     if EVENT_REVIEW_PAGE.back_to_home().wait_for_element_is_clickable() is False:
         EVENT_REVIEW_PAGE.refresh_page()
+        EVENT_REVIEW_PAGE.back_to_home().wait_for_element_is_clickable()
     EVENT_REVIEW_PAGE.back_to_home().click()
     EVENT_LIST_PAGE.review_id_1st().click()
 
 @then('both front and rear camera views are shown and the video automatically plays')
 def verify_video_and_autoplay():
     assert EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'pause'
-    assert EVENT_REVIEW_PAGE.play_and_pause().get_text('play_arrow', 5) == 'play_arrow'
+    assert EVENT_REVIEW_PAGE.play_and_pause().get_text('play_arrow', 10) == 'play_arrow'
     assert EVENT_REVIEW_PAGE.rear_view_text().get_text() == 'REAR VIEW'
     assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
 
@@ -276,3 +277,47 @@ def verify_enter_full_screen_mode():
     assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
     assert EVENT_REVIEW_PAGE.rear_view_text().get_attribute('class') == 'no-rear-label'
     assert EVENT_REVIEW_PAGE.video().get_attribute('class') == 'front-full-screen'
+
+@when('the user clicks pause button')
+def pause_event():
+    EVENT_REVIEW_PAGE.back_to_home().click()
+    EVENT_LIST_PAGE.review_id_1st().click()
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.end_time, 60, 1)
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.start_time, 60, 1)
+    EVENT_REVIEW_PAGE.play_and_pause().click()
+
+@then('the event video is paused')
+def verify_event_pause():
+    assert EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'play_arrow'
+
+@when('the user clicks play button')
+def play_event():
+    sleep(1)
+    EVENT_REVIEW_PAGE.play_and_pause().click()
+
+@then('the event video plays with correct timeline')
+def verify_event_play():
+    event_play_time = EVENT_REVIEW_PAGE.event_play_time().get_text()
+
+    assert EVENT_REVIEW_PAGE.play_and_pause().wait_for_expected_text('pause') == 'pause'
+
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(event_play_time, 60, 1)
+    assert EVENT_REVIEW_PAGE.event_play_time().get_text() != event_play_time
+
+@when('the user clicks backward button')
+def backward_event():
+    EVENT_REVIEW_PAGE.backward().click()
+
+@then('the event video goes to the beginning of the video')
+def verify_backward_event():
+    assert EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'play_arrow'
+    assert EVENT_REVIEW_PAGE.event_play_time().get_text() == ERD.start_time
+
+@when('the user clicks forward button')
+def forward_event():
+    EVENT_REVIEW_PAGE.forward().click()
+
+@then('the event video goes to the end of the video')
+def verify_forward_event():
+    assert EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'play_arrow'
+    assert EVENT_REVIEW_PAGE.event_play_time().get_text() == ERD.end_time

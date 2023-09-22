@@ -69,3 +69,19 @@ Feature: Video Player
   Scenario: User can operate to change to full-screen mode and change to Front view
     When the user clicks full-screen button in default mode
     Then the video shows the Front view in full-screen mode
+
+  Scenario: User can click pause button to pause the video
+    When the user clicks pause button
+    Then the event video is paused
+
+  Scenario: User can click play button to play the video
+    When the user clicks play button
+    Then the event video plays with correct timeline
+
+  Scenario: User can click backward button to go to the beginning of the video
+    When the user clicks backward button
+    Then the event video goes to the beginning of the video
+
+  Scenario: User can click forward button to go to the end of the video
+    When the user clicks forward button
+    Then the event video goes to the end of the video
