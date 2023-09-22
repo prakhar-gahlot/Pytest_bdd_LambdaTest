@@ -30,6 +30,10 @@ class BaseElement:
         ActionChains(self.driver).move_to_element_with_offset(self._find(), x, y).perform()
         sleep(1)
 
+    def move_to_element_and_click(self, x=0, y=0):
+        ActionChains(self.driver).move_to_element_with_offset(self._find(), x, y).click().perform()
+        sleep(1)
+
     def get_attribute(self, attribute):
         web_element = self._find()
         return web_element.get_attribute(attribute)
