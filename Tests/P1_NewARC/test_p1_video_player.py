@@ -129,7 +129,7 @@ def open_an_event_by_clicking_review_id():
 @then('both front and rear camera views are shown and the video automatically plays')
 def verify_video_and_autoplay():
     assert EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'pause'
-    assert EVENT_REVIEW_PAGE.play_and_pause().get_text('play_arrow', 10) == 'play_arrow'
+    assert EVENT_REVIEW_PAGE.play_and_pause().get_text('play_arrow', 5) == 'play_arrow'
     assert EVENT_REVIEW_PAGE.rear_view_text().get_text() == 'REAR VIEW'
     assert EVENT_REVIEW_PAGE.front_view_text().get_text() == 'FRONT VIEW'
 
