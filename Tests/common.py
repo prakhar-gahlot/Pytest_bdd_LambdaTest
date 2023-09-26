@@ -42,8 +42,8 @@ class AutomationDataManager:
     def __init__(self):
         self.headers = {'Content-Type': 'application/json'}
 
-    def create_new_event(self, trigger='', behaviors=[]):
-        # create new event
+    def create_new_event(self, video='cellphone', trigger='', behaviors=[]):
+        # event video is chosen by behavior name
         new_event_payload = {"SerialNumber": ERD.ER,
                              "BehaviorName": "cellphone"}
         json_new_event_payload = json.dumps(new_event_payload)
