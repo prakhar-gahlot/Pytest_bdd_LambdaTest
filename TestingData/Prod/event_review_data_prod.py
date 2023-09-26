@@ -51,3 +51,8 @@ class EventReviewDataProd:
     lat_value_by_click = ''
     time_value_by_click = ''
     speed_value_by_click = ''
+
+    fwd_value_by_drag = ''
+    lat_value_by_drag = ''
+    time_value_by_drag = ''
+    speed_value_by_drag = ''

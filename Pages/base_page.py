@@ -1,7 +1,6 @@
 import string
 import random
 from time import sleep
-
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
