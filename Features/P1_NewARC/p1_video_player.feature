@@ -85,3 +85,19 @@ Feature: Video Player
   Scenario: User can click forward button to go to the end of the video
     When the user clicks forward button
     Then the event video goes to the end of the video
+
+  Scenario: User can jump to the time point by clicking on force graph
+    When the user clicks on force graph
+    Then the event video jumps to the time point user clicked
+
+  Scenario: User can jump to the time point by dragging on force graph
+    When the user drags on force graph
+    Then the event video jumps to the time point user drags
+
+  Scenario: User can jump to the time point by clicking backward -1
+    When the user clicks backward -1 button
+    Then the event video jumps backward 1 step
+
+  Scenario: User can jump to the time point by clicking forward +1
+    When the user clicks forward +1 button
+    Then the event video jumps forward 1 step

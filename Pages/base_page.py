@@ -1,6 +1,7 @@
 import string
 import random
 from time import sleep
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.by import By
@@ -38,3 +39,7 @@ class BasePage:
     def refresh_page(self):
         self.driver.refresh()
         sleep(5)
+
+    def drag_and_drop(self, x=0, y=0):
+        ActionChains(self.driver).click_and_hold().move_by_offset(x, y).release().perform()
+        sleep(1)

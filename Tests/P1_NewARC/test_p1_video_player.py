@@ -321,3 +321,59 @@ def forward_event():
 def verify_forward_event():
     assert EVENT_REVIEW_PAGE.play_and_pause().get_text() == 'play_arrow'
     assert EVENT_REVIEW_PAGE.event_play_time().get_text() == ERD.end_time
+
+@when('the user clicks on force graph')
+def click_on_force_graph():
+    EVENT_REVIEW_PAGE.backward_1().move_to_element_and_click(0, -30)
+
+@then('the event video jumps to the time point user clicked')
+def verify_clicking_on_force_graph():
+    assert 'FWD: ' + EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_value_by_click
+    assert 'LAT: ' + EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_value_by_click
+    assert 'TIME: ' + EVENT_REVIEW_PAGE.time().get_text() == ERD.time_value_by_click
+    assert 'GPS SPEED: ' + EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_value_by_click
+    assert 'TIME: ' + EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_value_by_click
+
+@when('the user drags on force graph')
+def drag_on_force_graph():
+    EVENT_REVIEW_PAGE.drag_and_drop(50, 0)
+
+@then('the event video jumps to the time point user drags')
+def verify_dragging_on_force_graph():
+    assert 'FWD: ' + EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_value_by_drag
+    assert 'LAT: ' + EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_value_by_drag
+    assert 'TIME: ' + EVENT_REVIEW_PAGE.time().get_text() == ERD.time_value_by_drag
+    assert 'GPS SPEED: ' + EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_value_by_drag
+    assert 'TIME: ' + EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_value_by_drag
+
+@when('the user clicks backward -1 button')
+def backward_1_step():
+    EVENT_REVIEW_PAGE.forward().click()
+
+    i = 0
+    while i < ERD.num_of_back_steps_2 + ERD.num_of_back_steps_1:
+        i += 1
+        EVENT_REVIEW_PAGE.backward_1().click()
+
+@then('the event video jumps backward 1 step')
+def verify_backward_1_step():
+    assert EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.time().get_text() == ERD.time_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_of_back_steps_2
+    assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_2
+
+@when('the user clicks forward +1 button')
+def forward_1_step():
+    i = 0
+    while i < ERD.num_of_back_steps_2:
+        i += 1
+        EVENT_REVIEW_PAGE.forward_1().click()
+
+@then('the event video jumps forward 1 step')
+def verify_forward_1_step():
+    assert EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.time().get_text() == ERD.time_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_of_back_steps_1
+    assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_1
