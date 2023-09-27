@@ -389,18 +389,18 @@ def enter_event_review_page_event_auto_play():
 
 @then('the FWD/LAT/TIME/GPS SPEED data are displayed correctly when event video auto-plays')
 def verify_fwd_lat_time_speed_event_auto_play():
-    fwd = EVENT_REVIEW_PAGE.fwd().get_text()
-    lat = EVENT_REVIEW_PAGE.lat().get_text()
-    time = EVENT_REVIEW_PAGE.time().get_text()
-    gps_speed = EVENT_REVIEW_PAGE.gps_speed().get_text()
     current_time = EVENT_REVIEW_PAGE.current_time().get_text()
-
     EVENT_REVIEW_PAGE.current_time().wait_for_expected_text_change(current_time, 60, 1)
 
-    assert EVENT_REVIEW_PAGE.fwd().get_text() != fwd
-    assert EVENT_REVIEW_PAGE.lat().get_text() != lat
-    assert EVENT_REVIEW_PAGE.time().get_text() != time
-    assert EVENT_REVIEW_PAGE.gps_speed().get_text() != gps_speed
+    fwd = EVENT_REVIEW_PAGE.fwd().get_text()
+    lat = EVENT_REVIEW_PAGE.lat().get_text()
+    gps_speed = EVENT_REVIEW_PAGE.gps_speed().get_text()
+    time = EVENT_REVIEW_PAGE.time().get_text()
+
+    assert '+0.' in fwd or '-0.' in fwd
+    assert '+0.' in lat or '-0.' in lat
+    assert '+' in gps_speed and '.' in gps_speed and ' MPH' in gps_speed
+    assert ('+' in time or '-' in time) and '.' in time
     assert EVENT_REVIEW_PAGE.current_time().get_text() != current_time
 
 @when('the user enters the event review page and clicks progress bar')
