@@ -56,3 +56,11 @@ class EventReviewDataInt:
     lat_value_by_drag = 'LAT: +0.04'
     time_value_by_drag = 'TIME: -4.50'
     speed_value_by_drag = 'GPS SPEED: + 15.2 MPH'
+
+    # event play data for 2nd event
+    behavior_2nd = 'smoking'
+
+    fwd_value_by_click_2nd = 'FWD: -0.04'
+    lat_value_by_click_2nd = 'LAT: -0.04'
+    time_value_by_click_2nd = 'TIME: -1.80'
+    speed_value_by_click_2nd = 'GPS SPEED: + 21.1 MPH'

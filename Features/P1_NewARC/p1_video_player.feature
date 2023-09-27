@@ -114,3 +114,7 @@ Feature: Video Player
   Scenario: The FWD/LAT/TIME/GPS SPEED data displayed correctly while dragging progress bar
     When the user enters the event review page and drags progress bar
     Then the FWD/LAT/TIME/GPS SPEED data are displayed correctly when user dragging progress bar
+
+  Scenario: The FWD/LAT/GPS SPEED data could update accordingly when open another event
+    When the user enters event review page and the user clicks "Back to Home" and the user enters another event review page
+    Then the FWD/LAT/TIME/GPS SPEED data are displayed correctly for the opened event
