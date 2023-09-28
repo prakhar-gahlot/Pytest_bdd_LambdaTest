@@ -126,6 +126,8 @@ def open_an_event_by_clicking_review_id():
         EVENT_REVIEW_PAGE.back_to_home().wait_for_element_is_clickable()
     EVENT_REVIEW_PAGE.back_to_home().click()
     EVENT_LIST_PAGE.review_id_1st().click()
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.end_time, 60, 1)
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.start_time, 60, 1)
 
 @then('both front and rear camera views are shown and the video automatically plays')
 def verify_video_and_autoplay():
