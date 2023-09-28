@@ -101,3 +101,16 @@ Feature: Video Player
   Scenario: User can jump to the time point by clicking forward +1
     When the user clicks forward +1 button
     Then the event video jumps forward 1 step
+
+  @LQ-12188
+  Scenario: The FWD/LAT/TIME/GPS SPEED data displayed correctly while playing the event video
+    When the user enters the event review page and event auto-plays
+    Then the FWD/LAT/TIME/GPS SPEED data are displayed correctly when event video auto-plays
+
+  Scenario: The FWD/LAT/TIME/GPS SPEED data displayed correctly while clicking progress bar
+    When the user enters the event review page and clicks progress bar
+    Then the FWD/LAT/TIME/GPS SPEED data are displayed correctly when user clicking progress bar
+
+  Scenario: The FWD/LAT/TIME/GPS SPEED data displayed correctly while dragging progress bar
+    When the user enters the event review page and drags progress bar
+    Then the FWD/LAT/TIME/GPS SPEED data are displayed correctly when user dragging progress bar

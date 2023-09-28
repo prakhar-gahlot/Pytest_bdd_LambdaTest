@@ -49,12 +49,11 @@ def logs_in_arc(browser):
 
 @when('"Reviewer" filtered out some events in new ARC and the user clicks one event review ID and the user checks the event details above event video')
 def filter_in_new_tab():
-    global EVENT_REVIEW_ID, EVENT_ID
+    global EVENT_REVIEW_ID
     EVENT_REVIEW_ID = DATA_MGR.create_new_event()
 
     EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID)
     EVENT_LIST_PAGE.filter_button().click()
-    EVENT_ID = EVENT_LIST_PAGE.event_id_1st_only().get_text()
     EVENT_LIST_PAGE.review_id_1st().click()
 
 
@@ -125,6 +124,8 @@ def open_an_event_by_clicking_review_id():
         EVENT_REVIEW_PAGE.back_to_home().wait_for_element_is_clickable()
     EVENT_REVIEW_PAGE.back_to_home().click()
     EVENT_LIST_PAGE.review_id_1st().click()
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.end_time, 60, 1)
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.start_time, 60, 1)
 
 @then('both front and rear camera views are shown and the video automatically plays')
 def verify_video_and_autoplay():
@@ -377,3 +378,51 @@ def verify_forward_1_step():
     assert EVENT_REVIEW_PAGE.time().get_text() == ERD.time_of_back_steps_1
     assert EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_of_back_steps_1
     assert EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_of_back_steps_1
+
+# LQ-12188
+@when('the user enters the event review page and event auto-plays')
+def enter_event_review_page_event_auto_play():
+    EVENT_REVIEW_PAGE.back_to_home().click()
+    EVENT_LIST_PAGE.review_id_1st().click()
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.end_time, 60, 1)
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.start_time, 60, 1)
+
+@then('the FWD/LAT/TIME/GPS SPEED data are displayed correctly when event video auto-plays')
+def verify_fwd_lat_time_speed_event_auto_play():
+    current_time = EVENT_REVIEW_PAGE.current_time().get_text()
+    EVENT_REVIEW_PAGE.current_time().wait_for_expected_text_change(current_time, 60, 1)
+
+    fwd = EVENT_REVIEW_PAGE.fwd().get_text()
+    lat = EVENT_REVIEW_PAGE.lat().get_text()
+    gps_speed = EVENT_REVIEW_PAGE.gps_speed().get_text()
+    time = EVENT_REVIEW_PAGE.time().get_text()
+
+    assert '+0.' in fwd or '-0.' in fwd
+    assert '+0.' in lat or '-0.' in lat
+    assert '+' in gps_speed and '.' in gps_speed and ' MPH' in gps_speed
+    assert ('+' in time or '-' in time) and '.' in time
+    assert EVENT_REVIEW_PAGE.current_time().get_text() != current_time
+
+@when('the user enters the event review page and clicks progress bar')
+def enter_event_review_page_click_progress_bar():
+    EVENT_REVIEW_PAGE.backward_1().move_to_element_and_click(0, -30)
+
+@then('the FWD/LAT/TIME/GPS SPEED data are displayed correctly when user clicking progress bar')
+def verify_fwd_lat_time_speed_click_progress_bar():
+    assert 'FWD: ' + EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_value_by_click
+    assert 'LAT: ' + EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_value_by_click
+    assert 'TIME: ' + EVENT_REVIEW_PAGE.time().get_text() == ERD.time_value_by_click
+    assert 'GPS SPEED: ' + EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_value_by_click
+    assert 'TIME: ' + EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_value_by_click
+
+@when('the user enters the event review page and drags progress bar')
+def enter_event_review_page_drag_progress_bar():
+    EVENT_REVIEW_PAGE.drag_and_drop(50, 0)
+
+@then('the FWD/LAT/TIME/GPS SPEED data are displayed correctly when user dragging progress bar')
+def verify_fwd_lat_time_speed_drag_progress_bar():
+    assert 'FWD: ' + EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_value_by_drag
+    assert 'LAT: ' + EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_value_by_drag
+    assert 'TIME: ' + EVENT_REVIEW_PAGE.time().get_text() == ERD.time_value_by_drag
+    assert 'GPS SPEED: ' + EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_value_by_drag
+    assert 'TIME: ' + EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_value_by_drag
