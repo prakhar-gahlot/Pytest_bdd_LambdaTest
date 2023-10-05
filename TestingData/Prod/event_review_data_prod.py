@@ -56,3 +56,11 @@ class EventReviewDataProd:
     lat_value_by_drag = ''
     time_value_by_drag = ''
     speed_value_by_drag = ''
+
+    # event play data for 2nd event
+    behavior_2nd = ''
+
+    fwd_value_by_click_2nd = ''
+    lat_value_by_click_2nd = ''
+    time_value_by_click_2nd = ''
+    speed_value_by_click_2nd = ''
