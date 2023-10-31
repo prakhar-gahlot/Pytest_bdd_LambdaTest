@@ -14,6 +14,7 @@ EVENT_LIST_PAGE = 0
 EVENT_REVIEW_PAGE = 0
 ERD = ''
 EVENT_REVIEW_ID = 0
+EVENT_REVIEW_ID_2ND = 0
 DATA_MGR = ''
 
 scenarios('../../Features/P1_NewARC/p1_video_player.feature')
@@ -49,8 +50,9 @@ def logs_in_arc(browser):
 
 @when('"Reviewer" filtered out some events in new ARC and the user clicks one event review ID and the user checks the event details above event video')
 def filter_in_new_tab():
-    global EVENT_REVIEW_ID
+    global EVENT_REVIEW_ID, EVENT_REVIEW_ID_2ND
     EVENT_REVIEW_ID = DATA_MGR.create_new_event()
+    EVENT_REVIEW_ID_2ND = DATA_MGR.create_new_event(ERD.behavior_2nd)
 
     EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID)
     EVENT_LIST_PAGE.filter_button().click()
@@ -426,3 +428,27 @@ def verify_fwd_lat_time_speed_drag_progress_bar():
     assert 'TIME: ' + EVENT_REVIEW_PAGE.time().get_text() == ERD.time_value_by_drag
     assert 'GPS SPEED: ' + EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_value_by_drag
     assert 'TIME: ' + EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_value_by_drag
+
+@when('the user enters event review page and the user clicks "Back to Home" and the user enters another event review page')
+def enter_event_review_page_another_event():
+    EVENT_REVIEW_PAGE.back_to_home().click()
+    EVENT_LIST_PAGE.review_id_filter().clear()
+    EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_2ND)
+    EVENT_LIST_PAGE.filter_button().click()
+    EVENT_LIST_PAGE.review_id_1st().click()
+    if EVENT_REVIEW_PAGE.back_to_home().wait_for_element_is_clickable() is False:
+        EVENT_REVIEW_PAGE.refresh_page()
+        EVENT_REVIEW_PAGE.back_to_home().click()
+        EVENT_LIST_PAGE.review_id_1st().click()
+
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.end_time, 60, 1)
+    EVENT_REVIEW_PAGE.event_play_time().wait_for_expected_text_change(ERD.start_time, 60, 1)
+    EVENT_REVIEW_PAGE.backward_1().move_to_element_and_click(0, -30)
+
+@then('the FWD/LAT/TIME/GPS SPEED data are displayed correctly for the opened event')
+def verify_fwd_lat_time_speed_another_event():
+    assert 'FWD: ' + EVENT_REVIEW_PAGE.fwd().get_text() == ERD.fwd_value_by_click_2nd
+    assert 'LAT: ' + EVENT_REVIEW_PAGE.lat().get_text() == ERD.lat_value_by_click_2nd
+    assert 'TIME: ' + EVENT_REVIEW_PAGE.time().get_text() == ERD.time_value_by_click_2nd
+    assert 'GPS SPEED: ' + EVENT_REVIEW_PAGE.gps_speed().get_text() == ERD.speed_value_by_click_2nd
+    assert 'TIME: ' + EVENT_REVIEW_PAGE.current_time().get_text() == ERD.time_value_by_click_2nd
