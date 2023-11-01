@@ -14,3 +14,11 @@ Feature: Search and Event review
     Then Review ID is displayed and the events in the range are displayed and Event ID is displayed as CustomerString ID
     And Creation Date is event creation date based on local time zone and displayed as format YYYY-MM-DD hh:mm AM/PM
     And Vehicle Name is displayed correctly and ER Serial is displayed correctly
+
+  Scenario: The number of searched events is displayed correctly in New tab if search review id range
+    When the user input Review ID range and Clicks Filter button in New tab
+    Then the result of filtered new events is displayed above event list
+
+  Scenario: The number of searched event is displayed correctly in New tab if search one single review id
+    When the user input Review ID and Clicks Filter button in New tab
+    Then the result of filtered single event is displayed above event list
