@@ -41,7 +41,7 @@ class BaseElement:
     def element_is_displayed(self):
         try:
             self._find()
-        except NoSuchElementException:
+        except (NoSuchElementException, TimeoutException):
             return False
         return True
 
