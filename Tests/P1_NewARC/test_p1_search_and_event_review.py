@@ -18,7 +18,9 @@ COMMENTS_TAB = 0
 WS_LOGIN_PAGE = 0
 WS_TASK_PAGE = 0
 ERD = ''
-EVENT_REVIEW_ID = 0
+EVENT_REVIEW_ID_1ST = 0
+EVENT_REVIEW_ID_2ND = 0
+EVENT_REVIEW_ID_3RD = 0
 EVENT_ID = ''
 DATA_MGR = ''
 
@@ -55,11 +57,13 @@ def login_arc(browser):
 
 @when('the user input a valid New event Review ID and the user clicks "Filter" button')
 def filter_event_in_new_tab():
-    global EVENT_REVIEW_ID, EVENT_ID
-    EVENT_REVIEW_ID = DATA_MGR.create_new_event()
+    global EVENT_REVIEW_ID_1ST, EVENT_REVIEW_ID_2ND, EVENT_REVIEW_ID_3RD, EVENT_ID
+    EVENT_REVIEW_ID_1ST = DATA_MGR.create_new_event()
+    EVENT_REVIEW_ID_2ND = DATA_MGR.create_new_event()
+    EVENT_REVIEW_ID_3RD = DATA_MGR.create_new_event()
 
     EVENT_LIST_PAGE.new_tab().click()
-    EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID)
+    EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_1ST)
     EVENT_LIST_PAGE.filter_button().click()
 
 @then('the related event is filtered out under the New tab and the event count of New tab is shown')
@@ -67,10 +71,10 @@ def verify_new_event_filtered():
     EVENT_LIST_PAGE.search_range_and_results().wait_for_expected_text('1 result')
     creation_date = datetime.strptime(EVENT_LIST_PAGE.creation_date_1st().get_text(), '%Y-%m-%d %I:%M %p')
 
-    assert_that(EVENT_LIST_PAGE.search_range_and_results().get_text(), contains_string(str(EVENT_REVIEW_ID)))
+    assert_that(EVENT_LIST_PAGE.search_range_and_results().get_text(), contains_string(str(EVENT_REVIEW_ID_1ST)))
     assert_that(EVENT_LIST_PAGE.search_range_and_results().get_text(), contains_string('1 result'))
     assert_that(EVENT_LIST_PAGE.new_tab().get_text(), contains_string('New (1)'))
-    assert EVENT_LIST_PAGE.review_id_1st().get_text() == str(EVENT_REVIEW_ID)
+    assert EVENT_LIST_PAGE.review_id_1st().get_text() == str(EVENT_REVIEW_ID_1ST)
     assert creation_date < datetime.now()
     assert EVENT_LIST_PAGE.vehicle_name_1st().get_text() == ERD.vehicle
     assert EVENT_LIST_PAGE.serial_num_1st().get_text() == ERD.ER
@@ -120,3 +124,24 @@ def verify_new_events_creation_date():
 def verify_new_events_vehicle_ER():
     assert len(EVENT_LIST_PAGE.vehicle_name_1st().get_text()) > 0
     assert len(EVENT_LIST_PAGE.serial_num_1st().get_text()) > 0
+
+@when('the user input Review ID range and Clicks Filter button in New tab')
+def filter_events_in_new_tab():
+    range = str(EVENT_REVIEW_ID_1ST) + '-' + str(EVENT_REVIEW_ID_3RD)
+    EVENT_LIST_PAGE.review_id_filter().clear()
+    EVENT_LIST_PAGE.review_id_filter().type(range)
+    EVENT_LIST_PAGE.filter_button().click()
+
+@then('the result of filtered new events is displayed above event list')
+def verify_filtered_result_events():
+    assert EVENT_LIST_PAGE.search_range_and_results().get_text() == str(EVENT_REVIEW_ID_1ST) + '-' + str(EVENT_REVIEW_ID_3RD) + ' • 3 results'
+
+@when('the user input Review ID and Clicks Filter button in New tab')
+def filter_single_event_in_new_tab():
+    EVENT_LIST_PAGE.review_id_filter().clear()
+    EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_3RD)
+    EVENT_LIST_PAGE.filter_button().click()
+
+@then('the result of filtered single event is displayed above event list')
+def verify_filtered_result_single_event():
+    assert EVENT_LIST_PAGE.search_range_and_results().get_text() == str(EVENT_REVIEW_ID_3RD) + ' • 1 result'
