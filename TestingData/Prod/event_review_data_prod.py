@@ -22,7 +22,9 @@ class EventReviewDataProd:
     f2f_behavior_1st = ''
 
     # create new event
-    ER = ''
+    ER = ''     # in group with some custom behaviors
+    ER_without_custom_behaviors = ''    # in group without custom behaviors
+    ER_with_many_custom_behaviors = ''  # in group with many custom behaviors
     trigger = ''
     vehicle = ''
     vehicle_type = ''
