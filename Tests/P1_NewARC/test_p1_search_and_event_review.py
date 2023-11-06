@@ -157,8 +157,10 @@ def verify_filtered_result_single_event():
 @when('the user clicks one reviewID in group A which has no enabled custom behavior and the user opens the Behavior tab and the user clicks "More Behaviors >" button')
 def open_event_without_custom_behaviors():
     EVENT_LIST_PAGE.review_id_1st().click()
-    if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True, 2):
-        OUTCOME_TRIGGER_TAB.other_radio_btn().click()
+    if OUTCOME_TRIGGER_TAB.other_radio_btn().wait_for_element_is_clickable() is False:
+        EVENT_REVIEW_PAGE.back_to_home().click()
+        EVENT_LIST_PAGE.review_id_1st().click()
+    OUTCOME_TRIGGER_TAB.other_radio_btn().click()
     BEHAVIORS_TAB.more_behaviors().click()
 
 @then('the Custom Behaviors section is not displayed')
@@ -167,6 +169,9 @@ def verify_event_without_custom_behaviors():
 
 @when('the user clicks one reviewID in group A which has some enabled custom behaviors includes MVAI behaviors and the user opens the Behavior tab and the user clicks "More Behaviors >" button')
 def open_event_with_custom_and_mvai_behaviors():
+    EVENT_REVIEW_PAGE.back_to_home().click()
+    EVENT_LIST_PAGE.review_id_filter().clear()
+    EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_1ST)
     EVENT_LIST_PAGE.review_id_1st().click()
     if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True, 2):
         OUTCOME_TRIGGER_TAB.other_radio_btn().click()

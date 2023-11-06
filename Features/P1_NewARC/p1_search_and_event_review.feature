@@ -30,4 +30,4 @@ Feature: Search and Event review
 
   Scenario: Behavior tab’s second page includes the client’s enabled custom behaviors
 	When the user clicks one reviewID in group A which has some enabled custom behaviors includes MVAI behaviors and the user opens the Behavior tab and the user clicks "More Behaviors >" button
-	Then the Custom Behaviors section is displayed with all enabled custom behaviors in the group A and the MVAI custom behaviors are not visible for the "Reviewer" user'
+	Then the Custom Behaviors section is displayed with all enabled custom behaviors in the group A and the MVAI custom behaviors are not visible for the "Reviewer" user
