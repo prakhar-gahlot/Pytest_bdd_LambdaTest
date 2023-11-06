@@ -7,6 +7,8 @@ class BehaviorsTabLocator:
                            '/div/mat-tab-body[2]/div/behaviors-review/div[1]/div[3]/div[1]/button'
     previous_behaviors_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \
                                '/div/mat-tab-body[2]/div/behaviors-review/div[2]/div[1]/div[1]/button'
+    custom_behaviors_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group/div' \
+                             '/mat-tab-body[2]/div/behaviors-review/div[2]/div[1]/div[4]/behavior-group/div/div[1]'
 
     # Distractions
 

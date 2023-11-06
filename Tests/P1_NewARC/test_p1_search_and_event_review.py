@@ -1,8 +1,11 @@
 from datetime import datetime, timedelta
 from hamcrest import assert_that, contains_string
 from pytest_bdd import scenarios, given, when, then
+from Pages.Arc.behaviors_tab import BehaviorsTab
 from Pages.Arc.event_list_page import EventListPage
+from Pages.Arc.event_review_page import EventReviewPage
 from Pages.Arc.login_page import LoginPage
+from Pages.Arc.outcome_trigger_tab import OutcomeTriggerTab
 from Tests.common import ARC_URL, ENV, AutomationDataManager
 from TestingData.Int.event_review_data_int import EventReviewDataInt as ERD_INT
 from TestingData.Stg.event_review_data_stg import EventReviewDataStg as ERD_STG
@@ -30,11 +33,14 @@ scenarios('../../Features/P1_NewARC/p1_search_and_event_review.feature')
 # LQ-10595
 @given('the user logins to ARC')
 def login_arc(browser):
-    global DATA_MGR, LOGIN_PAGE, EVENT_LIST_PAGE, ERD
+    global DATA_MGR, LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, ERD
 
     DATA_MGR = AutomationDataManager()
     LOGIN_PAGE = LoginPage(browser)
     EVENT_LIST_PAGE = EventListPage(browser)
+    EVENT_REVIEW_PAGE = EventReviewPage(browser)
+    OUTCOME_TRIGGER_TAB = OutcomeTriggerTab(browser)
+    BEHAVIORS_TAB = BehaviorsTab(browser)
 
     if ENV == 'int':
         ERD = ERD_INT
@@ -60,7 +66,7 @@ def filter_event_in_new_tab():
     global EVENT_REVIEW_ID_1ST, EVENT_REVIEW_ID_2ND, EVENT_REVIEW_ID_3RD, EVENT_ID
     EVENT_REVIEW_ID_1ST = DATA_MGR.create_new_event()
     EVENT_REVIEW_ID_2ND = DATA_MGR.create_new_event()
-    EVENT_REVIEW_ID_3RD = DATA_MGR.create_new_event()
+    EVENT_REVIEW_ID_3RD = DATA_MGR.create_new_event(ERD.behavior_2nd, ERD.ER_without_custom_behaviors)
 
     EVENT_LIST_PAGE.new_tab().click()
     EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_1ST)
@@ -87,6 +93,7 @@ def verify_event_columns():
     assert EVENT_LIST_PAGE.vehicle_name_title().get_text() == 'VEHICLE NAME'
     assert EVENT_LIST_PAGE.serial_num_title().get_text() == 'ER SERIAL #'
 
+# LQ-10597
 @when('the user filtered a range of Review IDs under New tab')
 def filter_events_in_new_tab():
     EVENT_LIST_PAGE.review_id_filter().clear()
@@ -145,3 +152,15 @@ def filter_single_event_in_new_tab():
 @then('the result of filtered single event is displayed above event list')
 def verify_filtered_result_single_event():
     assert EVENT_LIST_PAGE.search_range_and_results().get_text() == str(EVENT_REVIEW_ID_3RD) + ' • 1 result'
+
+# LQ-11154
+@when('the user clicks one reviewID in group A which has no enabled custom behavior and the user opens the Behavior tab and the user clicks "More Behaviors >" button')
+def open_event_without_custom_behaviors():
+    EVENT_LIST_PAGE.review_id_1st().click()
+    if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True, 2):
+        OUTCOME_TRIGGER_TAB.other_radio_btn().click()
+    BEHAVIORS_TAB.more_behaviors().click()
+
+@then('the Custom Behaviors section is not displayed')
+def verify_event_without_custom_behaviors():
+    assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is False

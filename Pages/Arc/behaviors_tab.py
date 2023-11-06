@@ -55,3 +55,5 @@ class BehaviorsTab(EventReviewPage):
     # Driver Un-belted
 
     # Custom Behaviors
+    def custom_behaviors_title(self):
+        return Label(self.driver, (By.XPATH, BTL.custom_behaviors_xpath))
