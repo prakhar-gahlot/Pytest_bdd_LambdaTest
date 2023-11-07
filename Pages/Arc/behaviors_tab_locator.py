@@ -46,3 +46,9 @@ class BehaviorsTabLocator:
     # Driver Un-belted
 
     # Custom Behaviors
+    custom_behaviors_container_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \
+                                       '/div/mat-tab-body[2]/div/behaviors-review/div[2]/div[1]/div[4]' \
+                                       '/behavior-group/div/div[2]'
+    the_9th_custom_behavior_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group/div' \
+                                    '/mat-tab-body[2]/div/behaviors-review/div[2]/div[1]/div[4]/behavior-group' \
+                                    '/div/div[2]/div[9]/mat-checkbox/label/span[2]'

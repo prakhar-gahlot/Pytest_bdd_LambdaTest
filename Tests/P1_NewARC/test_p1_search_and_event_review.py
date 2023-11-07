@@ -141,7 +141,7 @@ def filter_events_in_new_tab():
 
 @then('the result of filtered new events is displayed above event list')
 def verify_filtered_result_events():
-    assert EVENT_LIST_PAGE.search_range_and_results().get_text() == str(EVENT_REVIEW_ID_1ST) + '-' + str(EVENT_REVIEW_ID_3RD) + ' • 3 results'
+    assert EVENT_LIST_PAGE.search_range_and_results().wait_for_expected_text(str(EVENT_REVIEW_ID_3RD)) == str(EVENT_REVIEW_ID_1ST) + '-' + str(EVENT_REVIEW_ID_3RD) + ' • 3 results'
 
 @when('the user input Review ID and Clicks Filter button in New tab')
 def filter_single_event_in_new_tab():
@@ -180,13 +180,14 @@ def open_event_with_custom_and_mvai_behaviors():
 
 @then('the Custom Behaviors section is displayed with all enabled custom behaviors and the MVAI custom behaviors are not visible for the "Reviewer" user')
 def verify_event_with_custom_and_mvai_behaviors():
-    assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is False
+    assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is True
 
-@when('the user clicks one reviewID in group A which has lots of enabled custom behaviors and the user opens the Behavior tab and the user clicks "More Behaviors >" button')
+@when('the user clicks one reviewID in a group which has lots of enabled custom behaviors and the user opens the Behavior tab and the user clicks "More Behaviors >" button')
 def open_event_with_lots_of_custom_behaviors():
     EVENT_REVIEW_PAGE.back_to_home().click()
     EVENT_LIST_PAGE.review_id_filter().clear()
     EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_2ND)
+    EVENT_LIST_PAGE.filter_button().click()
     EVENT_LIST_PAGE.review_id_1st().click()
     if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True, 2):
         OUTCOME_TRIGGER_TAB.other_radio_btn().click()
@@ -195,3 +196,5 @@ def open_event_with_lots_of_custom_behaviors():
 @then('the Custom Behaviors section is displayed with all enabled custom behaviors')
 def verify_event_with_lots_of_custom_behaviors():
     assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is True
+    assert BEHAVIORS_TAB.custom_behaviors_count() > 8
+    assert BEHAVIORS_TAB.the_9th_custom_behavior().element_is_displayed() is True
