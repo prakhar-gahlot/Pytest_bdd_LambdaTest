@@ -65,7 +65,7 @@ def login_arc(browser):
 def filter_event_in_new_tab():
     global EVENT_REVIEW_ID_1ST, EVENT_REVIEW_ID_2ND, EVENT_REVIEW_ID_3RD, EVENT_ID
     EVENT_REVIEW_ID_1ST = DATA_MGR.create_new_event()
-    EVENT_REVIEW_ID_2ND = DATA_MGR.create_new_event()
+    EVENT_REVIEW_ID_2ND = DATA_MGR.create_new_event(ERD.behavior_2nd, ERD.ER_with_many_custom_behaviors)
     EVENT_REVIEW_ID_3RD = DATA_MGR.create_new_event(ERD.behavior_2nd, ERD.ER_without_custom_behaviors)
 
     EVENT_LIST_PAGE.new_tab().click()
@@ -180,3 +180,17 @@ def open_event_with_custom_and_mvai_behaviors():
 @then('the Custom Behaviors section is displayed with all enabled custom behaviors in the group A and the MVAI custom behaviors are not visible for the "Reviewer" user')
 def verify_event_with_custom_and_mvai_behaviors():
     assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is False
+
+@when('the user clicks one reviewID in group A which has lots of enabled custom behaviors and the user opens the Behavior tab and the user clicks "More Behaviors >" button')
+def open_event_with_lots_of_custom_behaviors():
+    EVENT_REVIEW_PAGE.back_to_home().click()
+    EVENT_LIST_PAGE.review_id_filter().clear()
+    EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_2ND)
+    EVENT_LIST_PAGE.review_id_1st().click()
+    if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True, 2):
+        OUTCOME_TRIGGER_TAB.other_radio_btn().click()
+    BEHAVIORS_TAB.more_behaviors().click()
+
+@then('the Custom Behaviors section is displayed with all enabled custom behaviors')
+def verify_event_with_lots_of_custom_behaviors():
+    assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is True
