@@ -172,11 +172,12 @@ def open_event_with_custom_and_mvai_behaviors():
     EVENT_REVIEW_PAGE.back_to_home().click()
     EVENT_LIST_PAGE.review_id_filter().clear()
     EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_1ST)
+    EVENT_LIST_PAGE.filter_button().click()
     EVENT_LIST_PAGE.review_id_1st().click()
     if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True, 2):
         OUTCOME_TRIGGER_TAB.other_radio_btn().click()
     BEHAVIORS_TAB.more_behaviors().click()
 
-@then('the Custom Behaviors section is displayed with all enabled custom behaviors in the group A and the MVAI custom behaviors are not visible for the "Reviewer" user')
+@then('the Custom Behaviors section is displayed with all enabled custom behaviors and the MVAI custom behaviors are not visible for the "Reviewer" user')
 def verify_event_with_custom_and_mvai_behaviors():
-    assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is False
+    assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is True
