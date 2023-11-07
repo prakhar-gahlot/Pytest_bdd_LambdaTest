@@ -151,7 +151,7 @@ def filter_single_event_in_new_tab():
 
 @then('the result of filtered single event is displayed above event list')
 def verify_filtered_result_single_event():
-    assert EVENT_LIST_PAGE.search_range_and_results().get_text() == str(EVENT_REVIEW_ID_3RD) + ' • 1 result'
+    assert EVENT_LIST_PAGE.search_range_and_results().wait_for_expected_text(str(EVENT_REVIEW_ID_3RD)) == str(EVENT_REVIEW_ID_3RD) + ' • 1 result'
 
 # LQ-11154
 @when('the user clicks one reviewID in group A which has no enabled custom behavior and the user opens the Behavior tab and the user clicks "More Behaviors >" button')

@@ -22,9 +22,9 @@ class EventReviewDataInt:
     f2f_behavior_1st = 'Red Light'
 
     # create new event
-    ER = 'QM40011227'   # in group with some custom behaviors
-    ER_without_custom_behaviors = 'SF00001440'    # in group without custom behaviors
-    ER_with_many_custom_behaviors = ''  # in group with many custom behaviors
+    ER = 'QM40011227'   # in group with some custom behaviors, Root/Cellular Unassigned
+    ER_without_custom_behaviors = 'SF00001440'    # in group without custom behaviors, Root/BruteForce
+    ER_with_many_custom_behaviors = 'SF80000128'  # in group with many custom behaviors, Root/Christian Koguchi
     trigger = 'Handheld Device'
     vehicle = 'Colin Otto'
     vehicle_type = 'Unassigned'
