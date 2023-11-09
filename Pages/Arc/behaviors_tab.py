@@ -1,4 +1,5 @@
-from Elements.base_element import BaseElement
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 from Elements.button import Button
 from Elements.text_box import TextBox
 from Elements.label import Label
@@ -60,7 +61,7 @@ class BehaviorsTab(EventReviewPage):
         return Label(self.driver, (By.XPATH, BTL.custom_behaviors_xpath))
 
     def custom_behaviors(self):
-        parent = BaseElement(self.driver, (By.XPATH, BTL.custom_behaviors_container_xpath)).element()
+        parent = WebDriverWait(self.driver, 10).until(ec.presence_of_element_located((By.XPATH, BTL.custom_behaviors_container_xpath)))
         children = parent.find_elements(By.CLASS_NAME, 'ng-star-inserted')
         custom_behaviors = []
         for child in children:
