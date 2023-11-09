@@ -60,12 +60,18 @@ class BehaviorsTab(EventReviewPage):
         return Label(self.driver, (By.XPATH, BTL.custom_behaviors_xpath))
 
     def custom_behaviors(self):
-        parent = BaseElement(self.driver, (By.XPATH, BTL.custom_behaviors_container_xpath)).element()
+        parent = self.driver.find_elements(By.XPATH, BTL.custom_behaviors_container_xpath)
         children = parent.find_elements(By.CLASS_NAME, 'ng-star-inserted')
         custom_behaviors = []
         for child in children:
             custom_behaviors.append(child.text)
         return custom_behaviors
+
+    def select_all_custom_behaviors(self):
+        parent = self.driver.find_elements(By.XPATH, BTL.custom_behaviors_container_xpath)
+        children = parent.find_elements(By.CLASS_NAME, 'ng-star-inserted')
+        for child in children:
+            child.click()
 
     def the_9th_custom_behavior(self):
         return Label(self.driver, (By.XPATH, BTL.the_9th_custom_behavior_xpath))

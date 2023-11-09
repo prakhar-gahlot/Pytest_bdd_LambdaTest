@@ -22,7 +22,19 @@ class EventReviewDataInt:
     f2f_behavior_1st = 'Red Light'
 
     # create new event
-    ER = 'QM40011227'   # in group with some custom behaviors, Root/Cellular Unassigned
+    ER = 'QM40011227'
+    ER_with_custom_behaviors = 'QM40011227'   # in group with some custom behaviors, Root/Cellular Unassigned
+    # custom behaviors in Root/Cellular Unassigned
+    custom_behaviors = ['Other', 'Unsafe and Unnecessary', 'U-Turn', 'Pedestrian/Bicyclist', 'Trailer Detachment',
+                        'Sleeper Berth Securement', 'Tandem Slide', 'Tree Strike']
+    custom_behavior_comments = ["The event was triggered due to a force exceeding the video event recorder's threshold.",
+                                "It is your organization's policy to select Unsafe and Not Necessary anytime the vehicle is traveling 15 miles per hour or greater when there is no passenger present in the vehicle.",
+                                "The driver made a U-turn on the roadway.",
+                                "The vehicle came close to a pedestrian or bicyclist.",
+                                "There was an issue identified with the trailer in this event.",
+                                "A passenger does not appear to be secured in the sleeper berth.",
+                                "This event may have resulted in a tandem axle slide.",
+                                "The vehicle made contact with a tree."]
     ER_without_custom_behaviors = 'SF00001440'    # in group without custom behaviors, Root/BruteForce
     ER_with_many_custom_behaviors = 'SF80000128'  # in group with more than 8 custom behaviors, Root/Christian Koguchi
     trigger = 'Handheld Device'
@@ -60,6 +72,7 @@ class EventReviewDataInt:
     speed_value_by_drag = 'GPS SPEED: + 15.2 MPH'
 
     # event play data for 2nd event
+    behavior_1st = 'cellphone'
     behavior_2nd = 'smoking'
 
     fwd_value_by_click_2nd = 'FWD: -0.04'
