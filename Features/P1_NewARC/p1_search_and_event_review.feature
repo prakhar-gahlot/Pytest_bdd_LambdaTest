@@ -33,5 +33,5 @@ Feature: Search and Event review
     Then the Custom Behaviors section is displayed with all enabled custom behaviors and the MVAI custom behaviors are not visible for the "Reviewer" user
 
   Scenario: The custom behaviors are displayed properly if there are a lot of enabled custom behaviors
-	When the user clicks one reviewID in a group which has lots of enabled custom behaviors and the user opens the Behavior tab and the user clicks "More Behaviors >" button
-	Then the Custom Behaviors section is displayed with all enabled custom behaviors
+    When the user clicks one reviewID in a group which has lots of enabled custom behaviors and the user opens the Behavior tab and the user clicks "More Behaviors >" button
+    Then the Custom Behaviors section is displayed with all enabled custom behaviors
