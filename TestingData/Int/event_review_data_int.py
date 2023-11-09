@@ -25,9 +25,10 @@ class EventReviewDataInt:
     ER = 'QM40011227'
     ER_with_custom_behaviors = 'QM40011227'   # in group with some custom behaviors, Root/Cellular Unassigned
     # custom behaviors in Root/Cellular Unassigned
-    custom_behaviors = ['Other', 'Unsafe and Unnecessary', 'U-Turn', 'Pedestrian/Bicyclist', 'Trailer Detachment',
-                        'Sleeper Berth Securement', 'Tandem Slide', 'Tree Strike']
-    custom_behavior_comments = ["The event was triggered due to a force exceeding the video event recorder's threshold.",
+    custom_behaviors = ['Behavior', 'Other', 'Unsafe and Unnecessary', 'U-Turn', 'Pedestrian/Bicyclist',
+                        'Trailer Detachment', 'Sleeper Berth Securement', 'Tandem Slide', 'Tree Strike']
+    custom_behavior_comments = ["Comment",
+                                "The event was triggered due to a force exceeding the video event recorder's threshold.",
                                 "It is your organization's policy to select Unsafe and Not Necessary anytime the vehicle is traveling 15 miles per hour or greater when there is no passenger present in the vehicle.",
                                 "The driver made a U-turn on the roadway.",
                                 "The vehicle came close to a pedestrian or bicyclist.",
