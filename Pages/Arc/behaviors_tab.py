@@ -1,3 +1,4 @@
+from Elements.base_element import BaseElement
 from Elements.button import Button
 from Elements.text_box import TextBox
 from Elements.label import Label
@@ -57,3 +58,11 @@ class BehaviorsTab(EventReviewPage):
     # Custom Behaviors
     def custom_behaviors_title(self):
         return Label(self.driver, (By.XPATH, BTL.custom_behaviors_xpath))
+
+    def custom_behaviors_count(self):
+        parent = BaseElement(self.driver, (By.XPATH, BTL.custom_behaviors_container_xpath)).element()
+        children = parent.find_elements(By.CLASS_NAME, 'ng-star-inserted')
+        return len(children)
+
+    def the_9th_custom_behavior(self):
+        return Label(self.driver, (By.XPATH, BTL.the_9th_custom_behavior_xpath))

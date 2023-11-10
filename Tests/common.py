@@ -59,7 +59,7 @@ class AutomationDataManager:
             print("Event creation failed: " + new_event_response.text)
 
         # update event driver
-        sleep(2)
+        sleep(3)
         update_event_driver_payload = {"EventDriverId": ERD.driver_id,
                                        "DriverAssignmentTypeId": "1"}
         json_update_event_driver_payload = json.dumps(update_event_driver_payload)
@@ -72,12 +72,13 @@ class AutomationDataManager:
             print("Driver:" + ERD.driver_id + " is not assigned. Message:" + update_event_driver_response.text)
 
         # push to cloud
-        sleep(2)
+        sleep(3)
         arc_create_payload = {"EventCustID": event_cust_id,
                               "actorId": ERD.actor_id}
         json_arc_create_payload = json.dumps(arc_create_payload)
         arc_create_response = requests.request("POST", ARC_CREATE_END_POINT, headers=self.headers,
                                                data=json_arc_create_payload)
+        sleep(5)
         event_info = json.loads(arc_create_response.text)
 
         unique_event_id = event_info["uniqueEventId"]

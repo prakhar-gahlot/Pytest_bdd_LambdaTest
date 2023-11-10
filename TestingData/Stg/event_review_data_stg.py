@@ -24,7 +24,7 @@ class EventReviewDataStg:
     # create new event
     ER = ''     # in group with some custom behaviors
     ER_without_custom_behaviors = ''    # in group without custom behaviors
-    ER_with_many_custom_behaviors = ''  # in group with many custom behaviors
+    ER_with_many_custom_behaviors = ''  # in group with more than 8 custom behaviors
     trigger = ''
     vehicle = ''
     vehicle_type = ''
