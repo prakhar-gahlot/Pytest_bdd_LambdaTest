@@ -176,8 +176,10 @@ def open_event_with_custom_and_mvai_behaviors():
     EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_1ST)
     EVENT_LIST_PAGE.filter_button().click()
     EVENT_LIST_PAGE.review_id_1st().click()
-    if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True, 2):
-        OUTCOME_TRIGGER_TAB.other_radio_btn().click()
+    if OUTCOME_TRIGGER_TAB.other_radio_btn().wait_for_element_is_clickable() is False:
+        EVENT_REVIEW_PAGE.back_to_home().click()
+        EVENT_LIST_PAGE.review_id_1st().click()
+    OUTCOME_TRIGGER_TAB.other_radio_btn().click()
     BEHAVIORS_TAB.more_behaviors().click()
 
 @then('the Custom Behaviors section is displayed with all enabled custom behaviors and the MVAI custom behaviors are not visible for the "Reviewer" user')
@@ -191,8 +193,10 @@ def open_event_with_lots_of_custom_behaviors():
     EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_2ND)
     EVENT_LIST_PAGE.filter_button().click()
     EVENT_LIST_PAGE.review_id_1st().click()
-    if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True, 2):
-        OUTCOME_TRIGGER_TAB.other_radio_btn().click()
+    if OUTCOME_TRIGGER_TAB.other_radio_btn().wait_for_element_is_clickable() is False:
+        EVENT_REVIEW_PAGE.back_to_home().click()
+        EVENT_LIST_PAGE.review_id_1st().click()
+    OUTCOME_TRIGGER_TAB.other_radio_btn().click()
     BEHAVIORS_TAB.more_behaviors().click()
 
 @then('the Custom Behaviors section is displayed with all enabled custom behaviors')
@@ -211,8 +215,10 @@ def open_event_with_different_custom_behaviors():
     EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_1ST)
     EVENT_LIST_PAGE.filter_button().click()
     EVENT_LIST_PAGE.review_id_1st().click()
-    if EVENT_REVIEW_PAGE.is_tab_active(EVENT_REVIEW_PAGE.outcome_trigger_tab(), True, 2):
-        OUTCOME_TRIGGER_TAB.other_radio_btn().click()
+    if OUTCOME_TRIGGER_TAB.other_radio_btn().wait_for_element_is_clickable() is False:
+        EVENT_REVIEW_PAGE.back_to_home().click()
+        EVENT_LIST_PAGE.review_id_1st().click()
+    OUTCOME_TRIGGER_TAB.other_radio_btn().click()
     BEHAVIORS_TAB.more_behaviors().click()
 
 @then('the custom behavior listed in the event is different from the behaviors listed in the previous event')
