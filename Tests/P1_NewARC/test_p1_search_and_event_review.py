@@ -222,14 +222,7 @@ def open_event_with_different_custom_behaviors():
 @then('the custom behavior listed in the event is different from the behaviors listed in the previous event')
 def verify_event_with_different_custom_behaviors():
     different_behaviors = BEHAVIORS_TAB.custom_behaviors()
-    count = len(different_behaviors) if len(different_behaviors) <= len(CUSTOM_BEHAVIORS) else len(CUSTOM_BEHAVIORS)
-    i = 0
-    is_same = True
-    while i < count:
-        if CUSTOM_BEHAVIORS[i] != different_behaviors[i]:
-            is_same = False
-        i += 1
 
     assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is True
     assert len(different_behaviors) > 0
-    assert is_same is False
+    assert different_behaviors != CUSTOM_BEHAVIORS
