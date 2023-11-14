@@ -7,18 +7,19 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 
 class BaseElement:
-    def __init__(self, driver, locator):
+    def __init__(self, driver, locator, element=None):
         self.driver = driver
         self.locator = locator
+        self.element = element
 
     def _find(self):
-        return WebDriverWait(self.driver, 10).until(ec.presence_of_element_located(self.locator))
+        if self.element is None:
+            return WebDriverWait(self.driver, 10).until(ec.presence_of_element_located(self.locator))
+        else:
+            return self.element
 
     def size(self):
         return self._find().size
-
-    def element(self):
-        return self._find()
 
     def _click(self):
         self._find().click()
