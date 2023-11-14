@@ -239,8 +239,5 @@ def open_event_and_select_custom_behaviors_and_go_to_comments():
 
 @then('the comments of selected custom behaviors are listed')
 def verify_custom_behaviors_in_comments():
-    behavior_list = COMMENTS_TAB.behaviors()
-    comment_list = COMMENTS_TAB.behavior_comments()
-
-    assert behavior_list == ERD.custom_behaviors
-    assert comment_list == ERD.custom_behavior_comments
+    assert COMMENTS_TAB.behaviors() == ERD.custom_behaviors
+    assert COMMENTS_TAB.behavior_comments() == ERD.custom_behavior_comments
