@@ -1,6 +1,4 @@
 from datetime import datetime, timedelta
-from time import sleep
-
 from hamcrest import assert_that, contains_string
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.behaviors_tab import BehaviorsTab
