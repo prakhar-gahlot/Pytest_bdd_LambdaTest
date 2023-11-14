@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta
+from datetime import datetime
+from time import sleep
 from hamcrest import assert_that, contains_string
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.behaviors_tab import BehaviorsTab
@@ -7,7 +8,9 @@ from Pages.Arc.event_list_page import EventListPage
 from Pages.Arc.event_review_page import EventReviewPage
 from Pages.Arc.login_page import LoginPage
 from Pages.Arc.outcome_trigger_tab import OutcomeTriggerTab
-from Tests.common import ARC_URL, ENV, AutomationDataManager
+from Pages.WS.ws_login_page import WSLoginPage
+from Pages.WS.ws_library_page import WSLibraryPage
+from Tests.common import ARC_URL, ENV, AutomationDataManager, DC_URL
 from TestingData.Int.event_review_data_int import EventReviewDataInt as ERD_INT
 from TestingData.Stg.event_review_data_stg import EventReviewDataStg as ERD_STG
 from TestingData.Prod.event_review_data_prod import EventReviewDataProd as ERD_PROD
@@ -20,8 +23,9 @@ OUTCOME_TRIGGER_TAB = 0
 BEHAVIORS_TAB = 0
 COMMENTS_TAB = 0
 WS_LOGIN_PAGE = 0
-WS_TASK_PAGE = 0
+WS_LIBRARY_PAGE = 0
 ERD = ''
+CUSTOM_EVENT_ID_1ST = 0
 EVENT_REVIEW_ID_1ST = 0
 EVENT_REVIEW_ID_2ND = 0
 EVENT_REVIEW_ID_3RD = 0
@@ -34,7 +38,8 @@ scenarios('../../Features/P1_NewARC/p1_search_and_event_review.feature')
 # LQ-10595
 @given('the user logins to ARC')
 def login_arc(browser):
-    global DATA_MGR, LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, COMMENTS_TAB, ERD
+    global DATA_MGR, LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, COMMENTS_TAB, \
+        WS_LOGIN_PAGE, WS_LIBRARY_PAGE, ERD
 
     DATA_MGR = AutomationDataManager()
     LOGIN_PAGE = LoginPage(browser)
@@ -43,6 +48,8 @@ def login_arc(browser):
     OUTCOME_TRIGGER_TAB = OutcomeTriggerTab(browser)
     BEHAVIORS_TAB = BehaviorsTab(browser)
     COMMENTS_TAB = CommentsTab(browser)
+    WS_LOGIN_PAGE = WSLoginPage(browser)
+    WS_LIBRARY_PAGE = WSLibraryPage(browser)
 
     if ENV == 'int':
         ERD = ERD_INT
@@ -207,13 +214,14 @@ def verify_event_with_lots_of_custom_behaviors():
 
 @when('the user clicks one reviewID in a group which has different enabled custom behaviors and the user opens the Behavior tab and the user clicks "More Behaviors >" button')
 def open_event_with_different_custom_behaviors():
-    global CUSTOM_BEHAVIORS
+    global CUSTOM_BEHAVIORS, CUSTOM_EVENT_ID_1ST
     CUSTOM_BEHAVIORS = BEHAVIORS_TAB.custom_behaviors()
 
     EVENT_REVIEW_PAGE.back_to_home().click()
     EVENT_LIST_PAGE.review_id_filter().clear()
     EVENT_LIST_PAGE.review_id_filter().type(EVENT_REVIEW_ID_1ST)
     EVENT_LIST_PAGE.filter_button().click()
+    CUSTOM_EVENT_ID_1ST = EVENT_LIST_PAGE.event_id_1st_only().get_text()
     EVENT_LIST_PAGE.review_id_1st().click()
     if OUTCOME_TRIGGER_TAB.other_radio_btn().wait_for_element_is_clickable() is False:
         EVENT_REVIEW_PAGE.back_to_home().click()
@@ -245,7 +253,6 @@ def verify_custom_behaviors_in_comments():
 @when('the user clicks one reviewID and opens the Behavior tab and the user clicks "More Behaviors >" button and the user checks all custom behaviors and the user uncheck one behavior')
 def open_event_and_select_and_unselect_custom_behavior():
     EVENT_REVIEW_PAGE.behavior_tab().click()
-    print(BEHAVIORS_TAB.the_custom_behavior(1).get_text())
     BEHAVIORS_TAB.the_custom_behavior(1).click()
     BEHAVIORS_TAB.comments().click()
 
@@ -258,3 +265,31 @@ def verify_unselect_custom_behavior():
 
     assert COMMENTS_TAB.behaviors() == behavior_list
     assert COMMENTS_TAB.behavior_comments() == comment_list
+
+@when('the user clicks one reviewID and opens the Behavior tab and the user clicks "More Behaviors >" button and the user checks some custom behaviors and the user clicks "Comments" button and the user clicks "Complete&Next" button')
+def review_event_with_custom_behavior():
+    COMMENTS_TAB.complete_next().click()
+    sleep(100)  # Wait some time for the task creation(usually it less than 60s).
+
+@then('the event status and score are updated correctly based on the workflow setting of the selected custom behaviors')
+def verify_review_result_with_custom_behavior(browser):
+    behavior_list = ERD.custom_behaviors
+    del behavior_list[0:3]
+
+    browser.get(DC_URL)
+    WS_LOGIN_PAGE.user_name().type(ERD.coach_user_name)
+    WS_LOGIN_PAGE.password().type(ERD.coach_password)
+    WS_LOGIN_PAGE.login().click()
+    WS_LOGIN_PAGE.retry_if_login_failed(ERD.coach_user_name, ERD.coach_password)
+
+    WS_LIBRARY_PAGE.library_navigator().click()
+    WS_LIBRARY_PAGE.events().click()
+    WS_LIBRARY_PAGE.select_search().click()
+    WS_LIBRARY_PAGE.select_search_event_id().click()
+    WS_LIBRARY_PAGE.select_search_criteria().type(CUSTOM_EVENT_ID_1ST)
+    WS_LIBRARY_PAGE.search_icon().click()
+
+    assert WS_LIBRARY_PAGE.event_status_1st().get_text() == ERD.event_status_with_custom_behaviors
+    assert WS_LIBRARY_PAGE.event_trigger_1st().get_text() == ERD.event_trigger_with_custom_behaviors
+    for behavior in behavior_list:
+        assert_that(WS_LIBRARY_PAGE.event_behaviors_1st().get_text(), contains_string(behavior))
