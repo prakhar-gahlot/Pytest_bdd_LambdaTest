@@ -17,9 +17,6 @@ class BaseElement:
     def size(self):
         return self._find().size
 
-    def element(self):
-        return self._find()
-
     def _click(self):
         self._find().click()
 
