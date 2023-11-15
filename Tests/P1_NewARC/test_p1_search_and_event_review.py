@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from hamcrest import assert_that, contains_string
 from pytest_bdd import scenarios, given, when, then
 from Pages.Arc.behaviors_tab import BehaviorsTab
+from Pages.Arc.comments_tab import CommentsTab
 from Pages.Arc.event_list_page import EventListPage
 from Pages.Arc.event_review_page import EventReviewPage
 from Pages.Arc.login_page import LoginPage
@@ -33,7 +34,7 @@ scenarios('../../Features/P1_NewARC/p1_search_and_event_review.feature')
 # LQ-10595
 @given('the user logins to ARC')
 def login_arc(browser):
-    global DATA_MGR, LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, ERD
+    global DATA_MGR, LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, COMMENTS_TAB, ERD
 
     DATA_MGR = AutomationDataManager()
     LOGIN_PAGE = LoginPage(browser)
@@ -41,6 +42,7 @@ def login_arc(browser):
     EVENT_REVIEW_PAGE = EventReviewPage(browser)
     OUTCOME_TRIGGER_TAB = OutcomeTriggerTab(browser)
     BEHAVIORS_TAB = BehaviorsTab(browser)
+    COMMENTS_TAB = CommentsTab(browser)
 
     if ENV == 'int':
         ERD = ERD_INT
@@ -64,7 +66,7 @@ def login_arc(browser):
 @when('the user input a valid New event Review ID and the user clicks "Filter" button')
 def filter_event_in_new_tab():
     global EVENT_REVIEW_ID_1ST, EVENT_REVIEW_ID_2ND, EVENT_REVIEW_ID_3RD
-    EVENT_REVIEW_ID_1ST = DATA_MGR.create_new_event()
+    EVENT_REVIEW_ID_1ST = DATA_MGR.create_new_event(ERD.behavior_1st, ERD.ER_with_custom_behaviors)
     EVENT_REVIEW_ID_2ND = DATA_MGR.create_new_event(ERD.behavior_2nd, ERD.ER_with_many_custom_behaviors)
     EVENT_REVIEW_ID_3RD = DATA_MGR.create_new_event(ERD.behavior_2nd, ERD.ER_without_custom_behaviors)
 
@@ -83,7 +85,7 @@ def verify_new_event_filtered():
     assert EVENT_LIST_PAGE.review_id_1st().get_text() == str(EVENT_REVIEW_ID_1ST)
     assert creation_date < datetime.now()
     assert EVENT_LIST_PAGE.vehicle_name_1st().get_text() == ERD.vehicle
-    assert EVENT_LIST_PAGE.serial_num_1st().get_text() == ERD.ER
+    assert EVENT_LIST_PAGE.serial_num_1st().get_text() == ERD.ER_with_custom_behaviors
 
 @then('the event list shows columns: "REVIEW ID","EVENT ID","CREATION DATE","VEHICLE NAME","ER SERIAL"')
 def verify_event_columns():
@@ -226,3 +228,16 @@ def verify_event_with_different_custom_behaviors():
     assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is True
     assert len(different_behaviors) > 0
     assert different_behaviors != CUSTOM_BEHAVIORS
+
+@when('the user clicks one reviewID and opens the Behavior tab and the user clicks "More Behaviors >" button and the user checks all custom behaviors and the user clicks "Comments" button')
+def open_event_and_select_custom_behaviors_and_go_to_comments():
+    global CUSTOM_BEHAVIORS
+    CUSTOM_BEHAVIORS = BEHAVIORS_TAB.custom_behaviors()
+
+    BEHAVIORS_TAB.select_all_custom_behaviors()
+    BEHAVIORS_TAB.comments().click()
+
+@then('the comments of selected custom behaviors are listed')
+def verify_custom_behaviors_in_comments():
+    assert COMMENTS_TAB.behaviors() == ERD.custom_behaviors
+    assert COMMENTS_TAB.behavior_comments() == ERD.custom_behavior_comments

@@ -14,3 +14,18 @@ class CommentsTab(EventReviewPage):
     # Complete & Next button
     def complete_next(self):
         return Button(self.driver, (By.XPATH, CTL.complete_next_xpath))
+
+    # comments
+    def behaviors(self):
+        behaviors = self.driver.find_elements(By.CLASS_NAME, "cdk-column-behavior")
+        behavior_list = []
+        for behavior in behaviors:
+            behavior_list.append(behavior.text)
+        return behavior_list
+
+    def behavior_comments(self):
+        comments = self.driver.find_elements(By.CLASS_NAME, "cdk-column-comment")
+        comment_list = []
+        for comment in comments:
+            comment_list.append(comment.text)
+        return comment_list
