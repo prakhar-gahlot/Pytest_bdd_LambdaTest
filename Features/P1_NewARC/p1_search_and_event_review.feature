@@ -43,3 +43,7 @@ Feature: Search and Event review
   Scenario: The comments of custom behaviors are displayed correctly
     When the user clicks one reviewID and opens the Behavior tab and the user clicks "More Behaviors >" button and the user checks all custom behaviors and the user clicks "Comments" button
     Then the comments of selected custom behaviors are listed
+
+  Scenario: User could uncheck to cancel the selection of custom behavior
+    When the user clicks one reviewID and opens the Behavior tab and the user clicks "More Behaviors >" button and the user checks all custom behaviors and the user uncheck one behavior
+    Then the custom behavior is unselected

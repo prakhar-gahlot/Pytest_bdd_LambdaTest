@@ -203,7 +203,7 @@ def open_event_with_lots_of_custom_behaviors():
 def verify_event_with_lots_of_custom_behaviors():
     assert BEHAVIORS_TAB.custom_behaviors_title().element_is_displayed() is True
     assert len(BEHAVIORS_TAB.custom_behaviors()) > 8
-    assert BEHAVIORS_TAB.the_9th_custom_behavior().element_is_displayed() is True
+    assert BEHAVIORS_TAB.the_custom_behavior(9).element_is_displayed() is True
 
 @when('the user clicks one reviewID in a group which has different enabled custom behaviors and the user opens the Behavior tab and the user clicks "More Behaviors >" button')
 def open_event_with_different_custom_behaviors():
@@ -235,9 +235,26 @@ def open_event_and_select_custom_behaviors_and_go_to_comments():
     CUSTOM_BEHAVIORS = BEHAVIORS_TAB.custom_behaviors()
 
     BEHAVIORS_TAB.select_all_custom_behaviors()
-    BEHAVIORS_TAB.comments().click()
+    BEHAVIORS_TAB.comments_more_behaviors().click()
 
 @then('the comments of selected custom behaviors are listed')
 def verify_custom_behaviors_in_comments():
     assert COMMENTS_TAB.behaviors() == ERD.custom_behaviors
     assert COMMENTS_TAB.behavior_comments() == ERD.custom_behavior_comments
+
+@when('the user clicks one reviewID and opens the Behavior tab and the user clicks "More Behaviors >" button and the user checks all custom behaviors and the user uncheck one behavior')
+def open_event_and_select_and_unselect_custom_behavior():
+    EVENT_REVIEW_PAGE.behavior_tab().click()
+    print(BEHAVIORS_TAB.the_custom_behavior(1).get_text())
+    BEHAVIORS_TAB.the_custom_behavior(1).click()
+    BEHAVIORS_TAB.comments_more_behaviors().click()
+
+@then('the custom behavior is unselected')
+def verify_unselect_custom_behavior():
+    behavior_list = ERD.custom_behaviors
+    comment_list = ERD.custom_behavior_comments
+    del behavior_list[2]
+    del comment_list[2]
+
+    assert COMMENTS_TAB.behaviors() == behavior_list
+    assert COMMENTS_TAB.behavior_comments() == comment_list

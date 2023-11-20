@@ -4,10 +4,11 @@ from Elements.base_element import BaseElement
 
 
 class TextBox(BaseElement):
-    def __init__(self, driver, locator):
+    def __init__(self, driver, locator, element=None):
         super().__init__(driver, locator)
         self.driver = driver
         self.locator = locator
+        self.element = element
 
     def type(self, input_text, attempts=5):
         self.type_ignore_exceptions(input_text, attempts)

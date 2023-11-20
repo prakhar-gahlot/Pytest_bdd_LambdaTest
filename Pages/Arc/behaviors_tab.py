@@ -15,7 +15,10 @@ class BehaviorsTab(EventReviewPage):
 
     # comments and more behaviors button
     def comments(self):
-        return Button(self.driver, (By.CLASS_NAME, BTL.comments_class))
+        return Button(self.driver, (By.XPATH, BTL.comments_xpath))
+
+    def comments_more_behaviors(self):
+        return Button(self.driver, (By.XPATH, BTL.comments_more_behaviors_xpath))
 
     def more_behaviors(self):
         return Button(self.driver, (By.XPATH, BTL.more_behaviors_xpath))
@@ -74,5 +77,8 @@ class BehaviorsTab(EventReviewPage):
         for child in children:
             child.click()
 
-    def the_9th_custom_behavior(self):
-        return Label(self.driver, (By.XPATH, BTL.the_9th_custom_behavior_xpath))
+    def the_custom_behavior(self, sequence_number):
+        parent = WebDriverWait(self.driver, 10).until(ec.presence_of_element_located((By.XPATH, BTL.custom_behaviors_container_xpath)))
+        children = parent.find_elements(By.CLASS_NAME, 'ng-star-inserted')
+
+        return Button(self.driver, None, children[sequence_number -1])

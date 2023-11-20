@@ -2,10 +2,11 @@ from Elements.base_element import BaseElement
 
 
 class Button(BaseElement):
-    def __init__(self, driver, locator):
+    def __init__(self, driver, locator, element=None):
         super().__init__(driver, locator)
         self.driver = driver
         self.locator = locator
+        self.element = element
 
     def click(self, attempts=3):
         self.click_element_ignore_exceptions(attempts)
