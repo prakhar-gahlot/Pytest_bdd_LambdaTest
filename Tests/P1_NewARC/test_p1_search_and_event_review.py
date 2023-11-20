@@ -235,7 +235,7 @@ def open_event_and_select_custom_behaviors_and_go_to_comments():
     CUSTOM_BEHAVIORS = BEHAVIORS_TAB.custom_behaviors()
 
     BEHAVIORS_TAB.select_all_custom_behaviors()
-    BEHAVIORS_TAB.comments().click()
+    BEHAVIORS_TAB.comments_more_behaviors().click()
 
 @then('the comments of selected custom behaviors are listed')
 def verify_custom_behaviors_in_comments():
@@ -247,7 +247,7 @@ def open_event_and_select_and_unselect_custom_behavior():
     EVENT_REVIEW_PAGE.behavior_tab().click()
     print(BEHAVIORS_TAB.the_custom_behavior(1).get_text())
     BEHAVIORS_TAB.the_custom_behavior(1).click()
-    BEHAVIORS_TAB.comments().click()
+    BEHAVIORS_TAB.comments_more_behaviors().click()
 
 @then('the custom behavior is unselected')
 def verify_unselect_custom_behavior():
