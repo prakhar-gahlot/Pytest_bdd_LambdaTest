@@ -1,7 +1,8 @@
 class BehaviorsTabLocator:
 
     # comments and more behaviors button
-    comments_class = 'btn-comments-less'
+    comments_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \
+                     '/div/mat-tab-body[2]/div/behaviors-review/div[1]/div[3]/div[2]/button'
     more_behaviors_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \
                            '/div/mat-tab-body[2]/div/behaviors-review/div[1]/div[3]/div[1]/button'
     previous_behaviors_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \
