@@ -27,6 +27,8 @@ class EventReviewDataInt:
     # custom behaviors in Root/Cellular Unassigned
     custom_behaviors = ['Behavior', 'Other', 'Unsafe and Unnecessary', 'U-Turn', 'Pedestrian/Bicyclist',
                         'Trailer Detachment', 'Sleeper Berth Securement', 'Tandem Slide', 'Tree Strike']
+    event_status_with_custom_behaviors = 'Face-To-Face'
+    event_trigger_with_custom_behaviors = 'Other'
     custom_behavior_comments = ["Comment",
                                 "The event was triggered due to a force exceeding the video event recorder's threshold.",
                                 "It is your organization's policy to select Unsafe and Not Necessary anytime the vehicle is traveling 15 miles per hour or greater when there is no passenger present in the vehicle.",

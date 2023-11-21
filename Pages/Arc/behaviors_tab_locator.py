@@ -1,10 +1,8 @@
 class BehaviorsTabLocator:
 
     # comments and more behaviors button
-    comments_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \
-                     '/div/mat-tab-body[2]/div/behaviors-review/div[1]/div[3]/div[2]/button'
-    comments_more_behaviors_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \
-                                    '/div/mat-tab-body[2]/div/behaviors-review/div[2]/div[3]/div/button'
+    comments_class = 'btn-comments-more'
+    comments_more_behaviors_class = 'btn-comments-less'
     more_behaviors_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \
                            '/div/mat-tab-body[2]/div/behaviors-review/div[1]/div[3]/div[1]/button'
     previous_behaviors_xpath = '/html/body/app-root/top-bar/app-review/div/review-bar/mat-tab-group' \

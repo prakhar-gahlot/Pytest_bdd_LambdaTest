@@ -26,6 +26,8 @@ class EventReviewDataStg:
     ER_with_custom_behaviors = ''   # in group with some custom behaviors
     # custom behaviors
     custom_behaviors = []
+    event_status_with_custom_behaviors = ''
+    event_trigger_with_custom_behaviors = ''
     custom_behavior_comments = []
     ER_without_custom_behaviors = ''    # in group without custom behaviors
     ER_with_many_custom_behaviors = ''  # in group with more than 8 custom behaviors
