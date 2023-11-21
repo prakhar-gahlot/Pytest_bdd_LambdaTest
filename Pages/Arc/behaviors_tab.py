@@ -15,7 +15,10 @@ class BehaviorsTab(EventReviewPage):
 
     # comments and more behaviors button
     def comments(self):
-        return Button(self.driver, (By.CLASS_NAME, BTL.comments_class))
+        return Button(self.driver, (By.XPATH, BTL.comments_xpath))
+
+    def comments_more_behaviors(self):
+        return Button(self.driver, (By.XPATH, BTL.comments_more_behaviors_xpath))
 
     def comments_more_behaviors(self):
         return Button(self.driver, (By.CLASS_NAME, BTL.comments_more_behaviors_class))
