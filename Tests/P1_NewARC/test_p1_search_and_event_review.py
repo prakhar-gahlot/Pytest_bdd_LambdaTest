@@ -254,7 +254,7 @@ def verify_custom_behaviors_in_comments():
 def open_event_and_select_and_unselect_custom_behavior():
     EVENT_REVIEW_PAGE.behavior_tab().click()
     BEHAVIORS_TAB.the_custom_behavior(1).click()
-    BEHAVIORS_TAB.comments().click()
+    BEHAVIORS_TAB.comments_more_behaviors().click()
 
 @then('the custom behavior is unselected')
 def verify_unselect_custom_behavior():
