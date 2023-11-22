@@ -1,3 +1,5 @@
+from selenium.webdriver import ActionChains, Keys
+
 from Elements.base_element import BaseElement
 from Elements.label import Label
 from Pages.base_page import BasePage
@@ -61,6 +63,12 @@ class WSTaskPage(BasePage):
 
     def confirm_complete(self):
         return Button(self.driver, (By.ID, TP.confirm_complete_id))
+
+    def first_action_plan(self):
+        #self.driver.execute_script("window.scrollTo(0, window.innerHeight);")
+        action = ActionChains(self.driver)
+        action.send_keys(Keys.END).perform()
+        return Button(self.driver, (By.ID, TP.first_action_plan_id))
 
     # non-element methods
     def behaviors_list(self):
