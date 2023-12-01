@@ -3,7 +3,6 @@ from time import sleep
 from hamcrest import assert_that, contains_string
 from pytest_bdd import scenarios, given, when, then
 from selenium.common.exceptions import TimeoutException
-
 from Pages.Arc.event_list_page import EventListPage
 from Pages.Arc.event_review_page import EventReviewPage
 from Pages.Arc.outcome_trigger_tab import OutcomeTriggerTab
@@ -289,10 +288,9 @@ def verify_event_score_and_behaviors():
     assert WS_TASK_PAGE.event_status().get_text() == 'Face-To-Face'
 
     # select action plan if company enable it
-    # try:
-    #     WS_TASK_PAGE.first_action_plan().click()
-    # except TimeoutException:
-    #     sleep(1)
-    #WS_TASK_PAGE.first_action_plan().click()
+    try:
+        WS_TASK_PAGE.first_action_plan().click()
+    except TimeoutException:
+        sleep(0.1)
     WS_TASK_PAGE.complete_session().click()
     WS_TASK_PAGE.confirm_complete().click()
