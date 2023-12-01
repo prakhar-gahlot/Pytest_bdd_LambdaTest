@@ -26,3 +26,4 @@ class WSTaskPageLocator:
 
     complete_session_id = 'coaching-session-complete-button'
     confirm_complete_id = 'modalShellPrimaryButton'
+    first_action_plan_id = 'lytx-radio-button__content'

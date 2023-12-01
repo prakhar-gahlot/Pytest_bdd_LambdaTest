@@ -62,6 +62,9 @@ class WSTaskPage(BasePage):
     def confirm_complete(self):
         return Button(self.driver, (By.ID, TP.confirm_complete_id))
 
+    def first_action_plan(self):
+        return Button(self.driver, (By.CLASS_NAME, TP.first_action_plan_id))
+
     # non-element methods
     def behaviors_list(self):
         behaviors = self.behaviors()._find()

@@ -25,8 +25,14 @@ class WSLibraryPage(BasePage):
     def select_search_event_id(self):
         return Button(self.driver, (By.XPATH, LP.select_search_event_id_xpath))
 
+    def select_search_event_driver(self):
+        return Button(self.driver, (By.XPATH, LP.select_search_event_driver_xpath))
+
     def select_search_criteria(self):
         return TextBox(self.driver, (By.ID, LP.select_search_criteria_id))
+
+    def search_driver_result(self):
+        return Button(self.driver, (By.ID, LP.search_driver_result_id))
 
     def search_icon(self):
         return Button(self.driver, (By.XPATH, LP.search_icon_xpath))
@@ -41,3 +47,11 @@ class WSLibraryPage(BasePage):
         return Label(self.driver, (By.XPATH, LP.event_behaviors_1st_xpath))
 
     # non-element methods
+
+    def unassign_driver_from_events(self, driver_name):
+        self.library_navigator().click()
+        self.events().click()
+        self.select_search().click()
+        self.select_search_event_driver().click()
+        self.select_search_criteria().type(driver_name)
+        self.search_driver_result().click()
