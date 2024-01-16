@@ -48,3 +48,9 @@ Feature: Login
     Then the event is disappeared from events list
     And the event status is updated accordingly to F2F in WS and the corresponding task is generated correctly to Due for Coaching task in WS
     And the event score is updated correctly in WS and the behavior/trigger are displayed correctly in WS
+
+  @LQ-28556
+  Scenario: Trainee lands on review page in training mode after clicking the Select button
+    Given the user is in the Login page of New ARC & a user has "Reviewer" role
+	When the user clicks the Sign in button & the user select "Trainee" role in the Role dropdown list & the user select one company in the company dropdown list
+	Then the Review Center page in training mode is opened

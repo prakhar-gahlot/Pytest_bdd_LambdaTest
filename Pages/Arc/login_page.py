@@ -30,6 +30,9 @@ class LoginPage(BasePage):
     def role_list_first(self):
         return Button(self.driver, (By.XPATH, LP.role_list_first_xpath))
 
+    def role_list_trainee(self):
+        return Button(self.driver, (By.XPATH, LP.role_trainee_xpath))
+
     # select company page elements
     def select_role(self):
         return Button(self.driver, (By.XPATH, LP.select_role_xpath))

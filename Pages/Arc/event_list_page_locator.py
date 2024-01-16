@@ -6,6 +6,7 @@ class EventListPageLocator:
     company_name_xpath = '/html/body/app-root/top-bar/div/div/p[1]/strong'
     switch_company_xpath = '/html/body/app-root/top-bar/div/div/p[2]'
     give_feedback_xpath = '/html/body/app-root/top-bar/reviewer-home/div/give-feedback-button/div/button/span[1]'
+    training_mode_xpath = '/html/body/app-root/top-bar/div/div[2]'
 
     # switch company dialog
     search_company_switch_company_xpath = '/html/body/div[2]/div[2]/div/mat-dialog-container/company-switch' \
