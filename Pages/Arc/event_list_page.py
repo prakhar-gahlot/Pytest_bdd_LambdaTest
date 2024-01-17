@@ -27,6 +27,9 @@ class EventListPage(BasePage):
     def give_feedback(self):
         return Button(self.driver, (By.XPATH, ELP.give_feedback_xpath))
 
+    def training_mode(self):
+        return Button(self.driver, (By.XPATH, ELP.training_mode_xpath))
+
     # switch company dialog
     def search_company_switch_company(self):
         return TextBox(self.driver, (By.XPATH, ELP.search_company_switch_company_xpath))

@@ -7,6 +7,7 @@ class LoginPageLocator:
     login_xpath = '/html/body/app-root/login/mat-card/mat-card-content/button'
     login_error_xpath = '/html/body/app-root/login/mat-card/mat-card-content/login-form/form/span'
     role_reviewer_xpath = './/*[text()="Reviewer"]'
+    role_trainee_xpath = '//*[@id="mat-option-35"]'
     select_role_xpath = '/html/body/app-root/login/mat-card/mat-card-content/role-company-form/form/mat-select'
     role_list_first_xpath = '/html/body/div[2]/div[2]/div/div/div/mat-option'
 
