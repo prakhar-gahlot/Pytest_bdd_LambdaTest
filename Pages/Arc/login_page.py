@@ -35,7 +35,10 @@ class LoginPage(BasePage):
 
     # select company page elements
     def select_role(self):
-        return Button(self.driver, (By.XPATH, LP.select_role_xpath))
+        return TextBox(self.driver, (By.XPATH, LP.select_role_xpath))
+
+    def select_reviewer_role(self):
+        return TextBox(self.driver, (By.XPATH, LP.select_reviewer_xpath))
 
     def search_company(self):
         return TextBox(self.driver, (By.XPATH, LP.search_company_xpath))
