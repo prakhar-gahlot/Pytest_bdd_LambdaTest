@@ -68,8 +68,8 @@ def reviewer_sign_in():
 @when('the user select Reviewer role in the Role dropdown list and the user select one company in the company dropdown list and the user clicks the Select button')
 def reviewer_select_role_and_company():
     LOGIN_PAGE.search_company().wait_for_element_displayed()
-    LOGIN_PAGE.select_role().click()
-    LOGIN_PAGE.select_reviewer_role().click()
+    LOGIN_PAGE.select_your_role().click()
+    LOGIN_PAGE.reviewer_role().click()
     LOGIN_PAGE.search_company().type_and_auto_search(ERD.company_name_switch)
     LOGIN_PAGE.first_company().click()
     LOGIN_PAGE.select_company().click()
