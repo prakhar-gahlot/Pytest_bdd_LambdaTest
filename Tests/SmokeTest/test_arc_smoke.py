@@ -300,40 +300,15 @@ def verify_event_score_and_behaviors():
     WS_TASK_PAGE.confirm_complete().click()
 
 #@LQ-28556
-@given('the user is in the Login page of New ARC & a user has "Reviewer" role')
-def login_page(browser):
-    global DATA_MGR, LOGIN_PAGE, EVENT_LIST_PAGE, EVENT_REVIEW_PAGE, OUTCOME_TRIGGER_TAB, BEHAVIORS_TAB, COMMENTS_TAB, \
-        WS_LOGIN_PAGE, WS_TASK_PAGE, ERD
-
-    DATA_MGR = AutomationDataManager()
-    LOGIN_PAGE = LoginPage(browser)
-    EVENT_LIST_PAGE = EventListPage(browser)
-    EVENT_REVIEW_PAGE = EventReviewPage(browser)
-    OUTCOME_TRIGGER_TAB = OutcomeTriggerTab(browser)
-    BEHAVIORS_TAB = BehaviorsTab(browser)
-    COMMENTS_TAB = CommentsTab(browser)
-    WS_LOGIN_PAGE = WSLoginPage(browser)
-    WS_TASK_PAGE = WSTaskPage(browser)
-
-    if ENV == 'int':
-        ERD = ERD_INT
-    elif ENV == 'stg':
-        ERD = ERD_STG
-    else:
-        ERD = ERD_PROD
-
-    browser.get(ARC_URL)
-    sleep(5)
-
 @when('the user clicks the Sign in button & the user select "Trainee" role in the Role dropdown list & the user select one company in the company dropdown list')
 def trainee_sign_in():
     LOGIN_PAGE.user_name().type(ERD.reviewer_user_name)
     LOGIN_PAGE.password().type(ERD.reviewer_password)
     LOGIN_PAGE.login().click()
-    LOGIN_PAGE.role_list_trainee().click()
+
     LOGIN_PAGE.search_company().wait_for_element_displayed()
-    LOGIN_PAGE.select_role().click()
-    LOGIN_PAGE.select_reviewer_role().click()
+    LOGIN_PAGE.select_your_role().click()
+    LOGIN_PAGE.trainee_role().click()
     LOGIN_PAGE.search_company().type_and_auto_search(ERD.company_name_switch)
     LOGIN_PAGE.first_company().click()
     LOGIN_PAGE.select_company().click()
@@ -341,7 +316,7 @@ def trainee_sign_in():
 @then('the Review Center page in training mode is opened')
 def verify_trainee_mode():
     assert EVENT_LIST_PAGE.title().get_text() == 'Lytx ReviewCenter'
-    assert EVENT_LIST_PAGE.company_name().get_text() == ERD.company_name
+    assert EVENT_LIST_PAGE.company_name().get_text() == ERD.company_name_switch
     assert EVENT_LIST_PAGE.switch_company().get_text() == 'Switch Companies'
     assert EVENT_LIST_PAGE.training_mode().get_text() == 'Training Mode'
     assert EVENT_LIST_PAGE.give_feedback().get_text() == 'Give Feedback'
