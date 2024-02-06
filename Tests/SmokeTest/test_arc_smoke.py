@@ -70,7 +70,7 @@ def reviewer_select_role_and_company():
     LOGIN_PAGE.search_company().wait_for_element_displayed()
     LOGIN_PAGE.select_your_role().click()
     LOGIN_PAGE.reviewer_role().click()
-    LOGIN_PAGE.search_company().type_and_auto_search(ERD.company_name)
+    LOGIN_PAGE.search_company().type_and_auto_search(ERD.company_name_switch)
     LOGIN_PAGE.first_company().click()
     LOGIN_PAGE.select_company().click()
 
@@ -90,7 +90,7 @@ def go_to_login_page_and_sign_in(browser):
     LOGIN_PAGE.search_company().wait_for_element_displayed()
     LOGIN_PAGE.select_your_role().click()
     LOGIN_PAGE.reviewer_role().click()
-    LOGIN_PAGE.search_company().type_and_auto_search(ERD.company_name)
+    LOGIN_PAGE.search_company().type_and_auto_search(ERD.company_name_switch)
     LOGIN_PAGE.first_company().click()
     LOGIN_PAGE.select_company().click()
 
@@ -316,7 +316,7 @@ def trainee_sign_in():
 @then('the Review Center page in training mode is opened')
 def verify_trainee_mode():
     assert EVENT_LIST_PAGE.title().get_text() == 'Lytx ReviewCenter'
-    assert EVENT_LIST_PAGE.company_name().get_text() == ERD.company_name
+    assert EVENT_LIST_PAGE.company_name().get_text() == ERD.company_name_switch
     assert EVENT_LIST_PAGE.switch_company().get_text() == 'Switch Companies'
     assert EVENT_LIST_PAGE.training_mode().get_text() == 'Training Mode'
     assert EVENT_LIST_PAGE.give_feedback().get_text() == 'Give Feedback'
