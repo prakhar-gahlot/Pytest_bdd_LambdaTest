@@ -88,8 +88,8 @@ def go_to_login_page_and_sign_in(browser):
     LOGIN_PAGE.login().click()
 
     LOGIN_PAGE.search_company().wait_for_element_displayed()
-    LOGIN_PAGE.select_role().click()
-    LOGIN_PAGE.select_reviewer_role().click()
+    LOGIN_PAGE.select_your_role().click()
+    LOGIN_PAGE.reviewer_role().click()
     LOGIN_PAGE.search_company().type_and_auto_search(ERD.company_name)
     LOGIN_PAGE.first_company().click()
     LOGIN_PAGE.select_company().click()
