@@ -322,6 +322,6 @@ def verify_trainee_mode():
     assert EVENT_LIST_PAGE.give_feedback().get_text() == 'Give Feedback'
     assert EVENT_LIST_PAGE.new_tab().get_text() == 'New (0)'
     assert EVENT_LIST_PAGE.return_tab().get_text() == 'Returned (0)'
-    assert EVENT_LIST_PAGE.review_id_filter().get_text() == 'REVIEW ID'
+    assert EVENT_LIST_PAGE.review_id_text().get_text() == 'REVIEW ID'
     assert EVENT_LIST_PAGE.filter_button().get_text() == 'Filter'
     assert EVENT_LIST_PAGE.clear_button().get_text() == 'Clear'

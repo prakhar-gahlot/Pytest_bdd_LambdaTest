@@ -41,6 +41,9 @@ class EventListPage(BasePage):
         return Button(self.driver, (By.XPATH, ELP.select_company_xpath))
 
     # filter and tabs
+    def review_id_text(self):
+        return Label(self.driver, (By.XPATH, ELP.review_id_text_xpath))
+
     def review_id_filter(self):
         return TextBox(self.driver, (By.XPATH, ELP.review_id_filter_xpath))
 
