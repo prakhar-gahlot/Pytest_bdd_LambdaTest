@@ -27,16 +27,23 @@ class LoginPage(BasePage):
     def login_error_text(self):
         return Label(self.driver, (By.XPATH, LP.login_error_xpath))
 
+    # select your role page elements
     def role_list_first(self):
         return Button(self.driver, (By.XPATH, LP.role_list_first_xpath))
 
     def role_list_trainee(self):
         return Button(self.driver, (By.XPATH, LP.role_trainee_xpath))
 
-    # select company page elements
-    def select_role(self):
-        return Button(self.driver, (By.XPATH, LP.select_role_xpath))
+    def select_your_role(self):
+        return TextBox(self.driver, (By.XPATH, LP.select_role_xpath))
 
+    def reviewer_role(self):
+        return TextBox(self.driver, (By.XPATH, LP.role_reviewer_xpath))
+
+    def trainee_role(self):
+        return TextBox(self.driver, (By.XPATH, LP.role_trainee_xpath))
+
+    # select company page elements
     def search_company(self):
         return TextBox(self.driver, (By.XPATH, LP.search_company_xpath))
 

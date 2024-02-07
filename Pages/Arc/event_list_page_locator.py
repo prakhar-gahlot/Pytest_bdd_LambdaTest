@@ -16,6 +16,7 @@ class EventListPageLocator:
                            '/company-switch/mat-card/mat-card-content/button[1]'
 
     # filter and tabs
+    review_id_text_xpath = '/html/body/app-root/top-bar/reviewer-home/filter-event-list/div/p'
     review_id_filter_xpath = '/html/body/app-root/top-bar/reviewer-home/filter-event-list/div/form/input'
     filter_button_xpath = '/html/body/app-root/top-bar/reviewer-home/filter-event-list/div/form/button[1]'
     clear_button_xpath = '/html/body/app-root/top-bar/reviewer-home/filter-event-list/div/form/button[2]'
