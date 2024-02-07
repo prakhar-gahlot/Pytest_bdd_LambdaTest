@@ -27,6 +27,7 @@ class LoginPage(BasePage):
     def login_error_text(self):
         return Label(self.driver, (By.XPATH, LP.login_error_xpath))
 
+    # select your role page elements
     def role_list_first(self):
         return Button(self.driver, (By.XPATH, LP.role_list_first_xpath))
 
