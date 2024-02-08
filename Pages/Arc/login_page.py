@@ -40,6 +40,9 @@ class LoginPage(BasePage):
     def reviewer_role(self):
         return TextBox(self.driver, (By.XPATH, LP.role_reviewer_xpath))
 
+    def selected_reviewer_role(self):
+        return TextBox(self.driver, (By.XPATH, LP.selected_reviewer_role_xpath))
+
     def trainee_role(self):
         return TextBox(self.driver, (By.XPATH, LP.role_trainee_xpath))
 

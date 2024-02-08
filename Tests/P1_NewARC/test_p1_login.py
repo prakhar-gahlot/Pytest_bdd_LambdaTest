@@ -136,26 +136,28 @@ def select_role_company_page():
 # LQ-9705
 @when('the user inputs valid username and password of a Reviewer and the user clicks the Sign in button')
 def reviewer_sign_in():
-    # nothing to do there since user already logs in
+    LOGIN_PAGE.search_company().wait_for_element_displayed()
+    LOGIN_PAGE.select_your_role().click()
+    LOGIN_PAGE.reviewer_role().click()
     sleep(1)
 
 
 @then('the role and company selection page is opened and the Role selection box is displayed with "Reviewer" as default '
       'and the Company selection box is displayed with watermark "Select Company" and the Select button is disabled as default')
 def select_role_company_page():
-    assert LOGIN_PAGE.select_role().get_text() == 'Reviewer'
+    assert LOGIN_PAGE.selected_reviewer_role().get_text() == 'Reviewer'
     assert LOGIN_PAGE.search_company().get_attribute('placeholder') == 'Select Company'
     assert LOGIN_PAGE.select_company().get_state() is False
 
 
 @when('the user opens the role dropdown list')
 def open_role_dropdown_list():
-    LOGIN_PAGE.select_role().click()
-
+    LOGIN_PAGE.search_company().wait_for_element_displayed()
+    LOGIN_PAGE.select_your_role().click()
 
 @then('the role selection field automatically shows Reviewer role as the selected role and the "Reviewer" role is displayed in the dropdown list')
 def verify_role_dropdown_list():
-    assert LOGIN_PAGE.role_list_first().get_text() == 'Reviewer'
+    assert LOGIN_PAGE.reviewer_role().get_text() == 'Reviewer'
 
 
 @when('the user opens the company dropdown list')
