@@ -144,7 +144,6 @@ def verify_new_events_filtered():
 
 @then('the value in each column for the new events are displayed correctly')
 def verify_new_tab_event_columns():
-    sleep(500)
     assert EVENT_LIST_PAGE.review_id_title().get_text() == 'REVIEW ID'
     assert EVENT_LIST_PAGE.event_id_title().get_text() == 'EVENT ID'
     assert EVENT_LIST_PAGE.creation_date_title().get_text() == 'CREATION DATE'
