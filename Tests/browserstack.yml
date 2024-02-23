@@ -1,0 +1,16 @@
+userName: aaronfawcett_7yUJj9
+accessKey: 1NnNfSqs2s5cwsggj6sj
+platforms:
+  - os: Windows
+    osVersion: 11
+    browserName: Chrome
+    browserVersion: 121.0
+parallelsPerPlatform: 1
+browserstackLocal: true
+buildName: Autobots-Arc-Automation
+buildIdentifier: ${BUILD_NUMBER}
+projectName: Autobots-Arc-Automation
+debug: true
+networkLogs: true
+consoleLogs: info
+testObservability: true

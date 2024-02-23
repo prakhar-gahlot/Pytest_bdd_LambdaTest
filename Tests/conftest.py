@@ -31,53 +31,8 @@ def browser():
     options.add_argument('--enable-strict-powerful-feature-restrictions')
     options.add_argument('--disable-geolocation')
     options.add_experimental_option("prefs", {"profile.default_content_setting_values.geolocation": 1})
-    TASK_ID = int(os.environ['TASK_ID']) if 'TASK_ID' in os.environ else 0
-
-    print("Path to the config file = %s" % (config_file_path))
-
-    # Edit these to match your credentials
-    USERNAME = os.environ.get('BROWSERSTACK_USERNAME') or sys.argv[1]
-    BROWSERSTACK_ACCESS_KEY = os.environ.get('BROWSERSTACK_ACCESS_KEY') or sys.argv[2]
-
-    if not (USERNAME and BROWSERSTACK_ACCESS_KEY):
-        raise Exception("Please provide your BrowserStack username and access key")
-
-    desired_capabilities = CONFIG['environments'][TASK_ID]
-    f = open('test.txt', 'w')
-    f.write(repr(desired_capabilities))
-    f.close()
-    for key in CONFIG["capabilities"]:
-        if key not in desired_capabilities:
-            desired_capabilities[key] = CONFIG["capabilities"][key]
-
-    if os.getenv("BROWSERSTACK_LOCAL") is not None:
-        desired_capabilities["browserstack.local"] = os.getenv("BROWSERSTACK_LOCAL")
-    print(os.getenv("BROWSERSTACK_BUILD_NAME"))
-
-    if os.getenv("BROWSERSTACK_BUILD_NAME") is not None:
-        print(os.getenv("BROWSERSTACK_BUILD_NAME"))
-        desired_capabilities["build"] = os.getenv("BROWSERSTACK_BUILD_NAME")
-
-    if "browserstack.local" in desired_capabilities and desired_capabilities["browserstack.local"]:
-        desired_capabilities["browserstack.localIdentifier"] = USERNAME + "_" + str(TASK_ID)
-        start_local()
-
-    url = "https://%s:%s@hub.browserstack.com/wd/hub" % (
-        USERNAME, BROWSERSTACK_ACCESS_KEY
-    )
-    print('url:' + url)
-    for key in CONFIG["capabilities"]:
-        print(desired_capabilities[key])
-    desired_capabilities["name"] = testName
-
-    for cap_key in desired_capabilities.keys():
-        options.set_capability(cap_key, desired_capabilities[cap_key])
-
-    if CONFIG["test_type"] == "remote":
-        driver = webdriver.Remote(options=options, command_executor=url)
-    else:
-        # Make sure to add the Chrome driver to the environment variables
-        driver = webdriver.Chrome(options=options)
+    # Make sure to add the Chrome driver to the environment variables
+    driver = webdriver.Chrome(options=options)
 
     assertError.result = False
     driver.maximize_window()
