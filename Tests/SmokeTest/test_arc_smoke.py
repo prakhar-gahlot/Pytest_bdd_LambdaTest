@@ -253,7 +253,7 @@ def verify_go_to_comments_tab():
 @when('the user selects some behaviors and the user clicks "Complete & Next" button in "Comments" tab')
 def complete_review():
     COMMENTS_TAB.complete_next().click()
-    sleep(100) # Wait some time for the task creation(usually it less than 60s).
+    sleep(60) #Wait some time for the task creation(usually it less than 60s).
 
 @then('the event is disappeared from events list')
 def verify_event_is_reviewed():
