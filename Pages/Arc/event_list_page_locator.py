@@ -9,15 +9,13 @@ class EventListPageLocator:
     training_mode_xpath = '/html/body/app-root/top-bar/div/div[2]'
 
     # switch company dialog
-    search_company_switch_company_xpath = '/html/body/div[2]/div[2]/div/mat-dialog-container/company-switch' \
-                                          '/mat-card/mat-card-content/role-company-form/form/div/input'
-    first_company_xpath = '/html/body/div[2]/div[3]/div/div/cdk-virtual-scroll-viewport/div[1]/mat-option'
-    select_company_xpath = '/html/body/div[2]/div[2]/div/mat-dialog-container' \
-                           '/company-switch/mat-card/mat-card-content/button[1]'
+    search_company_switch_company_xpath = '/html/body/div[1]/div[2]/div/mat-dialog-container/company-switch/mat-card/mat-card-content/role-company-form/form/div/input'
+    first_company_xpath = '/html/body/div[1]/div[3]/div/div/cdk-virtual-scroll-viewport/div[1]/mat-option/span'
+    select_company_xpath = '/html/body/div[1]/div[2]/div/mat-dialog-container/company-switch/mat-card/mat-card-content/button[1]'
 
     # filter and tabs
     review_id_text_xpath = '/html/body/app-root/top-bar/reviewer-home/filter-event-list/div/p'
-    review_id_filter_xpath = '/html/body/app-root/top-bar/reviewer-home/filter-event-list/div/form/input'
+    review_id_filter_xpath = '/html/body/app-root/top-bar/reviewer-home/filter-event-list/div/form/div/input'
     filter_button_xpath = '/html/body/app-root/top-bar/reviewer-home/filter-event-list/div/form/button[1]'
     clear_button_xpath = '/html/body/app-root/top-bar/reviewer-home/filter-event-list/div/form/button[2]'
     new_tab_xpath = '/html/body/app-root/top-bar/reviewer-home/div/div/div[1]'
