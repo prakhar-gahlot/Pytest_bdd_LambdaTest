@@ -13,8 +13,8 @@ class LoginPageLocator:
     role_list_first_xpath = '/html/body/div[2]/div[2]/div/div/div/mat-option'
     # switch company page
     search_company_xpath = '/html/body/app-root/login/mat-card/mat-card-content/role-company-form/form/div/input'
-    first_company_xpath = '/html/body/div[1]/div/div/div/cdk-virtual-scroll-viewport/div[1]/mat-option'
-    second_company_xpath = '/html/body/div[2]/div/div/div/cdk-virtual-scroll-viewport/div[1]/mat-option[2]'
-    third_company_xpath = '/html/body/div[2]/div/div/div/cdk-virtual-scroll-viewport/div[1]/mat-option[3]'
-    fourth_company_xpath = '/html/body/div[2]/div/div/div/cdk-virtual-scroll-viewport/div[1]/mat-option[4]'
+    first_company_xpath = '/html/body/div[1]/div/div/div/cdk-virtual-scroll-viewport/div[1]/mat-option[1]/span'
+    second_company_xpath = '/html/body/div[1]/div/div/div/cdk-virtual-scroll-viewport/div[1]/mat-option[2]/span'
+    third_company_xpath = '/html/body/div[1]/div/div/div/cdk-virtual-scroll-viewport/div[1]/mat-option[3]/span'
+    fourth_company_xpath = '/html/body/div[1]/div/div/div/cdk-virtual-scroll-viewport/div[1]/mat-option[4]/span'
     select_company_xpath = '/html/body/app-root/login/mat-card/mat-card-content/button'

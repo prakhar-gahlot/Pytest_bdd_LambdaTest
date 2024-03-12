@@ -162,7 +162,7 @@ def verify_role_dropdown_list():
 
 @when('the user opens the company dropdown list')
 def open_company_dropdown_list():
-    LOGIN_PAGE.role_list_first().click()
+    LOGIN_PAGE.reviewer_role().click()
     LOGIN_PAGE.search_company().click()
 
 
@@ -173,6 +173,6 @@ def verify_company_dropdown_list():
     assert LOGIN_PAGE.third_company().element_is_displayed() is True
     assert LOGIN_PAGE.fourth_company().element_is_displayed() is True
     assert len(LOGIN_PAGE.first_company().get_text()) > 0
-    assert len(LOGIN_PAGE.second_company().get_text())  > 0
-    assert len(LOGIN_PAGE.third_company().get_text())  > 0
-    assert len(LOGIN_PAGE.fourth_company().get_text())  > 0
+    assert len(LOGIN_PAGE.second_company().get_text()) > 0
+    assert len(LOGIN_PAGE.third_company().get_text()) > 0
+    assert len(LOGIN_PAGE.fourth_company().get_text()) > 0
