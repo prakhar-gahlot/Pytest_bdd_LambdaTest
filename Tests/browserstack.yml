@@ -25,4 +25,3 @@ projectName: Autobots-Arc-Automation
 debug: true
 networkLogs: true
 testObservability: true
-performance: report
